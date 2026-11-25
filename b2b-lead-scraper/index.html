@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ГЕОЛИД — Парсер B2B-баз с 2ГИС и Яндекс Карт</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Onest", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            mapbg: {
+              50: "#F7F6F2",
+              100: "#EFECE4",
+              200: "#E2DDD2",
+              300: "#CEC7B8"
+            },
+            forestink: {
+              950: "#0B1210",
+              900: "#111916",
+              700: "#2E3B36",
+              500: "#5C6B65",
+              400: "#8A9892"
+            },
+            geo: {
+              600: "#0E9F6E",
+              700: "#0B825A",
+              500: "#10B981",
+              100: "#DEF7EC",
+              50: "#F3FAF7"
+            },
+            amberstar: {
+              500: "#D97706",
+              100: "#FEF3C7"
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-mapbg-50 text-forestink-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <header class="geo-topbar sticky top-0 z-40">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-geo-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-6.5-5.2-6.5-10.5a6.5 6.5 0 1113 0C18.5 15.8 12 21 12 21z"></path>
+            <circle cx="12" cy="10.5" r="2.2"></circle>
+          </svg>
+        </div>
+        <div class="min-w-0 leading-tight">
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-sm sm:text-base tracking-[-0.02em] text-forestink-900">ГЕОЛИД</span>
+            <span class="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-geo-50 border border-geo-600/25 font-mono text-[10px] font-semibold text-geo-700">2ГИС · Я.Карты</span>
+          </div>
+          <div class="text-[11px] font-mono text-forestink-500 flex items-center gap-1.5 truncate">
+            <span class="w-1.5 h-1.5 rounded-full bg-geo-500 animate-pulse"></span>
+            <span id="topbar-status">База актуальна · Дедупликация активна</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="export-csv-top" type="button" class="btn-outline inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-geo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"></path>
+          </svg>
+          <span>Excel / CSV</span>
+        </button>
+
+        <button id="export-json-top" type="button" class="btn-outline hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-medium cursor-pointer">
+          <span>{ } JSON</span>
+        </button>
+
+        <button id="export-crm-top" type="button" class="btn-ink inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer">
+          <span>В CRM</span>
+          <span id="topbar-selected-pill" class="px-1.5 py-0.5 rounded-md bg-white/15 font-mono text-[10px]">12</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="scrape-bar-track" class="hidden w-full h-[3px] bg-mapbg-100 overflow-hidden">
+      <div id="scrape-bar-fill" class="h-full bg-geo-600 transition-all duration-300 ease-out" style="width: 0%;"></div>
+    </div>
+  </header>
+
+  <main class="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col gap-6">
+
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+      <div class="lg:col-span-7 rounded-[24px] bg-white border border-mapbg-200 p-5 sm:p-7 shadow-[0_8px_28px_-16px_rgba(17,25,22,0.08)] flex flex-col justify-between gap-6">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-geo-700 font-semibold">
+              Сбор B2B-баз для отдела продаж
+            </span>
+            <span class="font-mono text-[11px] text-forestink-400">2ГИС API · Яндекс Карты · Проверка сайтов</span>
+          </div>
+
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-[-0.03em] text-forestink-900 leading-tight mb-2">
+            Подберите целевые компании по городу и рубрике
+          </h1>
+          <p class="text-xs sm:text-sm text-forestink-500 leading-relaxed">
+            Укажите город и нишу — парсер соберёт карточки организаций с телефонами, сайтами, мессенджерами и рейтингом, автоматически очистит дубли и подготовит таблицу для обзвона или CRM.
+          </p>
+        </div>
+
+        <form id="scraper-query-form" class="flex flex-col gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="city-select" class="block text-[11px] font-mono uppercase tracking-wider text-forestink-500 mb-1.5">Город</label>
+              <select id="city-select" class="w-full px-4 py-3 rounded-xl bg-mapbg-50 border border-mapbg-200 text-forestink-900 text-base sm:text-sm font-semibold focus:bg-white focus:border-geo-600 focus:ring-0">
+                <option value="msk">Москва</option>
+                <option value="spb">Санкт-Петербург</option>
+                <option value="kzn">Казань</option>
+                <option value="ekb">Екатеринбург</option>
+                <option value="nsk">Новосибирск</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="rubric-select" class="block text-[11px] font-mono uppercase tracking-wider text-forestink-500 mb-1.5">Рубрика / Ниша (B2B)</label>
+              <select id="rubric-select" class="w-full px-4 py-3 rounded-xl bg-mapbg-50 border border-mapbg-200 text-forestink-900 text-base sm:text-sm font-semibold focus:bg-white focus:border-geo-600 focus:ring-0">
+                <option value="coffee">Кофейни и пекарни (HoReCa)</option>
+                <option value="horeca">Рестораны и отели</option>
+                <option value="offices">Бизнес-центры и офисы (Клининг)</option>
+                <option value="clinics">Стоматологии и клиники</option>
+                <option value="auto">Автосервисы и детейлинг</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="text-[11px] font-mono text-forestink-400 mr-1">Быстрые связки:</span>
+            <button type="button" data-quick-city="msk" data-quick-rubric="coffee" class="quick-preset-btn px-2.5 py-1 rounded-full bg-mapbg-100 hover:bg-geo-100 hover:text-geo-700 text-[11px] font-medium text-forestink-700 transition-colors cursor-pointer">
+              Москва · Кофейни
+            </button>
+            <button type="button" data-quick-city="spb" data-quick-rubric="offices" class="quick-preset-btn px-2.5 py-1 rounded-full bg-mapbg-100 hover:bg-geo-100 hover:text-geo-700 text-[11px] font-medium text-forestink-700 transition-colors cursor-pointer">
+              СПб · Бизнес-центры
+            </button>
+            <button type="button" data-quick-city="kzn" data-quick-rubric="clinics" class="quick-preset-btn px-2.5 py-1 rounded-full bg-mapbg-100 hover:bg-geo-100 hover:text-geo-700 text-[11px] font-medium text-forestink-700 transition-colors cursor-pointer">
+              Казань · Клиники
+            </button>
+            <button type="button" data-quick-city="ekb" data-quick-rubric="auto" class="quick-preset-btn px-2.5 py-1 rounded-full bg-mapbg-100 hover:bg-geo-100 hover:text-geo-700 text-[11px] font-medium text-forestink-700 transition-colors cursor-pointer">
+              Екатеринбург · Детейлинг
+            </button>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-mapbg-100">
+            <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-forestink-700">
+              <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                <input id="src-2gis" type="checkbox" checked class="rounded border-mapbg-300 text-geo-600 focus:ring-0 cursor-pointer">
+                <span>2ГИС</span>
+              </label>
+              <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                <input id="src-ymaps" type="checkbox" checked class="rounded border-mapbg-300 text-geo-600 focus:ring-0 cursor-pointer">
+                <span>Яндекс Карты</span>
+              </label>
+              <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                <input id="src-dedup" type="checkbox" checked class="rounded border-mapbg-300 text-geo-600 focus:ring-0 cursor-pointer">
+                <span>Убирать дубли</span>
+              </label>
+            </div>
+
+            <button id="launch-parse-btn" type="submit" class="btn-geo inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-xs sm:text-[13px] font-bold cursor-pointer shrink-0">
+              <svg id="parse-btn-icon" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path stroke-linecap="round" d="M20 20l-3.5-3.5"></path>
+              </svg>
+              <span id="parse-btn-label">Собрать базу компаний</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="lg:col-span-5 rounded-[24px] geo-grid-surface text-white border border-forestink-700/60 p-5 flex flex-col justify-between gap-4 relative overflow-hidden shadow-[0_24px_54px_-26px_rgba(11,18,16,0.55)]">
+        <div class="flex items-center justify-between gap-2 text-[11px] font-mono">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-2 h-2 rounded-full bg-geo-500 animate-pulse shrink-0"></span>
+            <span id="radar-city-label" class="text-white font-semibold truncate">Москва · Кофейни и пекарни</span>
+          </div>
+          <span id="radar-coords-label" class="text-geo-500/90 shrink-0">55.7558° N, 37.6173° E</span>
+        </div>
+
+        <div class="relative w-full rounded-2xl bg-black/30 border border-white/10 overflow-hidden">
+          <svg id="city-radar-svg" viewBox="0 0 400 220" class="w-full h-auto block select-none" role="img" aria-label="Карта собранных компаний">
+            <defs>
+              <linearGradient id="radarSweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#10B981" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#10B981" stop-opacity="0.34"/>
+              </linearGradient>
+            </defs>
+
+            <g stroke="#10B981" stroke-opacity="0.16" fill="none">
+              <path d="M-10 155 C70 130, 140 175, 225 140 C300 110, 345 145, 415 118" stroke="#38BDF8" stroke-opacity="0.22" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="200" cy="110" r="36" stroke-width="1"/>
+              <circle cx="200" cy="110" r="76" stroke-width="1" stroke-dasharray="4 4"/>
+              <circle cx="200" cy="110" r="118" stroke-width="1" stroke-opacity="0.12"/>
+              <line x1="200" y1="0" x2="200" y2="220" stroke-width="1"/>
+              <line x1="0" y1="110" x2="400" y2="110" stroke-width="1"/>
+              <path d="M40 20 L360 200 M360 20 L40 200" stroke-width="0.8" stroke-opacity="0.1"/>
+            </g>
+
+            <g id="radar-beam-group" class="hidden">
+              <path d="M200 110 L200 0 A110 110 0 0 1 295 55 Z" fill="url(#radarSweepGrad)" class="radar-beam"/>
+            </g>
+
+            <g id="radar-pins-layer"></g>
+          </svg>
+
+          <div class="absolute bottom-2.5 left-3 flex items-center gap-3 text-[10px] font-mono text-white/70 bg-black/55 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-white/10">
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-geo-500"></span>2ГИС</span>
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span>Я.Карты</span>
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-400"></span>Оба</span>
+          </div>
+        </div>
+
+        <div id="radar-log-box" class="rounded-xl bg-black/45 border border-white/10 p-3 font-mono text-[10.5px] text-white/75 leading-relaxed h-[78px] overflow-y-auto flex flex-col gap-0.5"></div>
+      </div>
+
+    </section>
+
+    <section aria-label="Статистика собранной базы" class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+      <div class="rounded-2xl bg-white border border-mapbg-200 p-4 flex flex-col gap-1">
+        <span class="text-[10.5px] font-mono uppercase tracking-wider text-forestink-400">Найдено компаний</span>
+        <div class="flex items-baseline gap-2">
+          <span id="kpi-total" class="font-mono text-2xl sm:text-3xl font-bold text-forestink-900">12</span>
+          <span id="kpi-dedup-note" class="text-[11px] font-mono text-geo-700 font-semibold">−4 дубля очищено</span>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-mapbg-200 p-4 flex flex-col gap-1">
+        <span class="text-[10.5px] font-mono uppercase tracking-wider text-forestink-400">С прямым телефоном</span>
+        <div class="flex items-baseline gap-2">
+          <span id="kpi-phones" class="font-mono text-2xl sm:text-3xl font-bold text-geo-600">12</span>
+          <span id="kpi-phones-pct" class="text-[11px] font-mono text-forestink-500">100% валидны</span>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-mapbg-200 p-4 flex flex-col gap-1">
+        <span class="text-[10.5px] font-mono uppercase tracking-wider text-forestink-400">С сайтом и Email</span>
+        <div class="flex items-baseline gap-2">
+          <span id="kpi-sites" class="font-mono text-2xl sm:text-3xl font-bold text-forestink-900">9</span>
+          <span id="kpi-sites-pct" class="text-[11px] font-mono text-forestink-500">обогащены домены</span>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-mapbg-200 p-4 flex flex-col gap-1">
+        <span class="text-[10.5px] font-mono uppercase tracking-wider text-forestink-400">Мессенджеры (TG / WA)</span>
+        <div class="flex items-baseline gap-2">
+          <span id="kpi-messengers" class="font-mono text-2xl sm:text-3xl font-bold text-forestink-900">8</span>
+          <span class="text-[11px] font-mono text-forestink-500">готовы к рассылке</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="rounded-2xl bg-white border border-mapbg-200 p-3.5 sm:p-4 flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" data-qfilter="hasWebsite" class="qfilter-btn px-3 py-1.5 rounded-xl border border-mapbg-200 bg-mapbg-50 hover:border-geo-600 text-xs font-medium text-forestink-700 transition-colors cursor-pointer">
+          🌐 Только с сайтом
+        </button>
+        <button type="button" data-qfilter="hasMessenger" class="qfilter-btn px-3 py-1.5 rounded-xl border border-mapbg-200 bg-mapbg-50 hover:border-geo-600 text-xs font-medium text-forestink-700 transition-colors cursor-pointer">
+          💬 Есть Telegram / WA
+        </button>
+        <button type="button" data-qfilter="highRating" class="qfilter-btn px-3 py-1.5 rounded-xl border border-mapbg-200 bg-mapbg-50 hover:border-geo-600 text-xs font-medium text-forestink-700 transition-colors cursor-pointer">
+          ★ Рейтинг от 4.5
+        </button>
+        <button id="qfilter-reset" type="button" class="hidden px-3 py-1.5 rounded-xl text-xs font-mono text-geo-700 hover:underline cursor-pointer">
+          Сбросить ✕
+        </button>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5">
+        <div class="relative flex-1 sm:flex-none">
+          <svg class="w-4 h-4 text-forestink-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path stroke-linecap="round" d="M20 20l-3.5-3.5"></path>
+          </svg>
+          <input id="table-search-input" type="text" placeholder="Поиск по названию, адресу, сайту..." class="w-full sm:w-64 pl-9 pr-3 py-2 rounded-xl bg-mapbg-50 border border-mapbg-200 text-base sm:text-xs text-forestink-900 placeholder-forestink-400 focus:bg-white focus:border-geo-600 focus:ring-0">
+        </div>
+
+        <span id="selection-summary" class="font-mono text-[11px] text-forestink-500 px-2.5 py-1.5 rounded-lg bg-mapbg-50 border border-mapbg-200">
+          Выбрано: 12 из 12
+        </span>
+      </div>
+    </section>
+
+    <section aria-label="Таблица собранных компаний" class="rounded-2xl bg-white border border-mapbg-200 shadow-[0_8px_30px_-14px_rgba(17,25,22,0.07)] overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[980px]">
+          <thead>
+            <tr class="bg-mapbg-50 border-b border-mapbg-200 text-[10.5px] font-mono uppercase tracking-[0.08em] text-forestink-500">
+              <th class="py-3.5 pl-4 pr-2 w-10">
+                <input id="select-all-cb" type="checkbox" checked aria-label="Выбрать все компании" class="rounded border-mapbg-300 text-geo-600 focus:ring-0 cursor-pointer">
+              </th>
+              <th class="py-3.5 px-3 font-semibold w-[28%]">Компания / Адрес</th>
+              <th class="py-3.5 px-3 font-semibold w-[19%]">Телефон и мессенджеры</th>
+              <th class="py-3.5 px-3 font-semibold w-[21%]">Сайт / Email</th>
+              <th class="py-3.5 px-3 font-semibold w-[12%]">Рейтинг</th>
+              <th class="py-3.5 px-3 font-semibold w-[11%]">Источники</th>
+              <th class="py-3.5 pl-3 pr-4 font-semibold text-right w-[9%]">Карточка</th>
+            </tr>
+          </thead>
+          <tbody id="leads-table-body" class="divide-y divide-mapbg-100 text-xs"></tbody>
+        </table>
+      </div>
+
+      <div id="leads-empty-state" class="hidden py-14 px-6 text-center flex-col items-center gap-3">
+        <span class="text-2xl">🗺️</span>
+        <div class="text-sm font-bold text-forestink-900">Нет компаний, подходящих под выбранные фильтры</div>
+        <button id="empty-reset-btn" type="button" class="btn-outline px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer">
+          Показать все собранные компании
+        </button>
+      </div>
+
+      <div class="px-4 sm:px-6 py-4 bg-mapbg-50 border-t border-mapbg-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="text-xs text-forestink-500">
+          Выгрузка содержит только <strong class="text-forestink-900">отмеченные галочками</strong> организации (UTF-8 BOM для корректного открытия в Excel).
+        </div>
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button id="export-csv-bottom" type="button" class="btn-geo px-4 py-2.5 rounded-xl text-xs font-bold cursor-pointer">
+            ↓ Скачать базу в Excel (CSV)
+          </button>
+          <button id="export-crm-bottom" type="button" class="btn-ink px-4 py-2.5 rounded-xl text-xs font-semibold cursor-pointer">
+            Передать в CRM →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+      <div class="rounded-2xl bg-white border border-mapbg-200 p-5 flex flex-col gap-1.5">
+        <span class="font-mono text-[10.5px] uppercase tracking-wider text-geo-700 font-semibold">HoReCa и поставщики</span>
+        <div class="text-sm font-bold text-forestink-900">База новых кофеен за 2 минуты</div>
+        <p class="text-xs text-forestink-500 leading-relaxed">Собирайте свежие кофейни, рестораны и пекарни по любому городу с телефонами ЛПР, сайтами и часами работы.</p>
+      </div>
+      <div class="rounded-2xl bg-white border border-mapbg-200 p-5 flex flex-col gap-1.5">
+        <span class="font-mono text-[10.5px] uppercase tracking-wider text-geo-700 font-semibold">Маркетинговые агентства</span>
+        <div class="text-sm font-bold text-forestink-900">Поиск компаний без сайта или с низким рейтингом</div>
+        <p class="text-xs text-forestink-500 leading-relaxed">Находите клиники и сервисы с рейтингом ниже 4.3 или без сайта — идеальные лиды для SEO, репутации и разработки.</p>
+      </div>
+      <div class="rounded-2xl bg-white border border-mapbg-200 p-5 flex flex-col gap-1.5">
+        <span class="font-mono text-[10.5px] uppercase tracking-wider text-geo-700 font-semibold">B2B-клининг и логистика</span>
+        <div class="text-sm font-bold text-forestink-900">Офисы, БЦ и склады по районам</div>
+        <p class="text-xs text-forestink-500 leading-relaxed">Сегментируйте организации по округам, очищайте дубли между 2ГИС и Яндекс Картами и загружайте базу прямо в AmoCRM.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-auto bg-white border-t border-mapbg-200 pt-8 pb-7 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1440px] mx-auto flex flex-col gap-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-forestink-500">
+        <div class="flex items-center gap-2.5">
+          <span class="font-extrabold text-forestink-900">ГЕОЛИД · B2B-Парсер Карт</span>
+          <span>·</span>
+          <span class="font-mono text-[11px]">© 2026 ООО «Геолид Дата» · ИНН 0000000000</span>
+        </div>
+        <div class="flex items-center gap-4 font-mono text-[11px]">
+          <a href="tel:+79990000000" class="hover:text-forestink-900">+7 (999) 000-00-00</a>
+          <a href="mailto:data@example.ru" class="hover:text-forestink-900">data@example.ru</a>
+        </div>
+      </div>
+
+      <div class="p-4 sm:p-5 rounded-2xl bg-forestink-900 text-white flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-white/75 leading-relaxed">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Разработаю парсер B2B-баз с 2ГИС, Яндекс Карт и отраслевых каталогов с автоочисткой дублей и выгрузкой в Excel, Google Sheets или CRM.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-xl border border-white/20 hover:border-white text-white/90 hover:text-white text-xs font-medium transition-colors">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="btn-geo px-5 py-2 rounded-xl text-xs font-bold">
+            Заказать такой парсер →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="company-drawer" class="overlay-shell fixed inset-0 z-[70] bg-forestink-950/55 backdrop-blur-sm flex justify-end" role="dialog" aria-modal="true" aria-labelledby="drawer-company-name" aria-hidden="true">
+    <aside class="drawer-sheet w-full max-w-md bg-white h-full shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-6 py-5 border-b border-mapbg-200 flex items-start justify-between gap-3 shrink-0">
+        <div class="min-w-0">
+          <div id="drawer-company-meta" class="font-mono text-[11px] text-geo-700 font-semibold"></div>
+          <h2 id="drawer-company-name" class="text-lg sm:text-xl font-extrabold text-forestink-900 leading-snug mt-0.5"></h2>
+        </div>
+        <button id="drawer-close-btn" type="button" aria-label="Закрыть карточку" class="w-9 h-9 rounded-xl bg-mapbg-50 hover:bg-forestink-900 hover:text-white flex items-center justify-center text-forestink-500 transition-colors cursor-pointer shrink-0">
+          ✕
+        </button>
+      </div>
+      <div id="drawer-content" class="flex-1 overflow-y-auto p-6 flex flex-col gap-5"></div>
+    </aside>
+  </div>
+
+  <div id="crm-export-modal" class="overlay-shell fixed inset-0 z-[75] bg-forestink-950/65 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="crm-export-title" aria-hidden="true">
+    <div class="modal-card relative w-full max-w-2xl rounded-2xl bg-white border border-mapbg-200 p-6 sm:p-7 shadow-2xl max-h-[90svh] overflow-y-auto">
+      <button id="crm-modal-close" type="button" aria-label="Закрыть окно" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-mapbg-50 hover:bg-forestink-900 hover:text-white flex items-center justify-center text-forestink-500 transition-colors cursor-pointer">
+        ✕
+      </button>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-geo-50 border border-geo-600/25 text-geo-700 font-mono text-[10.5px] font-semibold uppercase tracking-wider mb-3">
+        <span class="w-2 h-2 rounded-full bg-geo-500"></span>
+        <span>Интерактивная демонстрация экспорта</span>
+      </div>
+
+      <h3 id="crm-export-title" class="text-xl sm:text-2xl font-extrabold text-forestink-900 tracking-tight mb-1.5">
+        Пакетная выгрузка B2B-лидов в CRM / Google Sheets
+      </h3>
+      <p id="crm-export-desc" class="text-xs sm:text-sm text-forestink-500 leading-relaxed mb-5"></p>
+
+      <div class="rounded-2xl bg-forestink-950 text-white p-4 sm:p-5 mb-5">
+        <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-white/10 font-mono text-[10.5px]">
+          <span class="text-geo-500">POST /api/crm/batch-import · JSON Payload</span>
+          <button id="copy-crm-batch-btn" type="button" class="text-white/75 hover:text-white underline underline-offset-4 cursor-pointer">
+            Скопировать JSON
+          </button>
+        </div>
+        <pre id="crm-batch-pre" class="font-mono text-[10.5px] text-white/85 max-h-[240px] overflow-y-auto whitespace-pre-wrap break-words leading-relaxed"></pre>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-mapbg-200">
+        <button id="crm-download-csv-alt" type="button" class="btn-outline px-4 py-2.5 rounded-xl text-xs font-semibold cursor-pointer">
+          ↓ Скачать эту выборку в CSV
+        </button>
+        <a href="../index.html#feedback" class="btn-geo inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-xs font-bold">
+          Заказать парсер с загрузкой в CRM →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="geo-toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-[90] px-4 py-2.5 rounded-xl bg-forestink-900 text-white border border-white/15 text-xs font-medium opacity-0 pointer-events-none translate-y-2 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-geo-500"></span>
+    <span id="geo-toast-text">Готово</span>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
