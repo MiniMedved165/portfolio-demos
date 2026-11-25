@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>КОРКА И КОФЕ — Ремесленная пекарня · Гостевая CMS (Демо-проект)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Oswald", "Manrope", "sans-serif"],
+            script: ["Caveat", "cursive"],
+            sans: ["Manrope", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            cocoa: {
+              950: "#1D0E07",
+              900: "#2E170C",
+              800: "#3E2012",
+              700: "#59301B",
+              600: "#7E391B",
+              500: "#9B4B27"
+            },
+            cream: {
+              50: "#FDFBF7",
+              100: "#FAF5EC",
+              200: "#F4EADF",
+              300: "#E8D9C5"
+            },
+            honey: {
+              DEFAULT: "#D48842",
+              light: "#F3C794"
+            },
+            muted: "#6F5749"
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-cream-200 text-cocoa-900 font-sans antialiased min-h-screen flex flex-col">
+  <div class="craft-grain" aria-hidden="true"></div>
+
+  <div id="storefront-shell" class="w-full min-h-screen flex flex-col">
+    <div class="relative z-40 bg-cocoa-950 text-cream-100 border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-honey/20 text-honey-light uppercase tracking-wider text-[10px] shrink-0">
+            <span class="w-1.5 h-1.5 rounded-full bg-honey animate-pulse"></span>
+            Демо-CMS
+          </span>
+          <span class="text-cream-200/80 truncate">
+            Из портфолио <strong class="text-white font-semibold">Данила Буторова</strong> · Реализую такое же решение под ваш бизнес
+          </span>
+        </div>
+        <div class="flex items-center gap-4 shrink-0">
+          <a href="../portfolio.html" class="text-cream-200/75 hover:text-white transition-colors">← Вернуться в портфолио</a>
+          <a href="../index.html#feedback" class="text-honey-light hover:text-white underline underline-offset-4 transition-colors font-medium">Заказать такой сайт →</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="top" class="relative bg-cocoa-900 text-cream-100 pb-8 sm:pb-12 pt-3 sm:pt-4 rounded-b-[32px] sm:rounded-b-[44px] shadow-[0_24px_60px_-24px_rgba(29,14,7,0.45)]">
+      <header class="max-w-7xl mx-auto px-4 sm:px-8 pb-4 sm:pb-6 flex items-center justify-between gap-3">
+        <a href="#top" class="flex items-center gap-3 group shrink-0">
+          <div class="font-display font-bold uppercase text-xl sm:text-2xl leading-[0.88] tracking-tight text-cream-50 group-hover:text-honey-light transition-colors">
+            <span class="block">КОРКА</span>
+            <span class="block text-honey-light">И КОФЕ</span>
+          </div>
+        </a>
+
+        <nav aria-label="Навигация пекарни" class="hidden md:flex items-center gap-6 lg:gap-8 text-[11px] font-semibold uppercase tracking-[0.14em] text-cream-200/80">
+          <a href="#featured" class="hover:text-white transition-colors">Хит утра</a>
+          <a href="#menu" class="hover:text-white transition-colors">Меню</a>
+          <a href="#craft" class="hover:text-white transition-colors">Как печём</a>
+          <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+        </nav>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button type="button" data-open-cms class="btn-cms-trigger inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-[11px] font-mono font-semibold uppercase tracking-[0.08em] cursor-pointer shrink-0">
+            <svg aria-hidden="true" class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span class="hidden sm:inline">Админка CMS</span>
+            <span class="sm:hidden">CMS</span>
+          </button>
+
+          <button id="open-cart-btn" type="button" aria-label="Открыть предзаказ" class="relative w-10 h-10 rounded-full border border-cream-200/35 hover:border-honey-light text-cream-50 flex items-center justify-center transition-colors cursor-pointer shrink-0">
+            <svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span id="cart-count-badge" class="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 rounded-full bg-cream-50 text-cocoa-900 font-mono text-[10px] font-bold flex items-center justify-center shadow">0</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-8">
+        <div class="relative rounded-[24px] sm:rounded-[30px] overflow-hidden bg-[#EAE0D3] min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] flex items-center shadow-2xl border border-white/10">
+          <img
+            alt="Тёплые панкейки с горячим шоколадом и свежей выпечкой"
+            class="absolute inset-0 w-full h-full object-cover object-right sm:object-[78%_center]"
+            src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=1600&q=85"
+            onerror="this.src='https://placehold.co/1400x800/3E2012/F4EADF?text=KORKA+%26+KOFE'"
+          >
+          <div class="hero-bakery-scrim absolute inset-0 pointer-events-none"></div>
+
+          <div class="relative z-10 w-full max-w-xl px-6 sm:px-10 lg:px-14 py-10 sm:py-12 flex flex-col items-start">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-50/90 backdrop-blur-sm border border-cocoa-900/12 text-[10.5px] font-mono uppercase tracking-[0.14em] text-cocoa-600 mb-5 shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-cocoa-600"></span>
+              <span id="view-hero-badge">Свежая выпечка с 07:30 · Скидка 15% до 10:00</span>
+            </div>
+
+            <h1 class="text-cocoa-900 select-none mb-4">
+              <span id="view-hero-line1" class="block font-display font-bold uppercase text-[52px] sm:text-[68px] lg:text-[76px] leading-[0.92] tracking-[-0.015em]">
+                ВКУСНЫЕ УТРА
+              </span>
+              <span id="view-hero-script" class="block font-script font-bold text-[40px] sm:text-[52px] lg:text-[58px] leading-[0.88] text-cocoa-600 -mt-1 -mb-1 pl-1">
+                начинаются
+              </span>
+              <span id="view-hero-line2" class="block font-display font-bold uppercase text-[52px] sm:text-[68px] lg:text-[76px] leading-[0.92] tracking-[-0.015em]">
+                ЗДЕСЬ
+              </span>
+            </h1>
+
+            <p id="view-hero-subtitle" class="text-xs sm:text-sm text-cocoa-800/90 leading-relaxed max-w-md mb-7 font-medium">
+              Ремесленные круассаны на сливочном масле, тёплые панкейки с бельгийским шоколадом и кофе свежей обжарки. Попробуйте изменить любой текст или цену через гостевую админку справа!
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3">
+              <a href="#menu" class="btn-caramel inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.12em]">
+                <span>Смотреть меню</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <button type="button" data-open-cms class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-cream-50/92 hover:bg-cocoa-900 text-cocoa-900 hover:text-cream-50 border border-cocoa-900/20 text-xs font-mono font-semibold uppercase tracking-[0.08em] transition-all cursor-pointer shadow-sm">
+                <span>⚙ Изменить витрину</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="hidden sm:flex items-center gap-2 absolute bottom-4 right-5 z-10 px-3.5 py-1.5 rounded-full bg-cocoa-950/75 backdrop-blur-md border border-white/15 text-[10.5px] font-mono text-cream-100">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Витрина связана с CMS в реальном времени</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="featured" class="reveal-block py-14 sm:py-20 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          <div class="lg:col-span-5 flex flex-col items-start gap-4">
+            <div class="inline-flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.14em] text-muted">
+              <span class="w-8 h-8 rounded-full border border-cocoa-900/20 flex items-center justify-center text-cocoa-600">
+                <svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 19c4 0 11-1 14-14C6 8 5 15 5 19zm0 0l7-7"></path>
+                </svg>
+              </span>
+              <span>100% натуральный состав</span>
+            </div>
+
+            <h2 id="view-featured-title" class="font-display font-bold uppercase text-3xl sm:text-4xl lg:text-[42px] leading-[1.02] text-cocoa-900 tracking-tight">
+              БРИОШЬ С СОЛЁНОЙ КАРАМЕЛЬЮ И ПЕКАНОМ
+            </h2>
+
+            <div class="flex items-center gap-2.5 text-xs">
+              <div class="flex items-center gap-0.5 text-cocoa-600 text-sm" aria-label="Рейтинг 4.9 из 5">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <span class="font-bold text-cocoa-900">4.9</span>
+              <span class="text-muted">(148 отзывов гостей)</span>
+            </div>
+
+            <p id="view-featured-desc" class="text-sm text-muted leading-relaxed">
+              Нежнейшее сливочное тесто на живой закваске, тёплая домашняя карамель с морской солью и хрустящий карамелизированный орех пекан. Выпекаем малыми партиями каждые два часа.
+            </p>
+
+            <div class="w-full flex flex-wrap items-center gap-4 pt-2">
+              <div class="flex items-baseline gap-2">
+                <span id="view-featured-price" class="font-display font-bold text-3xl text-cocoa-900">390 ₽</span>
+                <span class="text-xs font-mono text-muted">/ 165 г</span>
+              </div>
+
+              <div class="flex items-center gap-2.5 ml-auto sm:ml-2">
+                <div class="inline-flex items-center rounded-full border border-cocoa-900/20 bg-cream-50 px-2 py-1">
+                  <button id="featured-qty-minus" type="button" aria-label="Уменьшить количество" class="w-7 h-7 rounded-full hover:bg-cream-200 text-cocoa-900 font-bold cursor-pointer">−</button>
+                  <span id="featured-qty-val" class="w-7 text-center font-mono text-sm font-semibold text-cocoa-900">1</span>
+                  <button id="featured-qty-plus" type="button" aria-label="Увеличить количество" class="w-7 h-7 rounded-full hover:bg-cream-200 text-cocoa-900 font-bold cursor-pointer">+</button>
+                </div>
+
+                <button id="featured-add-btn" type="button" class="btn-caramel px-6 py-3 rounded-full text-xs font-bold uppercase tracking-[0.12em] cursor-pointer">
+                  В заказ
+                </button>
+              </div>
+            </div>
+
+            <button type="button" data-open-cms-tab="texts" class="inline-flex items-center gap-1.5 text-[11px] font-mono text-cocoa-600 hover:text-cocoa-900 underline underline-offset-4 pt-1 cursor-pointer">
+              <span>✎ Изменить этот блок в админке</span>
+            </button>
+          </div>
+
+          <div class="lg:col-span-7 grid grid-cols-12 gap-4 items-stretch relative">
+            <div class="hidden sm:flex absolute -top-5 left-2 lg:-left-5 z-20 w-24 h-24 rounded-full bg-cocoa-600 text-cream-50 items-center justify-center shadow-xl border-4 border-cream-200">
+              <svg class="seal-ring absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)]" viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                  <path id="sealCircle" d="M 50, 50 m -36, 0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0"></path>
+                </defs>
+                <text fill="#FAF5EC" font-size="10.5" font-weight="700" letter-spacing="2.8" font-family="Manrope, sans-serif">
+                  <textPath href="#sealCircle" startOffset="0%">ЛУЧШИЙ ВЫБОР • ХИТ УТРА • </textPath>
+                </text>
+              </svg>
+              <span class="text-xl text-honey-light" aria-hidden="true">♥</span>
+            </div>
+
+            <div class="col-span-12 sm:col-span-8 rounded-[26px] overflow-hidden bg-cream-50 border border-cocoa-900/12 aspect-[4/3.6] shadow-lg">
+              <img
+                alt="Свежая ремесленная бриошь и круассаны"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1000&q=85"
+                onerror="this.src='https://placehold.co/800x700/FAF5EC/2E170C?text=ARTISAN+BRIOCHE'"
+              >
+            </div>
+
+            <div class="hidden sm:block sm:col-span-4 rounded-[26px] overflow-hidden bg-cream-50 border border-cocoa-900/12 shadow-lg">
+              <img
+                alt="Свежесваренный капучино с латте-артом"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=700&q=85"
+                onerror="this.src='https://placehold.co/500x700/3E2012/FAF5EC?text=SPECIALTY+COFFEE'"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="reveal-block py-14 sm:py-20 px-4 sm:px-8 border-t border-cocoa-900/10">
+      <div class="max-w-7xl mx-auto flex flex-col gap-8">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div class="flex flex-col gap-2">
+            <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-cocoa-600">
+              <span>✦</span>
+              <span>Живая витрина · Управляется из админки</span>
+            </div>
+            <h2 class="font-display font-bold uppercase text-4xl sm:text-5xl text-cocoa-900 leading-[0.95] tracking-tight">
+              НАШЕ МЕНЮ <span class="font-script font-bold lowercase text-cocoa-600 text-[1.05em] tracking-normal">сегодня</span>
+            </h2>
+          </div>
+
+          <div class="p-3.5 sm:px-5 rounded-2xl bg-cream-50 border border-cocoa-900/12 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center gap-2.5 text-xs text-cocoa-900">
+              <span class="w-2.5 h-2.5 rounded-full bg-honey shrink-0 animate-pulse"></span>
+              <span>Хотите поменять цену, скрыть позицию или добавить своё блюдо?</span>
+            </div>
+            <button type="button" data-open-cms-tab="menu" class="px-4 py-2 rounded-full bg-cocoa-900 hover:bg-cocoa-600 text-cream-50 text-[11px] font-mono uppercase tracking-wider transition-colors cursor-pointer shrink-0">
+              Редактировать меню ⚙
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+          <div id="menu-category-tabs" class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar"></div>
+          <span id="menu-visible-counter" class="text-xs font-mono text-muted"></span>
+        </div>
+
+        <div id="storefront-menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <section class="reveal-block py-8 sm:py-12 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="relative rounded-[28px] sm:rounded-[36px] bg-cocoa-900 text-cream-50 px-6 sm:px-12 lg:px-20 py-14 sm:py-20 text-center overflow-hidden shadow-[0_26px_60px_-24px_rgba(29,14,7,0.55)]">
+          <span class="hidden md:inline-block absolute top-10 left-12 -rotate-6 px-4 py-1.5 rounded-full border border-cream-200/35 text-[11px] font-mono uppercase tracking-[0.16em] text-cream-200/85">ПРОСТО</span>
+          <span class="hidden md:inline-block absolute bottom-10 left-16 rotate-6 px-4 py-1.5 rounded-full border border-cream-200/35 text-[11px] font-mono uppercase tracking-[0.16em] text-cream-200/85">СВЕЖЕЕ</span>
+          <span class="hidden md:inline-block absolute top-10 right-14 rotate-6 px-4 py-1.5 rounded-full border border-cream-200/35 text-[11px] font-mono uppercase tracking-[0.16em] text-cream-200/85">ВКУСНО</span>
+          <span class="hidden md:inline-block absolute bottom-10 right-12 -rotate-6 px-4 py-1.5 rounded-full border border-cream-200/35 text-[11px] font-mono uppercase tracking-[0.16em] text-cream-200/85">НАТУРАЛЬНО</span>
+
+          <div class="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-5">
+            <span class="text-honey-light text-lg" aria-hidden="true">♡</span>
+            <blockquote id="view-manifesto-quote" class="font-display font-bold uppercase text-2xl sm:text-3xl lg:text-[38px] leading-[1.12] tracking-wide text-cream-50">
+              ЕСТЬ ВЕЩИ, КОТОРЫЕ ОСТАЮТСЯ НАВСЕГДА. НО ЗАВТРАК НЕ ДОЛЖЕН БЫТЬ ОДНОЙ ИЗ НИХ.
+            </blockquote>
+            <p id="view-manifesto-note" class="text-xs sm:text-sm text-cream-200/75 font-mono">
+              Выпекаем с 06:00 каждый день · Этот текст тоже можно отредактировать в админке
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="craft" class="reveal-block py-14 sm:py-20 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto flex flex-col gap-10">
+        <div class="flex items-center gap-4">
+          <span class="w-10 h-10 rounded-full bg-cocoa-600 text-cream-50 flex items-center justify-center shrink-0">
+            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 13.87A4 4 0 017.41 6a5.11 5.11 0 011.05-1.54 5 5 0 017.08 0A5.11 5.11 0 0116.59 6 4 4 0 0118 13.87V21H6v-7.13zM6 17h12"></path>
+            </svg>
+          </span>
+          <h2 class="font-display font-bold uppercase text-3xl sm:text-4xl text-cocoa-900 tracking-tight">ГОТОВИМ С ДУШОЙ</h2>
+          <span class="hidden sm:block flex-1 h-px bg-cocoa-900/15"></span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="flex flex-col gap-3.5 group">
+            <div class="relative aspect-square rounded-[22px] overflow-hidden bg-cream-300 border border-cocoa-900/10">
+              <img alt="Живая закваска и мука" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x600/E8D9C5/2E170C?text=01+DOUGH'">
+              <span class="absolute top-3 left-3 w-8 h-8 rounded-full bg-cocoa-600 text-cream-50 font-mono text-xs font-bold flex items-center justify-center shadow">01</span>
+            </div>
+            <div>
+              <h3 class="font-display font-bold uppercase text-lg text-cocoa-900">ЖИВАЯ ЗАКВАСКА</h3>
+              <p class="text-xs text-muted leading-relaxed mt-1">Ферментируем тесто 24 часа на фермерском масле 82,5% без улучшителей.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3.5 group">
+            <div class="relative aspect-square rounded-[22px] overflow-hidden bg-cream-300 border border-cocoa-900/10">
+              <img alt="Выпечка в каменной печи" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x600/E8D9C5/2E170C?text=02+BAKE'">
+              <span class="absolute top-3 left-3 w-8 h-8 rounded-full bg-cocoa-600 text-cream-50 font-mono text-xs font-bold flex items-center justify-center shadow">02</span>
+            </div>
+            <div>
+              <h3 class="font-display font-bold uppercase text-lg text-cocoa-900">ПОДОВАЯ ПЕЧЬ</h3>
+              <p class="text-xs text-muted leading-relaxed mt-1">Выпекаем на рассвете для хрустящей золотистой корочки и слоистого мякиша.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3.5 group">
+            <div class="relative aspect-square rounded-[22px] overflow-hidden bg-cream-300 border border-cocoa-900/10">
+              <img alt="Спешелти кофе свежей обжарки" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x600/E8D9C5/2E170C?text=03+COFFEE'">
+              <span class="absolute top-3 left-3 w-8 h-8 rounded-full bg-cocoa-600 text-cream-50 font-mono text-xs font-bold flex items-center justify-center shadow">03</span>
+            </div>
+            <div>
+              <h3 class="font-display font-bold uppercase text-lg text-cocoa-900">СПЕШЕЛТИ ЗЕРНО</h3>
+              <p class="text-xs text-muted leading-relaxed mt-1">Варим арабику собственной обжарки с нотами фундука, какао и ягод.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3.5 group">
+            <div class="relative aspect-square rounded-[22px] overflow-hidden bg-cream-300 border border-cocoa-900/10">
+              <img alt="Тёплая подача завтрака" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x600/E8D9C5/2E170C?text=04+SERVE'">
+              <span class="absolute top-3 left-3 w-8 h-8 rounded-full bg-cocoa-600 text-cream-50 font-mono text-xs font-bold flex items-center justify-center shadow">04</span>
+            </div>
+            <div>
+              <h3 class="font-display font-bold uppercase text-lg text-cocoa-900">С ЛЮБОВЬЮ</h3>
+              <p class="text-xs text-muted leading-relaxed mt-1">Подаём тёплым в зале или доставляем к вашему завтраку за 35 минут.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 pt-8 border-t border-cocoa-900/12 items-center">
+          <div class="col-span-2 lg:col-span-1">
+            <div class="font-display font-bold uppercase text-3xl leading-[0.88] text-cocoa-900">
+              <span class="block">КОРКА</span>
+              <span class="block text-cocoa-600">И КОФЕ</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center gap-2 p-4 rounded-2xl bg-cream-50/70 border border-cocoa-900/10">
+            <span class="text-cocoa-600 text-lg">✦</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cocoa-900">Натуральный состав</span>
+          </div>
+          <div class="flex flex-col items-center text-center gap-2 p-4 rounded-2xl bg-cream-50/70 border border-cocoa-900/10">
+            <span class="text-cocoa-600 text-lg">✦</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cocoa-900">Выпечка каждый час</span>
+          </div>
+          <div class="flex flex-col items-center text-center gap-2 p-4 rounded-2xl bg-cream-50/70 border border-cocoa-900/10">
+            <span class="text-cocoa-600 text-lg">✦</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cocoa-900">Меню всегда актуально</span>
+          </div>
+          <div class="flex flex-col items-center text-center gap-2 p-4 rounded-2xl bg-cream-50/70 border border-cocoa-900/10">
+            <span class="text-cocoa-600 text-lg">✦</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cocoa-900">Доставка за 35 минут</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contacts" class="mt-auto bg-cocoa-900 text-cream-100 pt-14 pb-8 px-4 sm:px-8 rounded-t-[32px] sm:rounded-t-[44px]">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/12">
+          <div class="md:col-span-5 flex flex-col gap-3">
+            <div class="font-display font-bold uppercase text-2xl leading-[0.88] text-cream-50">
+              <span>КОРКА</span> <span class="text-honey-light">И КОФЕ</span>
+            </div>
+            <p class="text-xs text-cream-200/75 leading-relaxed max-w-sm">
+              Уютная ремесленная пекарня и спешелти-кофейня. Свежие завтраки, хрустящая выпечка и кофе с собой.
+            </p>
+            <span class="text-[10.5px] font-mono text-cream-200/50">ИНН 0000000000 · ОГРН 0000000000000 (Демонстрационные данные)</span>
+          </div>
+
+          <div class="md:col-span-4 flex flex-col gap-2 text-xs">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-honey-light mb-1">Контакты пекарни (шаблон)</span>
+            <a href="tel:+79990000000" class="font-mono text-sm text-white hover:text-honey-light transition-colors">+7 (999) 000-00-00</a>
+            <a href="mailto:demo@example.ru" class="font-mono text-cream-200/80 hover:text-white transition-colors">demo@example.ru</a>
+            <span id="view-footer-address" class="text-cream-200/70">г. Москва, ул. Хлебная, д. 12 · Ежедневно 07:30 — 22:00</span>
+          </div>
+
+          <div class="md:col-span-3 flex flex-col gap-2 text-xs">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-honey-light mb-1">Управление сайтом</span>
+            <button type="button" data-open-cms class="text-left text-cream-200/85 hover:text-honey-light transition-colors cursor-pointer">⚙ Открыть гостевую админку</button>
+            <a href="#menu" class="text-cream-200/75 hover:text-white transition-colors">Актуальное меню</a>
+            <a href="#featured" class="text-cream-200/75 hover:text-white transition-colors">Блюдо дня</a>
+          </div>
+        </div>
+
+        <div class="mt-8 p-5 sm:p-6 rounded-2xl bg-white/[0.06] border border-white/12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
+          <div class="flex flex-col gap-1.5">
+            <div class="inline-flex items-center gap-2 text-[10.5px] font-mono uppercase tracking-[0.16em] text-honey-light">
+              <span>✦</span>
+              <span>Демонстрация технологии · Сайт с удобной админкой (CMS)</span>
+            </div>
+            <p class="text-xs sm:text-sm text-cream-200/90 leading-relaxed">
+              Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong>. Разработаю сайт с понятной админкой, где вы сами за 10 секунд меняете цены, акции, меню или услуги без программиста.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
+            <a href="../portfolio.html" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full border border-white/25 hover:border-white text-white text-[11px] font-mono uppercase tracking-[0.12em] transition-colors">
+              <span>← Вернуться в портфолио</span>
+            </a>
+            <a href="../index.html#feedback" class="btn-cms-trigger inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.1em]">
+              <span>Заказать такой сайт →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <button id="floating-cms-btn" type="button" data-open-cms class="btn-cms-trigger fixed right-4 sm:right-6 bottom-5 sm:bottom-6 z-40 inline-flex items-center gap-2.5 px-5 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-[0.1em] cursor-pointer">
+    <span class="w-2 h-2 rounded-full bg-cocoa-950 animate-ping"></span>
+    <span>⚙ Гостевая админка</span>
+  </button>
+
+  <div id="cms-login-modal" class="modal-overlay fixed inset-0 z-[75] flex items-center justify-center p-4 bg-cocoa-950/75 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="cms-login-title" aria-hidden="true">
+    <div class="modal-box relative w-full max-w-md rounded-3xl bg-cream-50 border border-cocoa-900/15 p-6 sm:p-8 shadow-2xl text-cocoa-900">
+      <button id="cms-login-close" type="button" aria-label="Закрыть" class="absolute top-4 right-4 w-9 h-9 rounded-full border border-cocoa-900/15 hover:border-cocoa-900 flex items-center justify-center text-muted hover:text-cocoa-900 cursor-pointer">✕</button>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-honey/20 text-cocoa-700 font-mono text-[10.5px] font-semibold uppercase tracking-wider mb-4">
+        <span>⚙</span>
+        <span>Тестовый доступ владельца</span>
+      </div>
+
+      <h3 id="cms-login-title" class="font-display font-bold uppercase text-2xl sm:text-3xl text-cocoa-900 mb-2">
+        Вход в панель управления
+      </h3>
+      <p class="text-xs sm:text-sm text-muted leading-relaxed mb-5">
+        Данные уже подставлены для демонстрации. Нажмите «Войти», чтобы менять цены, тексты, акции и меню — изменения сразу появятся на витрине.
+      </p>
+
+      <form id="cms-login-form" class="flex flex-col gap-4">
+        <div>
+          <label for="cms-email" class="block text-[10.5px] font-mono uppercase tracking-wider text-muted mb-1.5">Логин администратора (демо)</label>
+          <input id="cms-email" type="text" readonly value="admin@korka-demo.ru" class="w-full px-4 py-2.5 rounded-xl bg-cream-200/70 border border-cocoa-900/15 font-mono text-xs text-cocoa-900">
+        </div>
+        <div>
+          <label for="cms-pass" class="block text-[10.5px] font-mono uppercase tracking-wider text-muted mb-1.5">Пароль (демо)</label>
+          <input id="cms-pass" type="password" readonly value="demo2026cms" class="w-full px-4 py-2.5 rounded-xl bg-cream-200/70 border border-cocoa-900/15 font-mono text-xs text-cocoa-900">
+        </div>
+        <button type="submit" class="btn-caramel w-full py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.14em] mt-1 cursor-pointer">
+          Войти в гостевую админку →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <aside id="cms-drawer" aria-label="Гостевая админ-панель CMS" class="fixed top-0 right-0 bottom-0 z-[70] w-full sm:w-[440px] bg-cocoa-950 text-cream-100 border-l border-honey/25 shadow-[-24px_0_60px_-12px_rgba(0,0,0,0.65)] flex flex-col">
+    <div class="px-5 py-4 border-b border-white/10 bg-cocoa-900/90 flex items-center justify-between gap-3 shrink-0">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-lg bg-honey text-cocoa-950 font-mono font-bold text-xs flex items-center justify-center">CMS</span>
+        <div class="leading-tight">
+          <div class="text-xs font-bold text-white uppercase tracking-wider">Панель владельца</div>
+          <div id="cms-sync-status" class="text-[10px] font-mono text-emerald-400 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>Live-синхронизация активна</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="cms-reset-btn" type="button" title="Вернуть исходные данные" class="px-2.5 py-1.5 rounded-lg border border-white/15 hover:border-honey text-[10px] font-mono uppercase text-cream-200/80 hover:text-honey-light transition-colors cursor-pointer">
+          Сброс
+        </button>
+        <button id="cms-close-btn" type="button" aria-label="Свернуть админку" class="w-8 h-8 rounded-lg border border-white/15 hover:border-white text-cream-200 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <div class="px-4 pt-3 pb-2 border-b border-white/10 grid grid-cols-3 gap-1.5 shrink-0 bg-cocoa-950">
+      <button type="button" data-cms-tab="menu" class="cms-tab-btn py-2 px-2 rounded-lg text-[11px] font-mono font-semibold uppercase tracking-wider bg-honey text-cocoa-950 cursor-pointer transition-all">
+        Меню и цены
+      </button>
+      <button type="button" data-cms-tab="texts" class="cms-tab-btn py-2 px-2 rounded-lg text-[11px] font-mono uppercase tracking-wider text-cream-200/70 hover:text-white bg-white/5 cursor-pointer transition-all">
+        Тексты
+      </button>
+      <button type="button" data-cms-tab="json" class="cms-tab-btn py-2 px-2 rounded-lg text-[11px] font-mono uppercase tracking-wider text-cream-200/70 hover:text-white bg-white/5 cursor-pointer transition-all">
+        JSON / API
+      </button>
+    </div>
+
+    <div id="cms-body" class="flex-1 overflow-y-auto p-4 sm:p-5 flex flex-col gap-4"></div>
+
+    <div class="px-5 py-3.5 border-t border-white/10 bg-cocoa-900/90 flex items-center justify-between gap-3 shrink-0">
+      <span class="text-[10.5px] font-mono text-cream-200/60">Автосохранение в браузере</span>
+      <button id="cms-mobile-preview-btn" type="button" class="xl:hidden px-3.5 py-1.5 rounded-full bg-honey text-cocoa-950 text-[10.5px] font-mono font-bold uppercase cursor-pointer">
+        Смотреть витрину
+      </button>
+      <a href="../index.html#feedback" class="hidden xl:inline-flex items-center gap-1 text-[10.5px] font-mono text-honey-light hover:text-white transition-colors">
+        <span>Хочу такую CMS →</span>
+      </a>
+    </div>
+  </aside>
+
+  <div id="cart-modal" class="modal-overlay fixed inset-0 z-[75] flex items-center justify-center p-4 bg-cocoa-950/75 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="cart-modal-title" aria-hidden="true">
+    <div class="modal-box relative w-full max-w-lg rounded-3xl bg-cream-50 border border-cocoa-900/15 p-6 sm:p-7 shadow-2xl max-h-[88svh] overflow-y-auto text-cocoa-900">
+      <button id="cart-close-btn" type="button" aria-label="Закрыть корзину" class="absolute top-4 right-4 w-9 h-9 rounded-full border border-cocoa-900/15 hover:border-cocoa-900 flex items-center justify-center text-muted hover:text-cocoa-900 cursor-pointer">✕</button>
+
+      <div class="text-[10.5px] font-mono uppercase tracking-[0.16em] text-cocoa-600 mb-1">Живая синхронизация цен</div>
+      <h3 id="cart-modal-title" class="font-display font-bold uppercase text-2xl sm:text-3xl text-cocoa-900 mb-4">Ваш предзаказ</h3>
+
+      <div id="cart-items-list" class="flex flex-col gap-3 mb-5"></div>
+
+      <div id="cart-footer" class="pt-4 border-t border-cocoa-900/12 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono uppercase tracking-wider text-muted">Итого к оплате</span>
+          <span id="cart-total-sum" class="font-display font-bold text-2xl text-cocoa-900">0 ₽</span>
+        </div>
+        <button id="cart-demo-submit" type="button" class="btn-caramel w-full py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.14em] cursor-pointer">
+          Оформить демо-заказ →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-toast" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[90] px-5 py-2.5 rounded-full bg-cocoa-950 border border-honey/60 text-cream-50 text-xs font-mono opacity-0 pointer-events-none translate-y-3 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="text-honey">✦</span>
+    <span id="app-toast-text">Обновлено на витрине</span>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
