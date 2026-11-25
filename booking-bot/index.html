@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>SREZ — Барбершоп · Онлайн-запись через Telegram-бота</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Onest", "system-ui", "sans-serif"],
+            serif: ["Cormorant Garamond", "Georgia", "serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            linen: {
+              50: "#FAF8F4",
+              100: "#F2EFE9",
+              200: "#E7E2D8",
+              300: "#D6CFC1"
+            },
+            charcoal: {
+              950: "#0E0E0D",
+              900: "#161614",
+              800: "#22221F",
+              600: "#57554E",
+              400: "#8B877D"
+            },
+            cognac: {
+              DEFAULT: "#A35229",
+              hover: "#88411E",
+              soft: "#F4E5DC"
+            },
+            tg: {
+              bg: "#0E1621",
+              header: "#17212B",
+              bot: "#182533",
+              user: "#2B5278",
+              btn: "#243546",
+              btnHover: "#2F465C",
+              accent: "#5288C1",
+              blue: "#2AABEE"
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-linen-100 text-charcoal-900 font-sans antialiased min-h-screen flex flex-col">
+  <div class="club-grain" aria-hidden="true"></div>
+
+  <header id="site-header" class="club-header fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-[1340px] mx-auto px-4 sm:px-8 h-16 sm:h-[74px] flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3 group shrink-0">
+        <span class="w-9 h-9 rounded-xl bg-charcoal-900 group-hover:bg-cognac text-linen-50 flex items-center justify-center transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+            <circle cx="6" cy="6" r="2.5"></circle>
+            <circle cx="6" cy="18" r="2.5"></circle>
+            <path stroke-linecap="round" d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
+          </svg>
+        </span>
+        <div class="flex flex-col leading-none">
+          <span class="font-extrabold text-base sm:text-lg tracking-[0.12em] uppercase text-charcoal-900">SREZ</span>
+          <span class="font-mono text-[9.5px] uppercase tracking-[0.2em] text-charcoal-400 mt-0.5">Grooming Club</span>
+        </div>
+      </a>
+
+      <nav aria-label="Навигация барбершопа" class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px] font-medium text-charcoal-600">
+        <a href="#bot-studio" class="text-charcoal-900 font-semibold">Запись в Telegram</a>
+        <a href="#services" class="hover:text-charcoal-900 transition-colors">Услуги и цены</a>
+        <a href="#barbers" class="hover:text-charcoal-900 transition-colors">Мастера</a>
+        <a href="#contacts" class="hover:text-charcoal-900 transition-colors">Адрес</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="tel:+79990000000" class="hidden lg:inline-flex items-center gap-1.5 text-xs font-mono text-charcoal-600 hover:text-charcoal-900 transition-colors">
+          +7 (999) 000-00-00
+        </a>
+        <a href="#bot-studio" class="btn-charcoal inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold shrink-0">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+          </svg>
+          <span>@srez_barber_bot</span>
+        </a>
+        <button id="mobile-menu-btn" type="button" aria-label="Меню" aria-expanded="false" class="md:hidden w-10 h-10 rounded-full border border-charcoal-900/18 flex items-center justify-center text-charcoal-900 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="mobile-drawer md:hidden absolute top-full left-0 right-0 bg-linen-100 border-b border-charcoal-900/12 px-5 py-5 shadow-xl">
+      <div class="flex flex-col gap-3 text-[15px] font-medium">
+        <a href="#bot-studio" class="mobile-link py-1.5 border-b border-charcoal-900/8 text-charcoal-900">Онлайн-запись в боте</a>
+        <a href="#services" class="mobile-link py-1.5 border-b border-charcoal-900/8 text-charcoal-600">Услуги и цены</a>
+        <a href="#barbers" class="mobile-link py-1.5 border-b border-charcoal-900/8 text-charcoal-600">Мастера</a>
+        <a href="#contacts" class="mobile-link py-1.5 text-charcoal-600">Контакты и парковка</a>
+        <a href="tel:+79990000000" class="pt-2 font-mono text-xs text-cognac">+7 (999) 000-00-00</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" class="pt-24 sm:pt-28 pb-14 sm:pb-20 px-4 sm:px-8">
+    <div class="max-w-[1340px] mx-auto">
+      <div id="bot-studio" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+
+        <div class="lg:col-span-6 flex flex-col gap-7">
+          <div class="flex flex-col items-start gap-4">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-linen-50 border border-charcoal-900/12 text-[11px] font-mono uppercase tracking-[0.14em] text-charcoal-600">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Большая Никитская, 24 · 10:00 — 22:00</span>
+            </div>
+
+            <h1 class="text-[36px] sm:text-[50px] xl:text-[56px] font-extrabold tracking-[-0.035em] leading-[1.01] text-charcoal-900">
+              Запись к барберу в Telegram
+              <span class="font-serif italic font-semibold text-cognac tracking-[-0.01em] text-[1.12em]">за 20 секунд</span>
+            </h1>
+
+            <p class="text-sm sm:text-[15.5px] text-charcoal-600 leading-[1.6] max-w-xl">
+              Без звонков администратору и скачивания приложений. Выберите услугу, любимого мастера и удобный слот прямо в интерактивном окне <strong class="text-charcoal-900">@srez_barber_bot</strong> справа — бот автоматически напомнит о визите за 2 часа.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div data-step-pill="service" class="step-pill px-3 py-2.5 rounded-xl bg-charcoal-900 text-linen-50 border border-charcoal-900 transition-all">
+              <div class="font-mono text-[10px] opacity-65">01</div>
+              <div class="text-xs font-semibold mt-0.5">Услуга</div>
+            </div>
+            <div data-step-pill="barber" class="step-pill px-3 py-2.5 rounded-xl bg-linen-50 text-charcoal-600 border border-charcoal-900/10 transition-all">
+              <div class="font-mono text-[10px] opacity-65">02</div>
+              <div class="text-xs font-semibold mt-0.5">Мастер</div>
+            </div>
+            <div data-step-pill="slot" class="step-pill px-3 py-2.5 rounded-xl bg-linen-50 text-charcoal-600 border border-charcoal-900/10 transition-all">
+              <div class="font-mono text-[10px] opacity-65">03</div>
+              <div class="text-xs font-semibold mt-0.5">Дата и слот</div>
+            </div>
+            <div data-step-pill="reminder" class="step-pill px-3 py-2.5 rounded-xl bg-linen-50 text-charcoal-600 border border-charcoal-900/10 transition-all">
+              <div class="font-mono text-[10px] opacity-65">04</div>
+              <div class="text-xs font-semibold mt-0.5">Напоминание</div>
+            </div>
+          </div>
+
+          <div class="rounded-[24px] bg-charcoal-900 text-linen-100 border border-charcoal-800 p-5 sm:p-6 shadow-[0_28px_64px_-28px_rgba(14,14,13,0.45)] flex flex-col gap-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/10">
+              <div>
+                <div class="flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#E6A47C]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Синхронизация с залом в реальном времени</span>
+                </div>
+                <h2 class="text-base sm:text-lg font-bold text-white mt-0.5">Журнал записи и уведомления мастера</h2>
+              </div>
+
+              <div class="inline-flex items-center p-1 rounded-full bg-white/[0.06] border border-white/10 text-[11px] font-mono">
+                <button type="button" data-side-tab="schedule" class="side-tab-btn px-3 py-1.5 rounded-full bg-linen-100 text-charcoal-950 font-semibold cursor-pointer transition-all">
+                  Расписание
+                </button>
+                <button type="button" data-side-tab="api" class="side-tab-btn px-3 py-1.5 rounded-full text-linen-200/70 hover:text-white cursor-pointer transition-all">
+                  Bot API / Лог
+                </button>
+              </div>
+            </div>
+
+            <div id="side-view-schedule" class="flex flex-col gap-4">
+              <div id="live-bookings-list" class="flex flex-col gap-2.5"></div>
+
+              <div id="reminder-control-card" class="rounded-2xl bg-white/[0.05] border border-white/10 p-4 flex flex-col gap-3">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-[10.5px] font-mono uppercase tracking-wider text-[#E6A47C]">Авто-напоминание за 2 часа</div>
+                    <p id="reminder-card-desc" class="text-xs text-linen-200/75 mt-1 leading-relaxed">
+                      Оформите запись в боте справа — после подтверждения вы сможете нажать кнопку и вживую проверить, как бот напоминает клиенту за 2 часа до стрижки.
+                    </p>
+                  </div>
+                </div>
+
+                <button id="trigger-reminder-btn" type="button" disabled class="w-full py-3 px-4 rounded-xl bg-cognac hover:bg-cognac-hover disabled:bg-white/10 disabled:text-white/35 text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all cursor-pointer disabled:cursor-not-allowed">
+                  ⏩ Перемотать время: за 2 часа до визита
+                </button>
+              </div>
+
+              <div id="admin-push-box" class="hidden rounded-2xl bg-[#17212B] border border-tg-blue/35 p-4 flex-col gap-1.5">
+                <div class="flex items-center justify-between text-[10px] font-mono text-tg-blue">
+                  <span>⚡ Уведомление в чат администратора</span>
+                  <span id="admin-push-time">только что</span>
+                </div>
+                <p id="admin-push-text" class="text-xs text-white/90 leading-relaxed"></p>
+              </div>
+            </div>
+
+            <div id="side-view-api" class="hidden flex-col gap-3">
+              <div class="flex items-center justify-between text-[11px] font-mono text-linen-200/60">
+                <span>Aiogram 3 · Telegram Bot API · APScheduler</span>
+                <button id="copy-bot-log-btn" type="button" class="text-[#E6A47C] hover:text-white underline underline-offset-4 cursor-pointer">
+                  Копировать JSON
+                </button>
+              </div>
+              <pre id="bot-api-pre" class="p-3.5 rounded-xl bg-black/55 border border-white/10 font-mono text-[10.5px] text-linen-100/85 max-h-[300px] overflow-y-auto whitespace-pre-wrap break-words leading-relaxed"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 flex flex-col items-center lg:items-end">
+          <div class="w-full max-w-[430px] rounded-[36px] bg-charcoal-950 p-2.5 sm:p-3 shadow-[0_38px_85px_-28px_rgba(14,14,13,0.58)] border border-charcoal-800 relative">
+            <div id="tg-phone-screen" class="rounded-[28px] overflow-hidden flex flex-col h-[620px] sm:h-[660px] bg-tg-bg text-white border border-white/8">
+              <div id="tg-header" class="bg-tg-header px-4 pt-3 pb-3 border-b border-white/8 flex items-center justify-between gap-2 shrink-0">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-10 h-10 rounded-full bg-cognac text-white font-extrabold text-xs tracking-wider flex items-center justify-center shrink-0 relative shadow">
+                    <span>SZ</span>
+                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-tg-header"></span>
+                  </div>
+                  <div class="min-w-0 leading-tight">
+                    <div class="flex items-center gap-1.5">
+                      <span id="tg-bot-name" class="font-bold text-sm truncate">SREZ Barbershop</span>
+                      <svg class="w-3.5 h-3.5 text-tg-blue shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2L14.8 4.6L18.6 4.2L19.8 7.8L23 9.9L21.9 13.5L23 17.1L19.8 19.2L18.6 22.8L14.8 22.4L12 25L9.2 22.4L5.4 22.8L4.2 19.2L1 17.1L2.1 13.5L1 9.9L4.2 7.8L5.4 4.2L9.2 4.6L12 2ZM10.4 16.5L17 9.9L15.6 8.5L10.4 13.7L8.4 11.7L7 13.1L10.4 16.5Z"/>
+                      </svg>
+                    </div>
+                    <div id="tg-bot-status" class="text-[11px] text-tg-blue">бот · онлайн</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <button id="tg-theme-toggle" type="button" title="Сменить тему Telegram (Тёмная / Светлая)" class="w-8 h-8 rounded-full bg-white/8 hover:bg-white/16 flex items-center justify-center text-xs transition-colors cursor-pointer">
+                    ☀
+                  </button>
+                  <button id="tg-restart-btn" type="button" title="Начать диалог заново (/start)" class="px-2.5 py-1.5 rounded-full bg-white/8 hover:bg-white/16 font-mono text-[10px] uppercase tracking-wider transition-colors cursor-pointer">
+                    /start
+                  </button>
+                </div>
+              </div>
+
+              <div id="tg-chat-scroll" class="tg-wallpaper-dark flex-1 overflow-y-auto px-3.5 py-4 flex flex-col gap-3"></div>
+
+              <div id="tg-reply-keyboard" class="hidden px-3 py-2 bg-tg-header/95 border-t border-white/8 flex flex-wrap gap-1.5 shrink-0"></div>
+
+              <form id="tg-composer-form" class="bg-tg-header px-3 py-2.5 border-t border-white/8 flex items-center gap-2 shrink-0">
+                <button id="tg-menu-cmd-btn" type="button" title="Главное меню" class="px-2.5 py-2 rounded-xl bg-tg-blue/18 hover:bg-tg-blue/30 text-tg-blue font-mono text-[11px] font-semibold transition-colors cursor-pointer shrink-0">
+                  Меню
+                </button>
+                <input
+                  id="tg-message-input"
+                  type="text"
+                  placeholder="Напишите имя или сообщение..."
+                  class="flex-1 min-w-0 bg-transparent border-0 text-base sm:text-xs text-white placeholder-white/40 focus:ring-0 px-1.5 py-1.5"
+                >
+                <button type="submit" aria-label="Отправить" class="w-9 h-9 rounded-full bg-tg-blue hover:bg-[#1E96D6] text-white flex items-center justify-center transition-colors shrink-0 cursor-pointer">
+                  <svg class="w-4 h-4 translate-x-[1px] fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="w-full max-w-[430px] flex items-center justify-between px-3 pt-3 text-[11px] font-mono text-charcoal-400">
+            <span>Интерактивный предпросмотр бота</span>
+            <button id="quick-restart-link" type="button" class="text-cognac hover:text-charcoal-900 underline underline-offset-4 cursor-pointer">
+              Сбросить диалог ↻
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="reveal-el py-16 sm:py-22 px-4 sm:px-8 border-t border-charcoal-900/10 bg-linen-50/75">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 sm:mb-12">
+        <div>
+          <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-cognac font-semibold">Прайс-лист · SREZ</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] leading-[1.04] text-charcoal-900 mt-1.5">
+            Услуги и время работы
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-charcoal-600 max-w-sm leading-relaxed">
+          Нажмите на любую услугу — бот сразу перейдёт к выбору мастера и покажет свободные слоты под эту длительность.
+        </p>
+      </div>
+
+      <div id="services-menu-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 border-t border-charcoal-900/14"></div>
+    </div>
+  </section>
+
+  <section id="barbers" class="reveal-el py-16 sm:py-22 px-4 sm:px-8 border-t border-charcoal-900/10">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 sm:mb-12">
+        <div>
+          <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-cognac font-semibold">Команда мастеров</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] leading-[1.04] text-charcoal-900 mt-1.5">
+            Мастера, к которым <span class="font-serif italic font-semibold text-cognac">возвращаются</span>
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-charcoal-600 max-w-sm leading-relaxed">
+          Средний опыт команды — 7 лет. Угощаем свежесваренным эспрессо, фильтром или крафтовым напитком на каждом визите.
+        </p>
+      </div>
+
+      <div id="barbers-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <footer id="contacts" class="mt-auto bg-charcoal-950 text-linen-100 pt-14 pb-8 px-4 sm:px-8 border-t border-white/10">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/10">
+        <div class="md:col-span-5 flex flex-col gap-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-cognac text-white flex items-center justify-center font-extrabold text-xs">SZ</span>
+            <span class="font-extrabold text-lg tracking-[0.12em] uppercase text-white">SREZ GROOMING CLUB</span>
+          </div>
+          <p class="text-xs sm:text-sm text-linen-200/65 leading-relaxed max-w-sm">
+            Мужские стрижки, моделирование бороды и королевское бритьё. Удобная запись без звонков через официального Telegram-бота.
+          </p>
+          <span class="text-[11px] font-mono text-linen-200/40">© 2026 ООО «Срез Клуб» · ИНН 0000000000</span>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-[#E6A47C] mb-1">Адрес и связь</span>
+          <a href="tel:+79990000000" class="font-mono text-base text-white hover:text-[#E6A47C] transition-colors">+7 (999) 000-00-00</a>
+          <a href="mailto:club@example.ru" class="text-linen-200/75 hover:text-white transition-colors">club@example.ru</a>
+          <span class="text-linen-200/60">г. Москва, ул. Большая Никитская, д. 24</span>
+          <span class="text-linen-200/45 text-xs">Ежедневно · 10:00 — 22:00 · Бесплатная парковка во дворе</span>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-[#E6A47C] mb-1">Разделы</span>
+          <a href="#bot-studio" class="text-linen-200/75 hover:text-white transition-colors">Запись в Telegram-боте</a>
+          <a href="#services" class="text-linen-200/75 hover:text-white transition-colors">Услуги и прайс</a>
+          <a href="#barbers" class="text-linen-200/75 hover:text-white transition-colors">Наши барберы</a>
+        </div>
+      </div>
+
+      <div class="mt-8 p-4 sm:p-5 rounded-2xl bg-white/[0.05] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-linen-200/80 leading-relaxed">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Разработаю такого же Telegram-бота онлайн-записи с авто-напоминаниями за 2 часа, переносом визитов и интеграцией с календарём / YCLIENTS под ваш бизнес.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full border border-white/20 hover:border-white text-linen-100 text-xs font-medium transition-colors">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="px-5 py-2 rounded-full bg-cognac hover:bg-cognac-hover text-white text-xs font-semibold transition-colors">
+            Заказать такого бота →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="club-toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-[90] px-4 py-2.5 rounded-full bg-charcoal-950 text-white border border-white/15 text-xs font-medium opacity-0 pointer-events-none translate-y-2 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-cognac"></span>
+    <span id="club-toast-text">Готово</span>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -19,6 +19,7 @@
 | [`crm-integration/`](./crm-integration/) | **SAYSO.** | Школа английского с прямой интеграцией AmoCRM API v4 / Битрикс24 REST, анти-дублем и логом API | [Открыть демо](https://butorov.dev/crm-integration/demo/) |
 | [`online-payment/`](./online-payment/) | **MOTION 2026** | Конференция с песочницей онлайн-оплаты ЮKassa / СБП, тестовыми картами и выдачей чека 54-ФЗ | [Открыть демо](https://butorov.dev/online-payment/demo/) |
 | [`react-3d-twin/`](./react-3d-twin/) | **KORS 3D** | Инженерный промо-сайт и B2B-каталог с интерактивной 3D-витриной на Canvas, тепловизор/CAD-переключателем и поиском Ctrl+K | [Открыть демо](https://butorov.dev/react-3d-twin/demo/) |
+| [`booking-bot/`](./booking-bot/) | **SREZ** | Интерактивный Telegram-бот онлайн-записи для барбершопа (FSM + авто-напоминание за 2 часа) + код Python (Aiogram 3 + APScheduler) | [Открыть демо](https://butorov.dev/booking-bot/demo/) |
 
 ---
 
