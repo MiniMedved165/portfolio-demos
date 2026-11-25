@@ -15,6 +15,7 @@
 | [`promo-before-after/`](./promo-before-after/) | **KRONOS DETAIL** | Промо-сайт детейлинг-студии со шторкой «До / После» (Scroll-Sync + Pointer Events) и онлайн-записью | [Открыть демо](https://butorov.dev/promo-before-after/demo/) |
 | [`multilanding-utm/`](./multilanding-utm/) | **ВЕКТОР** | Мультилендинг грузоперевозок с динамической подменой офферов, автопарка и заявок по UTM-меткам | [Открыть демо](https://butorov.dev/multilanding-utm/demo/) |
 | [`object-showcase/`](./object-showcase/) | **ПОД СОСНАМИ** | Витрина глэмпинга с интерактивным топографическим SVG-планом территории, фильтрами и бронью | [Открыть демо](https://butorov.dev/object-showcase/demo/) |
+| [`product-configurator/`](./product-configurator/) | **/hardware.** | Визуальный конфигуратор ПК со сметой, прогнозом FPS, проверкой БП и слоистым SVG-рендером | [Открыть демо](https://butorov.dev/product-configurator/demo/) |
 
 ---
 

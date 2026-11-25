@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>/hardware. — Индивидуальная сборка и конфигуратор ПК</title>
+
+  <!-- Google Fonts: Onest (Modern Tech Geometric Sans) & JetBrains Mono (Specs & Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Matte Obsidian / Rose-Violet Accent Tokens -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Onest", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            void: {
+              950: "#0C0C0E",
+              900: "#111114",
+              850: "#16161A",
+              800: "#1C1C22",
+              700: "#26262E"
+            },
+            chrome: {
+              100: "#F4F4F6",
+              300: "#B8B8C4",
+              500: "#7E7E8C",
+              600: "#585864"
+            },
+            accent: {
+              rose: "#F45C9E",
+              violet: "#9B5CFF"
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-void-900 text-chrome-100 font-sans antialiased min-h-screen flex flex-col">
+  <div class="matte-grain" aria-hidden="true"></div>
+  <header id="site-header" class="hw-header fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-[1320px] mx-auto px-4 sm:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-4">
+      <!-- Brand Wordmark -->
+      <a href="#top" class="flex items-center gap-2.5 group shrink-0">
+        <span class="w-7 h-7 rounded-lg flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105" style="background: linear-gradient(135deg, #F45C9E 0%, #9B5CFF 100%);">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M12 12L20 7.5M12 12V21M12 12L4 7.5" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="font-bold text-[15px] tracking-[-0.02em] text-white">/hardware<span class="text-accent-rose">.</span></span>
+      </a>
+
+      <!-- Center Minimal Nav Links -->
+      <nav aria-label="Основная навигация" class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px] font-medium text-chrome-300">
+        <a href="#featured" class="hover:text-white transition-colors">Комплектующие</a>
+        <a href="#configurator" class="hover:text-white transition-colors">Конфигуратор</a>
+        <a href="#ready" class="hover:text-white transition-colors">Готовые сборки</a>
+        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+      </nav>
+
+      <!-- Right Actions: Live Build Price Pill + Mobile Toggle -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <a href="tel:+79990000000" class="hidden lg:inline-flex items-center gap-2 text-xs font-mono text-chrome-300 hover:text-white transition-colors mr-1">
+          <span>+7 (999) 000-00-00</span>
+        </a>
+
+        <button id="header-build-btn" type="button" class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-void-800 hover:bg-void-700 border border-white/12 text-xs font-medium text-white transition-colors cursor-pointer shrink-0">
+          <span class="w-2 h-2 rounded-full bg-accent-rose"></span>
+          <span class="hidden sm:inline text-chrome-300">Сборка:</span>
+          <span id="header-live-price" class="font-mono font-semibold text-white">218 400 ₽</span>
+        </button>
+
+        <button id="mobile-menu-btn" type="button" aria-label="Меню" aria-expanded="false" class="md:hidden w-9 h-9 rounded-full bg-void-800 border border-white/12 flex items-center justify-center text-white cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="mobile-drawer md:hidden absolute top-full left-0 right-0 bg-void-950/95 backdrop-blur-xl border-b border-white/10 px-5 py-5 shadow-2xl">
+      <div class="flex flex-col gap-3 text-sm font-medium">
+        <a href="#featured" class="mobile-link py-2 border-b border-white/8 text-chrome-300">/комплектующие</a>
+        <a href="#configurator" class="mobile-link py-2 border-b border-white/8 text-white">/конфигуратор ПК</a>
+        <a href="#ready" class="mobile-link py-2 border-b border-white/8 text-chrome-300">/готовые решения</a>
+        <a href="#contacts" class="mobile-link py-2 text-chrome-300">/контакты</a>
+        <a href="tel:+79990000000" class="pt-2 font-mono text-xs text-accent-rose">+7 (999) 000-00-00</a>
+      </div>
+    </div>
+  </header>
+  <section id="top" class="hero-compact-fit relative pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-8 overflow-hidden flex items-center">
+    <!-- Restrained Studio Backlight Glow Behind PC -->
+    <div class="absolute top-1/2 right-[8%] -translate-y-1/2 w-[380px] sm:w-[520px] h-[380px] sm:h-[520px] rounded-full opacity-20 blur-[130px] pointer-events-none" style="background: radial-gradient(circle, #F45C9E 0%, #9B5CFF 55%, transparent 78%);" aria-hidden="true"></div>
+
+    <div class="max-w-[1320px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+
+      <!-- Left: Editorial Typography & Dual Pill CTAs -->
+      <div class="lg:col-span-6 flex flex-col items-start">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-void-800 border border-white/10 text-[11px] font-mono text-chrome-300 mb-5">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-rose"></span>
+          <span>Индивидуальная сборка · Стресс-тест 24ч · Гарантия 3 года</span>
+        </div>
+
+        <h1 class="text-[40px] sm:text-[56px] lg:text-[64px] font-extrabold tracking-[-0.035em] leading-[1.01] text-white mb-5">
+          Создано для<br>
+          <span class="bg-clip-text text-transparent" style="background-image: linear-gradient(95deg, #FFFFFF 20%, #F4B4D3 75%, #C8A6FF 100%);">чистой мощности</span>
+        </h1>
+
+        <p class="text-sm sm:text-base text-chrome-300 leading-relaxed max-w-lg mb-7">
+          Соберите игровой или рабочий ПК в интерактивном конфигураторе: подбирайте корпус, видеокарту, охлаждение и подсветку с мгновенным обновлением визуала и точной сметы.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto mb-8">
+          <a href="#configurator" class="btn-signature inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs sm:text-[13px] font-semibold shrink-0">
+            <span>Собрать свой ПК</span>
+            <span aria-hidden="true">→</span>
+          </a>
+          <a href="#ready" class="btn-ghost-dark inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs sm:text-[13px] font-medium shrink-0">
+            <span>Готовые решения</span>
+          </a>
+        </div>
+
+        <!-- Subtle Hardware Telemetry Strip -->
+        <div class="w-full max-w-md grid grid-cols-3 gap-4 pt-5 border-t border-white/10 text-xs">
+          <div>
+            <div class="font-mono text-base sm:text-lg font-bold text-white">3–5 дн</div>
+            <div class="text-chrome-500 mt-0.5">сборка и тесты</div>
+          </div>
+          <div>
+            <div class="font-mono text-base sm:text-lg font-bold text-white">100%</div>
+            <div class="text-chrome-500 mt-0.5">совместимость</div>
+          </div>
+          <div>
+            <div class="font-mono text-base sm:text-lg font-bold text-white">0 дБ</div>
+            <div class="text-chrome-500 mt-0.5">тихий кабель-менеджмент</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Angled Matte Studio PC Showcase Frame -->
+      <div class="lg:col-span-6 relative">
+        <div class="relative rounded-[28px] overflow-hidden bg-void-950 border border-white/10 aspect-[16/11] sm:aspect-[16/10.5] shadow-[0_36px_90px_-30px_rgba(0,0,0,0.9)]">
+          <img
+            alt="Кастомный игровой ПК с розово-фиолетовой подсветкой"
+            class="w-full h-full object-cover object-center"
+            src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1400&q=85"
+            onerror="this.src='https://placehold.co/1100x760/16161A/F45C9E?text=/hardware.+CUSTOM+PC'"
+          >
+          <div class="absolute inset-0 bg-gradient-to-tr from-void-950/85 via-void-950/15 to-transparent pointer-events-none"></div>
+
+          <!-- Minimal Spec Overlay Badge Bottom-Left -->
+          <div class="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 p-4 rounded-2xl bg-void-950/82 backdrop-blur-md border border-white/12 flex items-center justify-between gap-4">
+            <div class="min-w-0">
+              <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-accent-rose">Flagship Build · RTX 4080 Super</div>
+              <div class="text-sm font-bold text-white truncate mt-0.5">Core Phantom · 360mm Liquid + DDR5</div>
+            </div>
+            <button type="button" data-load-preset="phantom" class="preset-trigger px-4 py-2 rounded-full bg-white/10 hover:bg-accent-rose text-white text-[11px] font-semibold transition-colors shrink-0 cursor-pointer">
+              Настроить →
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 02 /КОМПЛЕКТУЮЩИЕ — 5-CARD FEATURED ROW (ECHOES REF) ==================== -->
+  <section id="featured" class="reveal-el py-10 sm:py-14 px-4 sm:px-8">
+    <div class="max-w-[1320px] mx-auto">
+      <div class="flex items-center justify-between gap-4 mb-7">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-[-0.025em] text-white">
+          <span class="text-accent-rose">/</span>комплектующие
+        </h2>
+        <a href="#configurator" class="px-4 py-2 rounded-full border border-white/14 hover:border-white/40 text-xs font-medium text-chrome-300 hover:text-white transition-colors">
+          Открыть конфигуратор
+        </a>
+      </div>
+
+      <!-- 5 Hardware Category Cards (Clicking Jumps Straight to That Category in Configurator!) -->
+      <div id="featured-cats-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
+        <!-- Card 1: Cases -->
+        <button type="button" data-jump-cat="case" class="featured-cat-card group rounded-2xl p-5 flex flex-col items-center text-center gap-4 cursor-pointer">
+          <div class="w-16 h-16 rounded-2xl bg-void-950/70 border border-white/8 flex items-center justify-center text-chrome-100 group-hover:scale-105 transition-transform">
+            <svg class="w-9 h-9" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect x="9" y="5" width="22" height="30" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <rect x="13" y="9" width="14" height="17" rx="1.5" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="20" cy="30.5" r="1.5" fill="#F45C9E"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Корпуса</div>
+            <div class="text-[11px] font-mono text-chrome-500 mt-0.5">от 14 900 ₽</div>
+          </div>
+        </button>
+
+        <!-- Card 2: GPUs -->
+        <button type="button" data-jump-cat="gpu" class="featured-cat-card group rounded-2xl p-5 flex flex-col items-center text-center gap-4 cursor-pointer">
+          <div class="w-16 h-16 rounded-2xl bg-void-950/70 border border-white/8 flex items-center justify-center text-chrome-100 group-hover:scale-105 transition-transform">
+            <svg class="w-10 h-10" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+              <rect x="4" y="13" width="36" height="18" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="14" cy="22" r="5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="29" cy="22" r="5" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="8" y1="31" x2="18" y2="31" stroke="#F45C9E" stroke-width="2.4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Видеокарты</div>
+            <div class="text-[11px] font-mono text-chrome-500 mt-0.5">от 48 900 ₽</div>
+          </div>
+        </button>
+
+        <!-- Card 3: Cooling (Signature Highlighted Center Card from Reference!) -->
+        <button type="button" data-jump-cat="cooling" class="featured-cat-card is-highlight group rounded-2xl p-5 flex flex-col items-center text-center gap-4 cursor-pointer">
+          <div class="w-16 h-16 rounded-2xl bg-void-950/30 border border-white/25 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+            <svg class="w-10 h-10 pc-fan-blades" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+              <rect x="6" y="6" width="32" height="32" rx="6" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="22" cy="22" r="11" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M22 11C25 14 25 18 22 22C19 18 19 14 22 11Z" fill="currentColor"/>
+              <path d="M33 22C30 25 26 25 22 22C26 19 30 19 33 22Z" fill="currentColor"/>
+              <path d="M22 33C19 30 19 26 22 22C25 26 25 30 22 33Z" fill="currentColor"/>
+              <path d="M11 22C14 19 18 19 22 22C18 25 14 25 11 22Z" fill="currentColor"/>
+              <circle cx="22" cy="22" r="3" fill="#111114"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Охлаждение</div>
+            <div class="text-[11px] font-mono text-white/85 mt-0.5">от 6 900 ₽</div>
+          </div>
+        </button>
+
+        <!-- Card 4: CPUs -->
+        <button type="button" data-jump-cat="cpu" class="featured-cat-card group rounded-2xl p-5 flex flex-col items-center text-center gap-4 cursor-pointer">
+          <div class="w-16 h-16 rounded-2xl bg-void-950/70 border border-white/8 flex items-center justify-center text-chrome-100 group-hover:scale-105 transition-transform">
+            <svg class="w-9 h-9" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect x="10" y="10" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <rect x="15" y="15" width="10" height="10" rx="1.5" fill="currentColor" fill-opacity="0.2" stroke="#9B5CFF" stroke-width="1.4"/>
+              <path d="M15 6V10M20 6V10M25 6V10M15 30V34M20 30V34M25 30V34M6 15H10M6 20H10M6 25H10M30 15H34M30 20H34M30 25H34" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Процессоры</div>
+            <div class="text-[11px] font-mono text-chrome-500 mt-0.5">от 28 500 ₽</div>
+          </div>
+        </button>
+
+        <!-- Card 5: Memory & Storage -->
+        <button type="button" data-jump-cat="ram" class="featured-cat-card group rounded-2xl p-5 flex flex-col items-center text-center gap-4 cursor-pointer col-span-2 sm:col-span-1">
+          <div class="w-16 h-16 rounded-2xl bg-void-950/70 border border-white/8 flex items-center justify-center text-chrome-100 group-hover:scale-105 transition-transform">
+            <svg class="w-10 h-10" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+              <rect x="6" y="14" width="32" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+              <rect x="11" y="18" width="5" height="6" rx="1" fill="currentColor" fill-opacity="0.35"/>
+              <rect x="19.5" y="18" width="5" height="6" rx="1" fill="currentColor" fill-opacity="0.35"/>
+              <rect x="28" y="18" width="5" height="6" rx="1" fill="currentColor" fill-opacity="0.35"/>
+              <path d="M10 28V31M15 28V31M20 28V31M29 28V31M34 28V31" stroke="#F45C9E" stroke-width="1.6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Память и SSD</div>
+            <div class="text-[11px] font-mono text-chrome-500 mt-0.5">от 13 900 ₽</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+  <section id="configurator" class="reveal-el py-14 sm:py-20 px-4 sm:px-8 border-t border-white/[0.06]">
+    <div class="max-w-[1320px] mx-auto">
+
+      <!-- Section Heading + Quick Reset -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
+        <div>
+          <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-[-0.03em] text-white leading-tight">
+            <span class="text-accent-rose">/</span>конфигуратор сборки
+          </h2>
+          <p class="text-xs sm:text-sm text-chrome-300 mt-2 max-w-xl">
+            Выбирайте корпус, цвет подсветки и железо — 2D-рендер системного блока, прогноз FPS, энергопотребление и смета пересчитываются мгновенно.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2.5 shrink-0">
+          <button id="config-reset-btn" type="button" class="px-4 py-2 rounded-full bg-void-800 hover:bg-void-700 border border-white/10 text-xs font-mono text-chrome-300 hover:text-white transition-colors cursor-pointer">
+            Сбросить сборку
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Split Workspace: Left (7 cols) = Category Tabs & Options, Right (5 cols) = Sticky Visual PC Rig + Live Estimate -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+
+        <!-- LEFT COLUMN: Interactive Component Selector -->
+        <div class="lg:col-span-7 flex flex-col gap-5">
+          <!-- Category Selector Pills -->
+          <div id="config-cat-tabs" class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+            
+          </div>
+
+          <!-- Active Category Options Grid -->
+          <div id="config-options-container" class="flex flex-col gap-5">
+            
+          </div>
+
+          <!-- Quick Navigation Between Config Steps -->
+          <div class="flex items-center justify-between gap-3 pt-2">
+            <button id="cat-prev-btn" type="button" class="btn-ghost-dark px-5 py-2.5 rounded-full text-xs font-medium disabled:opacity-30 disabled:pointer-events-none cursor-pointer">
+              ← Назад
+            </button>
+            <span id="cat-step-counter" class="font-mono text-xs text-chrome-500">1 / 7</span>
+            <button id="cat-next-btn" type="button" class="btn-ghost-dark px-5 py-2.5 rounded-full text-xs font-medium cursor-pointer">
+              Следующий компонент →
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN (Sticky): Live Visual PC Chassis Render + Telemetry + Itemized Estimate -->
+        <aside class="lg:col-span-5 lg:sticky lg:top-24 flex flex-col gap-4">
+
+          <!-- 1. LIVE INTERACTIVE PC VISUALIZER STAGE -->
+          <div class="rounded-[24px] bg-void-950 border border-white/10 p-5 sm:p-6 relative overflow-hidden shadow-[0_28px_70px_-28px_rgba(0,0,0,0.9)]">
+            <!-- Dynamic Ambient Backlight Matched to Selected RGB Theme -->
+            <div id="rig-ambient-glow" class="absolute -inset-12 opacity-22 blur-[75px] pointer-events-none transition-all duration-500" style="background: radial-gradient(circle at 50% 45%, #F45C9E 0%, #9B5CFF 50%, transparent 72%);"></div>
+
+            <!-- Top Visualizer Meta Bar -->
+            <div class="relative z-10 flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="px-2.5 py-0.5 rounded-full bg-white/8 border border-white/10 font-mono text-[10px] uppercase tracking-wider text-chrome-100">Live Preview</span>
+                <span id="rig-case-label" class="text-xs font-medium text-chrome-300 truncate">Stealth Mesh Black</span>
+              </div>
+
+              <!-- Quick RGB Lighting Swatches Right on Stage -->
+              <div id="rig-rgb-swatches" class="flex items-center gap-1.5 shrink-0" aria-label="Цвет подсветки">
+                
+              </div>
+            </div>
+
+            <!-- Dynamic Layered SVG PC Chassis Render (Updates Case, Cooling, GPU, RAM, RGB Live!) -->
+            <div id="pc-visualizer-stage" class="relative z-10 w-full flex items-center justify-center py-2">
+              
+            </div>
+
+            <!-- Live Performance & Power Telemetry Strip -->
+            <div class="relative z-10 grid grid-cols-3 gap-2.5 pt-4 mt-2 border-t border-white/10">
+              <div class="p-2.5 rounded-xl bg-void-850/90 border border-white/6">
+                <div class="text-[10px] font-mono text-chrome-500 uppercase">Cyberpunk 2K</div>
+                <div id="metric-fps-cp" class="font-mono text-sm sm:text-base font-bold text-white mt-0.5">134 FPS</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-void-850/90 border border-white/6">
+                <div class="text-[10px] font-mono text-chrome-500 uppercase">CS2 Competitive</div>
+                <div id="metric-fps-cs" class="font-mono text-sm sm:text-base font-bold text-white mt-0.5">460 FPS</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-void-850/90 border border-white/6">
+                <div class="text-[10px] font-mono text-chrome-500 uppercase">Питание / TDP</div>
+                <div id="metric-psu-load" class="font-mono text-sm sm:text-base font-bold text-emerald-400 mt-0.5">540 / 850 Вт</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. LIVE ITEMIZED ESTIMATE (СМЕТА СБОРКИ) -->
+          <div class="rounded-[24px] bg-void-850 border border-white/10 p-5 sm:p-6 flex flex-col gap-4">
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-white/8">
+              <h3 class="text-sm font-bold text-white">Смета вашей конфигурации</h3>
+              <span id="estimate-compat-badge" class="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Совместимо</span>
+              </span>
+            </div>
+
+            <!-- Scrollable Compact Spec List -->
+            <ul id="estimate-bom-list" class="flex flex-col gap-2 text-xs max-h-[210px] overflow-y-auto pr-1">
+              
+            </ul>
+
+            <!-- Assembly & Warranty Included Row -->
+            <div class="flex items-center justify-between text-xs pt-3 border-t border-white/8 text-chrome-300">
+              <span>Сборка, кабель-менеджмент, BIOS и тест 24ч</span>
+              <span class="font-mono text-emerald-400">Включено</span>
+            </div>
+
+            <!-- Total Price & Installment -->
+            <div class="flex items-end justify-between gap-3 pt-2">
+              <div>
+                <div class="text-[11px] font-mono text-chrome-500 uppercase">Итого под ключ</div>
+                <div id="estimate-total-price" class="font-mono text-2xl sm:text-3xl font-bold text-white tracking-tight mt-0.5">218 400 ₽</div>
+              </div>
+              <div class="text-right text-[11px] text-chrome-500 font-mono">
+                <div id="estimate-monthly">от 18 200 ₽ / мес</div>
+                <div>Гарантия 36 мес</div>
+              </div>
+            </div>
+
+            <!-- Primary CTA & Copy Spec -->
+            <div class="flex flex-col sm:flex-row items-stretch gap-2.5 pt-1">
+              <button id="open-order-modal-btn" type="button" class="btn-signature flex-1 py-3.5 px-5 rounded-full text-xs font-bold uppercase tracking-[0.1em] cursor-pointer">
+                Заказать сборку →
+              </button>
+              <button id="copy-spec-btn" type="button" title="Скопировать текстовую спецификацию" class="btn-ghost-dark px-4 py-3.5 rounded-full text-xs font-mono cursor-pointer shrink-0">
+                Копия
+              </button>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+  </section>
+  <section id="ready" class="reveal-el py-14 sm:py-20 px-4 sm:px-8 border-t border-white/[0.06]">
+    <div class="max-w-[1320px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-9">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-[-0.03em] text-white">
+          <span class="text-accent-rose">/</span>готовые решения
+        </h2>
+        <p class="text-xs sm:text-sm text-chrome-300 max-w-sm leading-relaxed md:text-right">
+          Сбалансированные конфигурации для игр в 2K/4K, 3D-рендера и стриминга. Любую сборку можно доработать в конфигураторе.
+        </p>
+      </div>
+
+      <!-- Table Header (Desktop) -->
+      <div class="hidden lg:grid lg:grid-cols-12 gap-4 pb-3 border-b border-white/12 text-[11px] font-mono uppercase tracking-wider text-chrome-500">
+        <div class="col-span-3">Модель</div>
+        <div class="col-span-6">Ключевые характеристики</div>
+        <div class="col-span-2 text-right">Стоимость</div>
+        <div class="col-span-1 text-right">Действие</div>
+      </div>
+
+      
+      <div id="ready-builds-list" class="flex flex-col"></div>
+    </div>
+  </section>
+  <section class="reveal-el py-12 sm:py-16 px-4 sm:px-8 border-t border-white/[0.06]">
+    <div class="max-w-[1320px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <div class="p-6 rounded-2xl bg-void-850 border border-white/8 flex flex-col gap-2.5">
+        <span class="font-mono text-xs text-accent-rose">/01</span>
+        <h3 class="text-base font-bold text-white">Стресс-тест 24 часа</h3>
+        <p class="text-xs text-chrome-300 leading-relaxed">Прогоняем OCCT, FurMark и MemTest с фотоотчётом температур и кривой вентиляторов перед отправкой.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-void-850 border border-white/8 flex flex-col gap-2.5">
+        <span class="font-mono text-xs text-accent-rose">/02</span>
+        <h3 class="text-base font-bold text-white">Идеальный кабель-менеджмент</h3>
+        <p class="text-xs text-chrome-300 leading-relaxed">Укладка проводов в оплётке за задней стенкой — свободный поток воздуха и аккуратный вид через стекло.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-void-850 border border-white/8 flex flex-col gap-2.5">
+        <span class="font-mono text-xs text-accent-rose">/03</span>
+        <h3 class="text-base font-bold text-white">Тонкая настройка BIOS</h3>
+        <p class="text-xs text-chrome-300 leading-relaxed">Активируем XMP/EXPO, обновляем прошивки, делаем андервольтинг для тишины и стабильных частот.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-void-850 border border-white/8 flex flex-col gap-2.5">
+        <span class="font-mono text-xs text-accent-rose">/04</span>
+        <h3 class="text-base font-bold text-white">Бережная доставка по РФ</h3>
+        <p class="text-xs text-chrome-300 leading-relaxed">Фиксируем видеокарту вспененным пакетом Instapak и доставляем в усиленном деревянном коробе.</p>
+      </div>
+    </div>
+  </section>
+  <footer id="contacts" class="mt-auto bg-void-950 border-t border-white/8 pt-14 pb-8 px-4 sm:px-8">
+    <div class="max-w-[1320px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/8">
+        <div class="md:col-span-5 flex flex-col gap-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F45C9E 0%, #9B5CFF 100%);">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="font-bold text-base text-white">/hardware<span class="text-accent-rose">.</span></span>
+          </div>
+          <p class="text-xs sm:text-sm text-chrome-300 leading-relaxed max-w-sm">
+            Мастерская кастомных игровых ПК и рабочих станций. Подбор комплектующих, сборка, настройка и сервис по всей России.
+          </p>
+          <span class="text-[11px] font-mono text-chrome-600">© 2026 ООО «Хардвер Лаб» · ИНН 0000000000</span>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-chrome-500 mb-1">Шоурум и заказы</span>
+          <a href="tel:+79990000000" class="font-mono text-base text-white hover:text-accent-rose transition-colors">+7 (999) 000-00-00</a>
+          <a href="mailto:order@example.ru" class="text-chrome-300 hover:text-white transition-colors">order@example.ru</a>
+          <span class="text-chrome-500">г. Москва, ул. Складочная, д. 1, стр. 18</span>
+          <span class="text-chrome-600 text-xs">Ежедневно · 10:00 — 21:00</span>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-chrome-500 mb-1">Разделы</span>
+          <a href="#featured" class="text-chrome-300 hover:text-white transition-colors">/комплектующие</a>
+          <a href="#configurator" class="text-chrome-300 hover:text-white transition-colors">/конфигуратор ПК</a>
+          <a href="#ready" class="text-chrome-300 hover:text-white transition-colors">/готовые решения</a>
+        </div>
+      </div>
+
+      <!-- Portfolio Demo Attribution (Strictly Only at Footer Bottom) -->
+      <div class="mt-8 p-4 sm:p-5 rounded-2xl bg-void-850 border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-chrome-300 leading-relaxed">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Реализую такой же визуальный конфигуратор со сметой (для ПК, кухонь, домов, авто или мебели) под ваш бизнес.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full border border-white/18 hover:border-white text-chrome-100 text-xs font-medium transition-colors">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="btn-signature px-5 py-2 rounded-full text-xs font-semibold">
+            Заказать такой сайт →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="order-modal" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6 bg-black/82 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="order-modal-title" aria-hidden="true">
+    <div class="modal-panel relative w-full max-w-2xl rounded-[26px] bg-void-850 border border-white/14 p-6 sm:p-8 shadow-2xl max-h-[92svh] overflow-y-auto">
+      <button id="order-modal-close" type="button" aria-label="Закрыть окно" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-void-800 hover:bg-void-700 border border-white/12 text-chrome-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+        ✕
+      </button>
+
+      <!-- Step 1: Checkout Form -->
+      <div id="order-form-view">
+        <span class="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-rose">Оформление конфигурации</span>
+        <h3 id="order-modal-title" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1 mb-2">
+          Заказать сборку ПК
+        </h3>
+        <p id="order-summary-subtitle" class="text-xs sm:text-sm text-chrome-300 mb-5"></p>
+
+        <!-- Compact Build Recap -->
+        <div id="order-modal-recap" class="p-4 rounded-2xl bg-void-950 border border-white/8 mb-5 flex flex-col gap-1.5 text-xs"></div>
+
+        <form id="pc-order-form" novalidate class="flex flex-col gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="order-name" class="block text-xs font-medium text-chrome-300 mb-1.5">Ваше имя</label>
+              <input id="order-name" type="text" required placeholder="Максим" class="w-full px-4 py-3 rounded-xl bg-void-950 border border-white/14 text-white placeholder-chrome-600 text-base sm:text-sm focus:border-accent-rose focus:ring-0">
+            </div>
+            <div>
+              <label for="order-contact" class="block text-xs font-medium text-chrome-300 mb-1.5">Телефон или Telegram</label>
+              <input id="order-contact" type="text" required placeholder="+7 (999) 000-00-00" class="w-full px-4 py-3 rounded-xl bg-void-950 border border-white/14 text-white placeholder-chrome-600 font-mono text-base sm:text-sm focus:border-accent-rose focus:ring-0">
+            </div>
+          </div>
+
+          <div>
+            <label for="order-delivery" class="block text-xs font-medium text-chrome-300 mb-1.5">Способ получения</label>
+            <select id="order-delivery" class="w-full px-4 py-3 rounded-xl bg-void-950 border border-white/14 text-white text-base sm:text-sm focus:border-accent-rose focus:ring-0">
+              <option value="Самовывоз из шоурума (Москва)">Самовывоз из шоурума (Москва)</option>
+              <option value="Курьером по Москве и МО">Курьером по Москве и МО (бесплатно)</option>
+              <option value="СДЭК в жёсткой обрешётке по РФ">СДЭК в жёсткой обрешётке по РФ</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-3 border-t border-white/10">
+            <div>
+              <div class="text-[10.5px] font-mono uppercase text-chrome-500">Итоговая смета</div>
+              <div id="order-modal-total" class="font-mono text-2xl font-bold text-white">218 400 ₽</div>
+            </div>
+            <button type="submit" class="btn-signature w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.12em] cursor-pointer">
+              Отправить в сборку →
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Demo Confirmation + Structured JSON BOM (Shown ONLY on Submit) -->
+      <div id="order-demo-result" class="hidden flex-col gap-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-[11px] font-mono uppercase tracking-wider w-max">
+          <span>✓</span>
+          <span>Интерактивная демонстрация заказа</span>
+        </div>
+
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Спецификация готова к отправке
+        </h3>
+        <p class="text-xs sm:text-sm text-chrome-300 leading-relaxed">
+          Это демонстрационная версия сайта — данные никуда не передаются. В рабочем проекте полная смета с артикулами комплектующих, выбранными опциями и контактами клиента сразу улетает в <strong class="text-white">Telegram, AmoCRM или 1С</strong>:
+        </p>
+
+        <div class="rounded-2xl bg-void-950 border border-white/10 p-4 sm:p-5">
+          <div class="flex items-center justify-between gap-2 pb-2.5 mb-2.5 border-b border-white/10 font-mono text-[10.5px]">
+            <span class="text-accent-rose">Order BOM Payload → CRM / Telegram</span>
+            <button id="copy-order-json" type="button" class="text-chrome-300 hover:text-white underline underline-offset-4 cursor-pointer">
+              Скопировать JSON
+            </button>
+          </div>
+          <pre id="order-payload-pre" class="font-mono text-[11px] text-chrome-300 leading-relaxed whitespace-pre-wrap break-words overflow-x-auto"></pre>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-white/10">
+          <button id="order-result-close" type="button" class="btn-ghost-dark px-5 py-3 rounded-full text-xs font-medium cursor-pointer">
+            Вернуться к конфигуратору
+          </button>
+          <a href="../index.html#feedback" class="btn-signature inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-[0.1em]">
+            <span>Заказать такой конфигуратор →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="hw-toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-[90] px-4 py-2.5 rounded-full bg-void-800 text-white border border-accent-rose/50 text-xs font-medium opacity-0 pointer-events-none translate-y-2 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-accent-rose"></span>
+    <span id="hw-toast-text">Готово</span>
+  </div>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
