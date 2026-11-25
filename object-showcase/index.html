@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ПОД СОСНАМИ — Уединённый глэмпинг в сосновом лесу</title>
+
+  <!-- Google Fonts: Oswald (Condensed Display), Manrope (Clean Sans), Caveat (Editorial Side Notes) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Pine Forest / Birch Cream Palette -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Oswald", "Manrope", "sans-serif"],
+            sans: ["Manrope", "system-ui", "sans-serif"],
+            script: ["Caveat", "cursive"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            pine: {
+              950: "#0B2118",
+              900: "#123124",
+              800: "#183F2E",
+              700: "#23543E",
+              600: "#356B52",
+              500: "#4E8368"
+            },
+            birch: {
+              50: "#FAF7EE",
+              100: "#F2ECDC",
+              200: "#E6DEC7",
+              300: "#D5CAB0"
+            },
+            amber: {
+              warm: "#D69349",
+              soft: "#F2CFA3"
+            },
+            status: {
+              free: "#36B36E",
+              hold: "#E09A43",
+              busy: "#B6665C"
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-pine-900 text-birch-100 font-sans antialiased min-h-screen flex flex-col">
+  <div class="forest-grain" aria-hidden="true"></div>
+
+  <!-- ==================== 01 SPLIT-SCREEN PINE & A-FRAME HERO ==================== -->
+  <section id="top" class="hero-viewport-fit relative w-full py-3 sm:py-4 px-3 sm:px-6 lg:px-8 flex flex-col">
+    <div class="max-w-[1360px] w-full mx-auto flex-1 flex flex-col gap-3 min-h-0">
+
+      <!-- Split Hero Frame (Flex-1 Fills Remaining Viewport Height Cleanly) -->
+      <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
+
+        <!-- LEFT COLUMN: Navigation + Stacked Condensed Title + 4 Compact Mood Thumbnails -->
+        <div class="lg:col-span-6 rounded-[24px] sm:rounded-[28px] bg-pine-800/80 border border-birch-100/10 p-4 sm:p-6 lg:p-7 flex flex-col justify-between gap-5 lg:gap-4 relative overflow-hidden min-h-0">
+          <!-- Subtle Dashed Pine Trail Decorative SVG -->
+          <svg class="hidden sm:block absolute bottom-16 right-4 w-36 h-36 text-birch-100/12 pointer-events-none" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+            <path d="M16 156C56 144 68 96 108 92C142 89 156 54 166 18" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 6" stroke-linecap="round"/>
+            <path d="M128 36L131 44L139 47L131 50L128 58L125 50L117 47L125 44L128 36Z" fill="currentColor"/>
+          </svg>
+
+          <!-- Top Slim Header Bar Inside Left Column -->
+          <header class="flex items-center justify-between gap-3 relative z-20 shrink-0">
+            <div class="flex items-center gap-4 sm:gap-6">
+              <a href="#top" class="w-9 h-9 rounded-full bg-birch-100 text-pine-900 flex items-center justify-center shrink-0 hover:scale-105 transition-transform" aria-label="Под Соснами — на главную">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3L4 19H20L12 3Z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 11V19M9.5 19L12 14.5L14.5 19"></path>
+                </svg>
+              </a>
+
+              <nav aria-label="Навигация глэмпинга" class="hidden sm:flex items-center gap-4 lg:gap-5 text-xs font-medium text-birch-100/80">
+                <a href="#masterplan" class="hover:text-white transition-colors">План территории</a>
+                <a href="#atmosphere" class="hover:text-white transition-colors">Атмосфера</a>
+                <a href="#cabins" class="hover:text-white transition-colors">Домики</a>
+                <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+              </nav>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <a href="#masterplan" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-birch-100 hover:bg-birch-50 text-pine-900 text-[11px] font-semibold transition-colors shrink-0">
+                <svg class="w-3.5 h-3.5 text-pine-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span>Карта парка</span>
+              </a>
+
+              <button id="mobile-menu-btn" type="button" aria-label="Меню" aria-expanded="false" class="sm:hidden w-9 h-9 rounded-full border border-birch-100/30 flex items-center justify-center text-birch-100 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+                </svg>
+              </button>
+            </div>
+          </header>
+
+          <!-- Mobile Drawer -->
+          <div id="mobile-menu" class="mobile-drawer sm:hidden absolute top-16 left-4 right-4 z-30 rounded-2xl bg-pine-950/95 backdrop-blur-lg border border-birch-100/20 p-5 shadow-2xl">
+            <div class="flex flex-col gap-3 text-sm font-medium">
+              <a href="#masterplan" class="mobile-link py-1.5 border-b border-birch-100/10 text-birch-100">Интерактивный план территории</a>
+              <a href="#atmosphere" class="mobile-link py-1.5 border-b border-birch-100/10 text-birch-100/80">Атмосфера и отдых</a>
+              <a href="#cabins" class="mobile-link py-1.5 border-b border-birch-100/10 text-birch-100/80">Свободные домики</a>
+              <a href="#contacts" class="mobile-link py-1.5 text-birch-100/80">Контакты и маршрут</a>
+              <a href="tel:+79990000000" class="pt-2 font-mono text-xs text-amber-soft">+7 (999) 000-00-00</a>
+            </div>
+          </div>
+
+          <!-- Centerpiece Editorial Title with Inline A-Frame Pill -->
+          <div class="relative z-10 flex flex-col gap-3.5 lg:gap-4 my-auto">
+            <h1 class="font-display font-bold uppercase text-birch-100 tracking-[-0.01em] leading-[0.94] select-none">
+              <span class="flex flex-wrap items-center gap-2.5 sm:gap-3.5">
+                <span class="hero-display-size">МЕСТО</span>
+                <!-- Inline Birch Cream Pill with A-Frame Silhouette & Distance Note -->
+                <span class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-birch-100 text-pine-900 shadow-lg align-middle">
+                  <svg class="w-7 h-7 sm:w-8 sm:h-8 shrink-0 text-pine-800" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                    <path d="M20 5L5 34H35L20 5Z" fill="#D69349" fill-opacity="0.22" stroke="#123124" stroke-width="2.4" stroke-linejoin="round"/>
+                    <path d="M14 34V23L20 15L26 23V34" fill="#123124"/>
+                    <path d="M20 15V34M14 25H26" stroke="#F2ECDC" stroke-width="1.3"/>
+                  </svg>
+                  <span class="font-sans normal-case text-[10px] sm:text-[11px] font-semibold leading-[1.2] tracking-normal text-left max-w-[132px]">
+                    Тот самый глэмпинг в 65 км от МКАД с хвойным вайбом
+                  </span>
+                </span>
+              </span>
+              <span class="hero-display-size block mt-1">ПОД СОСНАМИ</span>
+            </h1>
+
+            <!-- Subtitle & CTA Row -->
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-5">
+              <p class="text-xs sm:text-[13px] text-birch-100/80 leading-relaxed max-w-[255px]">
+                Панорамные окна, живой камин, горячая купель фурако и тишина векового соснового бора.
+              </p>
+              <a href="#masterplan" class="btn-outline-birch inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-full text-xs font-semibold shrink-0 w-max">
+                <span>Выбрать домик на карте</span>
+                <span class="w-6 h-6 rounded-full bg-birch-100/15 flex items-center justify-center text-sm" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom 4 Interactive Mood Thumbnails (Sleek Proportions to Keep First Screen Tight) -->
+          <div class="relative z-10 grid grid-cols-4 gap-2 sm:gap-2.5 shrink-0">
+            <button type="button" data-hero-photo="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1400&q=85" class="hero-thumb group relative aspect-[4/3.2] max-h-[112px] w-full rounded-xl sm:rounded-2xl overflow-hidden border-2 border-birch-100 cursor-pointer">
+              <img alt="Треугольный A-Frame в соснах" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://placehold.co/300x240/183F2E/F2ECDC?text=A-FRAME'">
+            </button>
+            <button type="button" data-hero-photo="https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=1400&q=85" class="hero-thumb group relative aspect-[4/3.2] max-h-[112px] w-full rounded-xl sm:rounded-2xl overflow-hidden border-2 border-transparent opacity-80 hover:opacity-100 transition-all cursor-pointer">
+              <img alt="Вечерние огни террасы" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://placehold.co/300x240/183F2E/F2ECDC?text=LIGHTS'">
+            </button>
+            <button type="button" data-hero-photo="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?auto=format&fit=crop&w=1400&q=85" class="hero-thumb group relative aspect-[4/3.2] max-h-[112px] w-full rounded-xl sm:rounded-2xl overflow-hidden border-2 border-transparent opacity-80 hover:opacity-100 transition-all cursor-pointer">
+              <img alt="Тёплый интерьер с деревом" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://placehold.co/300x240/183F2E/F2ECDC?text=COZY'">
+            </button>
+            <button type="button" data-hero-photo="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1400&q=85" class="hero-thumb group relative aspect-[4/3.2] max-h-[112px] w-full rounded-xl sm:rounded-2xl overflow-hidden border-2 border-transparent opacity-80 hover:opacity-100 transition-all cursor-pointer">
+              <img alt="Утро среди сосен" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://placehold.co/300x240/183F2E/F2ECDC?text=MORNING'">
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Atmospheric A-Frame Photography Matched Exactly to Left Panel Height -->
+        <div class="lg:col-span-6 relative rounded-[24px] sm:rounded-[28px] overflow-hidden h-[280px] sm:h-[360px] lg:h-auto min-h-0 bg-pine-950 border border-birch-100/10">
+          <img
+            id="hero-main-photo"
+            alt="Уютный треугольный домик A-Frame среди высоких сосен"
+            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+            src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1400&q=85"
+            onerror="this.src='https://placehold.co/1000x900/0B2118/F2ECDC?text=POD+SOSNAMI'"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-pine-950/60 via-transparent to-pine-950/30 pointer-events-none"></div>
+
+          <!-- Top-Right Phone Pill -->
+          <div class="absolute top-4 right-4 sm:top-5 sm:right-5 flex items-center gap-2.5 z-10">
+            <a href="tel:+79990000000" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pine-950/70 backdrop-blur-md border border-birch-100/20 text-birch-100 hover:bg-birch-100 hover:text-pine-900 text-xs font-mono transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              <span>+7 (999) 000-00-00</span>
+            </a>
+          </div>
+
+          <!-- Bottom Live Availability Pill -->
+          <div class="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 flex items-center justify-between gap-3 z-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-pine-950/75 backdrop-blur-md border border-birch-100/18 text-xs text-birch-100">
+              <span class="w-2 h-2 rounded-full bg-status-free animate-pulse"></span>
+              <span id="hero-free-counter">Свободно 5 из 8 домиков на ближайшие выходные</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="shrink-0 rounded-[20px] sm:rounded-[22px] bg-birch-100 text-pine-900 px-4 py-3.5 sm:px-6 sm:py-4 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.48)]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 items-center">
+          <!-- Left Label -->
+          <div class="lg:col-span-2">
+            <div class="font-display font-bold uppercase text-base sm:text-lg leading-[0.98] tracking-tight text-pine-900">
+              БРОНИРОВАНИЕ<br class="hidden lg:inline"> ДОМИКОВ
+            </div>
+          </div>
+
+          <!-- Period Selector -->
+          <div class="lg:col-span-4 flex flex-col gap-0.5">
+            <label for="booking-period-select" class="text-[10px] font-semibold uppercase tracking-[0.08em] text-pine-600">Период проживания</label>
+            <select id="booking-period-select" class="w-full px-3.5 py-2 rounded-xl bg-birch-50 border border-pine-900/15 text-pine-900 text-base sm:text-sm font-semibold focus:border-pine-700 focus:ring-0">
+              <option value="weekend">Ближайшие выходные (Пт–Вс · 2 ночи)</option>
+              <option value="weekdays">Будни в лесу (Вт–Чт · 2 ночи · −20%)</option>
+              <option value="long">Длинный уикенд (Чт–Вс · 3 ночи)</option>
+            </select>
+          </div>
+
+          <!-- Guests Selector -->
+          <div class="lg:col-span-3 flex flex-col gap-0.5">
+            <label for="booking-guests-select" class="text-[10px] font-semibold uppercase tracking-[0.08em] text-pine-600">Количество гостей</label>
+            <select id="booking-guests-select" class="w-full px-3.5 py-2 rounded-xl bg-birch-50 border border-pine-900/15 text-pine-900 text-base sm:text-sm font-semibold focus:border-pine-700 focus:ring-0">
+              <option value="2">2 гостя (пара)</option>
+              <option value="3">3 гостя</option>
+              <option value="4">4 гостя (семья / друзья)</option>
+              <option value="6">До 6 гостей (большой дом)</option>
+            </select>
+          </div>
+
+          <!-- Jump to Interactive Map CTA -->
+          <div class="lg:col-span-3">
+            <button id="booking-bar-apply" type="button" class="btn-pine w-full py-3 px-5 rounded-full text-xs font-bold uppercase tracking-[0.12em] cursor-pointer">
+              Показать на плане →
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <section id="masterplan" class="reveal-el py-16 sm:py-24 px-3 sm:px-6 lg:px-8">
+    <div class="max-w-[1360px] mx-auto flex flex-col gap-7 sm:gap-9">
+
+      <!-- Section Heading with Two-Tone Forest Typography & Handwritten Note -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center gap-3">
+            <span class="font-script text-xl sm:text-2xl text-birch-200/80 -rotate-2">Нажмите на любой домик на плане</span>
+            <span class="text-pine-500 text-sm">✦</span>
+          </div>
+          <h2 class="font-display font-bold uppercase text-4xl sm:text-5xl lg:text-[54px] leading-[0.98] tracking-tight">
+            <span class="text-birch-100">ПЛАН ТЕРРИТОРИИ </span>
+            <span class="text-pine-500">И СТАТУСЫ ДОМИКОВ</span>
+          </h2>
+        </div>
+
+        <!-- Live Status Legend & Quick Counters -->
+        <div class="flex flex-wrap items-center gap-2.5 text-xs font-medium">
+          <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-pine-950/70 border border-birch-100/12">
+            <span class="w-2.5 h-2.5 rounded-full bg-status-free"></span>
+            <span class="text-birch-100">Свободно: <strong id="stat-free" class="font-mono">5</strong></span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-pine-950/70 border border-birch-100/12">
+            <span class="w-2.5 h-2.5 rounded-full bg-status-hold"></span>
+            <span class="text-birch-100">Бронь: <strong id="stat-hold" class="font-mono">2</strong></span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-pine-950/70 border border-birch-100/12">
+            <span class="w-2.5 h-2.5 rounded-full bg-status-busy"></span>
+            <span class="text-birch-100">Занято: <strong id="stat-busy" class="font-mono">1</strong></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Interactive Filter Console (Period + Status + Feature Filters + Map/Grid Toggle) -->
+      <div class="p-3.5 sm:p-4 rounded-2xl bg-pine-800/75 border border-birch-100/12 flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
+        <!-- Left: Status & Feature Filters -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 no-scrollbar">
+          <div id="map-status-filters" class="flex items-center gap-1.5 shrink-0">
+            
+          </div>
+          <span class="w-px h-5 bg-birch-100/15 mx-1 shrink-0"></span>
+          <div id="map-feature-filters" class="flex items-center gap-1.5 shrink-0">
+            
+          </div>
+        </div>
+
+        <!-- Right: Quick Period Switcher + View Mode Toggle -->
+        <div class="flex items-center justify-between lg:justify-end gap-2.5 shrink-0">
+          <div id="map-period-pills" class="flex items-center gap-1 p-1 rounded-full bg-pine-950/60 border border-birch-100/12">
+            
+          </div>
+          <button id="toggle-view-mode" type="button" class="px-3.5 py-2 rounded-full bg-pine-950/70 hover:bg-birch-100 hover:text-pine-900 border border-birch-100/20 text-[11px] font-mono uppercase tracking-wider transition-colors cursor-pointer shrink-0">
+            Таблица ☰
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Masterplan Workspace: Left = Interactive Topographic SVG Map (or List), Right = Selected Cabin Card -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+
+        <!-- LEFT (7 cols): Interactive Topographic Territory Map -->
+        <div class="lg:col-span-7 xl:col-span-8 flex flex-col">
+          <!-- MAP VIEW -->
+          <div id="territory-map-view" class="relative w-full h-full min-h-[380px] sm:min-h-[500px] rounded-[26px] bg-pine-950 border border-birch-100/15 overflow-hidden shadow-[0_28px_65px_-28px_rgba(0,0,0,0.65)] flex items-center justify-center p-2 sm:p-4">
+            <!-- Compass Rose Top-Left -->
+            <div class="absolute top-4 left-4 z-10 pointer-events-none flex items-center gap-2 px-3 py-1.5 rounded-full bg-pine-900/85 backdrop-blur-sm border border-birch-100/15 text-[10.5px] font-mono uppercase tracking-wider text-birch-200">
+              <span>N ↑</span>
+              <span class="text-birch-100/40">·</span>
+              <span>4,5 га хвойного леса</span>
+            </div>
+
+            <!-- Floating Hover Tooltip (Desktop) -->
+            <div id="map-hover-tooltip" class="hidden pointer-events-none absolute z-30 px-3.5 py-2.5 rounded-xl bg-birch-100 text-pine-900 shadow-2xl border border-pine-900/15 min-w-[180px] transition-opacity duration-150">
+              <!-- Populated dynamically on hover -->
+            </div>
+
+            <!-- Hand-Crafted Architectural Topographic Territory SVG -->
+            <svg id="territory-svg" viewBox="0 0 840 560" class="w-full h-auto max-h-[560px] select-none" role="img" aria-label="Интерактивный план территории глэмпинга Под Соснами">
+              <defs>
+                <radialGradient id="lakeGrad" cx="65%" cy="45%" r="65%">
+                  <stop offset="0%" stop-color="#225B58"/>
+                  <stop offset="100%" stop-color="#113434"/>
+                </radialGradient>
+                <radialGradient id="fireGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#D69349" stop-opacity="0.34"/>
+                  <stop offset="100%" stop-color="#D69349" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="pinShadow" x="-25%" y="-25%" width="150%" height="150%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#05110C" flood-opacity="0.55"/>
+                </filter>
+              </defs>
+
+              <!-- Base Forest Floor -->
+              <rect x="0" y="0" width="840" height="560" rx="20" fill="#0D261C"/>
+
+              <!-- Delicate Topographic Elevation Contours -->
+              <g stroke="#F2ECDC" stroke-opacity="0.065" stroke-width="1.2" fill="none">
+                <path d="M-20 110 C110 75, 220 140, 340 95 C470 48, 570 90, 670 30"/>
+                <path d="M-20 185 C120 150, 240 215, 390 165 C510 125, 595 160, 710 95"/>
+                <path d="M-20 340 C95 310, 195 375, 320 350 C430 330, 520 390, 620 420"/>
+                <path d="M40 570 C150 480, 280 510, 410 465 C540 420, 640 485, 760 560"/>
+                <ellipse cx="235" cy="245" rx="165" ry="95" stroke-dasharray="4 6"/>
+                <ellipse cx="470" cy="300" rx="220" ry="140" stroke-dasharray="3 7"/>
+              </g>
+
+              <!-- Scenic Forest Lake (East / Top-Right Shore) -->
+              <g>
+                <path d="M625 18 C590 78, 565 135, 595 210 C622 276, 675 300, 690 362 C704 422, 665 480, 692 546 L824 546 L824 18 Z" fill="url(#lakeGrad)" stroke="#4E8368" stroke-opacity="0.35" stroke-width="1.5"/>
+                <!-- Subtle Water Ripples -->
+                <path d="M645 95 C670 88, 695 96, 725 90" stroke="#F2ECDC" stroke-opacity="0.16" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <path d="M635 168 C668 160, 705 172, 745 164" stroke="#F2ECDC" stroke-opacity="0.14" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <path d="M712 295 C742 288, 770 296, 795 292" stroke="#F2ECDC" stroke-opacity="0.14" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <path d="M728 430 C752 424, 778 432, 800 427" stroke="#F2ECDC" stroke-opacity="0.12" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <!-- Wooden Pier on Lake -->
+                <rect x="646" y="248" width="58" height="14" rx="2" fill="#9A7248" fill-opacity="0.85" stroke="#F2ECDC" stroke-opacity="0.35" stroke-width="1"/>
+                <text x="748" y="218" text-anchor="middle" fill="#F2ECDC" fill-opacity="0.45" font-family="Caveat, cursive" font-size="22">Лесное озеро</text>
+              </g>
+
+              <!-- Stylized Pine Canopy Clusters (Architectural Top-Down Trees) -->
+              <g fill="#194532" stroke="#2D664C" stroke-width="1" opacity="0.88">
+                <circle cx="72" cy="74" r="22"/><circle cx="102" cy="60" r="16"/><circle cx="54" cy="108" r="15"/>
+                <circle cx="310" cy="54" r="19"/><circle cx="338" cy="66" r="14"/><circle cx="282" cy="68" r="13"/>
+                <circle cx="520" cy="54" r="20"/><circle cx="548" cy="70" r="14"/>
+                <circle cx="66" cy="316" r="21"/><circle cx="94" cy="342" r="15"/>
+                <circle cx="430" cy="186" r="18"/><circle cx="458" cy="198" r="13"/>
+                <circle cx="348" cy="488" r="20"/><circle cx="378" cy="500" r="15"/>
+                <circle cx="585" cy="495" r="22"/><circle cx="614" cy="474" r="15"/>
+              </g>
+
+              <!-- Larch Wood Boardwalk Trails Connecting All Cabins & Infrastructure -->
+              <g stroke="#D5CAB0" stroke-opacity="0.34" stroke-width="3.2" stroke-dasharray="7 6" stroke-linecap="round" fill="none">
+                <!-- Main Spine from Reception to Lake -->
+                <path d="M128 492 C195 450, 265 390, 358 310 C445 235, 535 245, 646 255"/>
+                <!-- North Forest Loop (Cabins 1, 2, 3, 4) -->
+                <path d="M358 310 C285 245, 225 190, 168 158 C235 120, 345 112, 465 124 C518 130, 545 170, 560 198"/>
+                <!-- South Glade Loop (Cabins 5, 6, 7, 8) -->
+                <path d="M358 310 C310 365, 265 395, 224 415"/>
+                <path d="M358 310 C425 352, 470 398, 528 414 C575 426, 610 385, 620 342"/>
+              </g>
+
+              <!-- Shared Camp Infrastructure Landmarks -->
+              <!-- Parking & Reception (South-West) -->
+              <g transform="translate(52, 462)">
+                <rect x="0" y="0" width="128" height="54" rx="12" fill="#15392A" stroke="#F2ECDC" stroke-opacity="0.24" stroke-width="1.2"/>
+                <text x="64" y="23" text-anchor="middle" fill="#F2ECDC" font-family="Manrope, sans-serif" font-size="11" font-weight="700">РЕСЕПШН · ПАРКОВКА</text>
+                <text x="64" y="40" text-anchor="middle" fill="#F2ECDC" fill-opacity="0.55" font-family="JetBrains Mono, monospace" font-size="9.5">ВЪЕЗД · КАФЕ · WI-FI</text>
+              </g>
+
+              <!-- Central Bonfire Glade -->
+              <g transform="translate(362, 302)">
+                <circle cx="0" cy="0" r="46" fill="url(#fireGlow)"/>
+                <circle cx="0" cy="0" r="15" fill="#2A261B" stroke="#D69349" stroke-width="1.5"/>
+                <path d="M0 -8 C4 -3, 5 2, 0 7 C-5 2, -4 -3, 0 -8 Z" fill="#E09A43"/>
+                <text x="0" y="30" text-anchor="middle" fill="#F2CFA3" font-family="Caveat, cursive" font-size="16">Костровая поляна</text>
+              </g>
+
+              <!-- Panoramic Forest Bathhouse (Near Pier) -->
+              <g transform="translate(534, 240)">
+                <rect x="0" y="0" width="98" height="44" rx="10" fill="#1B4634" stroke="#D69349" stroke-opacity="0.55" stroke-width="1.2"/>
+                <text x="49" y="19" text-anchor="middle" fill="#F2ECDC" font-family="Manrope, sans-serif" font-size="10.5" font-weight="700">БАНЯ НА ДРОВАХ</text>
+                <text x="49" y="33" text-anchor="middle" fill="#F2CFA3" font-family="JetBrains Mono, monospace" font-size="9">ПАНОРАМА + ПИРС</text>
+              </g>
+
+              <!-- Dynamic Interactive Cabin Plots Layer (Rendered via JS for Live Availability) -->
+              <g id="svg-cabins-layer"></g>
+            </svg>
+
+            <!-- Bottom Helper Hint inside Map -->
+            <div class="hidden sm:flex items-center gap-2 absolute bottom-4 left-4 px-3.5 py-1.5 rounded-full bg-pine-900/85 border border-birch-100/14 text-[11px] text-birch-100/75 pointer-events-none">
+              <span>Кликните по номеру домика для просмотра фото, опций и точной цены</span>
+            </div>
+          </div>
+
+          <!-- TABLE / LIST VIEW (Alternative Mode via Toggle) -->
+          <div id="territory-list-view" class="hidden w-full rounded-[26px] bg-pine-950 border border-birch-100/15 p-4 sm:p-6 overflow-x-auto">
+            <div id="territory-list-rows" class="flex flex-col gap-2.5"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT (5 cols): Birch Cream Live Inspector Card for Selected Cabin -->
+        <aside id="cabin-inspector" class="lg:col-span-5 xl:col-span-4 rounded-[26px] bg-birch-100 text-pine-900 p-5 sm:p-6 shadow-[0_28px_65px_-28px_rgba(0,0,0,0.6)] flex flex-col justify-between gap-5">
+          
+        </aside>
+
+      </div>
+    </div>
+  </section>
+  <section id="atmosphere" class="reveal-el py-12 sm:py-20 px-3 sm:px-6 lg:px-8 border-t border-birch-100/10">
+    <div class="max-w-[1360px] mx-auto flex flex-col gap-8">
+
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-5">
+          <span class="font-script text-xl sm:text-2xl text-birch-200/80 shrink-0">✦ Что ждёт вас в домике</span>
+          <h2 class="font-display font-bold uppercase text-3xl sm:text-5xl leading-none tracking-tight">
+            <span class="text-birch-100">УЕДИНЁННЫЙ ГЛЭМПИНГ </span>
+            <span class="text-pine-500">В СОСНОВОМ ЛЕСУ</span>
+          </h2>
+        </div>
+      </div>
+
+      <!-- 5 Tall Vertical Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
+
+        <article class="group relative aspect-[3/4.2] rounded-[22px] overflow-hidden bg-pine-950 border border-birch-100/12">
+          <img alt="Горячая купель на террасе" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x840/183F2E/F2ECDC?text=FURAKO'">
+          <div class="story-scrim absolute inset-0"></div>
+          <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-birch-100 text-pine-900 text-[11px] font-bold shadow">Купель на террасе</span>
+          <p class="absolute bottom-4 left-4 right-4 text-xs text-birch-50/95 leading-snug font-medium">
+            Затапливаем кедровую купель фурако с пихтовыми вениками и цитрусами к вашему приезду
+          </p>
+        </article>
+
+        <article class="group relative aspect-[3/4.2] rounded-[22px] overflow-hidden bg-pine-950 border border-birch-100/12">
+          <img alt="Уютный вечер с винилом и проектором" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x840/183F2E/F2ECDC?text=VINYL'">
+          <div class="story-scrim absolute inset-0"></div>
+          <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-birch-100 text-pine-900 text-[11px] font-bold shadow">Винил и проектор</span>
+          <p class="absolute bottom-4 left-4 right-4 text-xs text-birch-50/95 leading-snug font-medium">
+            В каждом домике коллекция пластинок, кинопроектор и настольные игры для уютных вечеров
+          </p>
+        </article>
+
+        <article class="group relative aspect-[3/4.2] rounded-[22px] overflow-hidden bg-pine-950 border border-birch-100/12">
+          <img alt="Своя костровая и мангальная зона" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x840/183F2E/F2ECDC?text=BONFIRE'">
+          <div class="story-scrim absolute inset-0"></div>
+          <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-birch-100 text-pine-900 text-[11px] font-bold shadow">Своя костровая</span>
+          <p class="absolute bottom-4 left-4 right-4 text-xs text-birch-50/95 leading-snug font-medium">
+            Приватная мангальная зона, сухие берёзовые дрова, пледы и решётка у каждого домика
+          </p>
+        </article>
+
+        <article class="group relative aspect-[3/4.2] rounded-[22px] overflow-hidden bg-pine-950 border border-birch-100/12">
+          <img alt="Панорамная баня с видом на лес" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x840/183F2E/F2ECDC?text=SAUNA'">
+          <div class="story-scrim absolute inset-0"></div>
+          <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-birch-100 text-pine-900 text-[11px] font-bold shadow">Баня с видом на лес</span>
+          <p class="absolute bottom-4 left-4 right-4 text-xs text-birch-50/95 leading-snug font-medium">
+            Настоящая парная на дровах с панорамным окном на озеро, чаем из самовара и вениками
+          </p>
+        </article>
+
+        <article class="group relative aspect-[3/4.2] rounded-[22px] overflow-hidden bg-pine-950 border border-birch-100/12 sm:col-span-2 lg:col-span-1">
+          <img alt="Рыжий кот Стёпа — хранитель глэмпинга" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=700&q=80" onerror="this.src='https://placehold.co/600x840/183F2E/F2ECDC?text=PET+FRIENDLY'">
+          <div class="story-scrim absolute inset-0"></div>
+          <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-birch-100 text-pine-900 text-[11px] font-bold shadow">Pet-friendly ♥</span>
+          <p class="absolute bottom-4 left-4 right-4 text-xs text-birch-50/95 leading-snug font-medium">
+            К нам можно с питомцами! А ещё на территории живёт наш ласковый кот Стёпа
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== 05 BIRCH-FRAMED AVAILABLE CABINS SHOWCASE ==================== -->
+  <section id="cabins" class="reveal-el py-14 sm:py-20 px-3 sm:px-6 lg:px-8 border-t border-birch-100/10">
+    <div class="max-w-[1360px] mx-auto flex flex-col gap-9">
+
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-5">
+        <div class="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-6">
+          <span class="font-script text-xl sm:text-2xl text-birch-200/75 max-w-[150px] leading-tight -rotate-2">
+            Выбери домик по настроению
+          </span>
+          <h2 class="font-display font-bold uppercase text-4xl sm:text-5xl leading-[0.96] tracking-tight">
+            <span class="block text-birch-100">СВОБОДНЫЕ ДОМИКИ</span>
+            <span class="block text-pine-500">НА ВЫБРАННЫЕ ДАТЫ</span>
+          </h2>
+        </div>
+
+        <p class="text-xs sm:text-sm text-birch-100/70 max-w-xs leading-relaxed">
+          Карточки автоматически синхронизируются с выбранным периодом и планом территории выше.
+        </p>
+      </div>
+
+      <!-- Birch Cream Framed Cards Grid (Populated via JS) -->
+      <div id="available-cabins-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        
+      </div>
+
+    </div>
+  </section>
+  <footer id="contacts" class="mt-auto bg-pine-950 text-birch-100 pt-14 pb-8 px-4 sm:px-8 border-t border-birch-100/10">
+    <div class="max-w-[1360px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-birch-100/10">
+        <div class="md:col-span-5 flex flex-col gap-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-birch-100 text-pine-900 flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3L4 19H20L12 3Z"></path>
+              </svg>
+            </span>
+            <span class="font-display font-bold uppercase text-xl tracking-wide text-birch-100">МЕСТО ПОД СОСНАМИ</span>
+          </div>
+          <p class="text-xs sm:text-sm text-birch-100/65 leading-relaxed max-w-sm">
+            Уединённый глэмпинг-парк в хвойном лесу: 8 дизайнерских домиков, кедровые купели фурако, панорамная баня и чистое лесное озеро.
+          </p>
+          <span class="text-[11px] font-mono text-birch-100/40">© 2026 ООО «Под Соснами» · ИНН 0000000000</span>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-pine-500 mb-1">Контакты и заезд</span>
+          <a href="tel:+79990000000" class="font-mono text-base text-birch-100 hover:text-amber-soft transition-colors">+7 (999) 000-00-00</a>
+          <a href="mailto:booking@example.ru" class="text-birch-100/75 hover:text-white transition-colors">booking@example.ru</a>
+          <span class="text-birch-100/60">65 км от МКАД, Дмитровское шоссе, ур. Сосновый Бор</span>
+          <span class="text-birch-100/45 text-xs">Заезд с 15:00 · Выезд до 12:00</span>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-pine-500 mb-1">Навигация</span>
+          <a href="#masterplan" class="text-birch-100/75 hover:text-white transition-colors">План территории</a>
+          <a href="#atmosphere" class="text-birch-100/75 hover:text-white transition-colors">Купель и баня</a>
+          <a href="#cabins" class="text-birch-100/75 hover:text-white transition-colors">Домики и цены</a>
+        </div>
+      </div>
+
+      <!-- Portfolio Demo Attribution (Strictly Only at Footer Bottom) -->
+      <div class="mt-8 p-4 sm:p-5 rounded-2xl bg-pine-900/80 border border-birch-100/12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-birch-100/75 leading-relaxed">
+          Демо-проект из портфолио <strong class="text-birch-50">Данила Буторова</strong> · Реализую такую же интерактивную витрину с планом территории, шахматкой ЖК или выбором участков под ваш бизнес.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full border border-birch-100/25 hover:border-birch-100 text-birch-100/85 hover:text-white text-xs font-medium transition-colors">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="btn-birch px-5 py-2 rounded-full text-xs font-bold">
+            Заказать такой сайт →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="booking-modal" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6 bg-pine-950/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title" aria-hidden="true">
+    <div class="modal-box relative w-full max-w-xl rounded-[28px] bg-birch-100 text-pine-900 p-6 sm:p-8 shadow-2xl max-h-[92svh] overflow-y-auto">
+      <button id="booking-modal-close" type="button" aria-label="Закрыть окно" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-birch-200 hover:bg-pine-900 hover:text-birch-100 flex items-center justify-center text-pine-700 transition-colors cursor-pointer">
+        ✕
+      </button>
+
+      <!-- Step 1: Live Booking Form -->
+      <div id="booking-form-view">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pine-900/10 text-pine-800 text-[11px] font-mono uppercase tracking-wider mb-3">
+          <span class="w-2 h-2 rounded-full bg-status-free"></span>
+          <span id="modal-cabin-badge">Домик №1 · Свободен</span>
+        </div>
+
+        <h3 id="booking-modal-title" class="font-display font-bold uppercase text-2xl sm:text-3xl text-pine-900 leading-tight mb-2">
+          Бронирование домика
+        </h3>
+        <p id="modal-booking-summary" class="text-xs sm:text-sm text-pine-700 mb-5"></p>
+
+        <!-- Extra Options Checkboxes (Recalculates Final Total Live) -->
+        <div class="p-4 rounded-2xl bg-birch-50 border border-pine-900/12 mb-5 flex flex-col gap-2.5">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-pine-600 mb-0.5">Добавить к отдыху</div>
+          <label class="flex items-center justify-between gap-3 text-xs sm:text-sm cursor-pointer">
+            <span class="flex items-center gap-2.5">
+              <input type="checkbox" data-extra-price="4500" data-extra-name="Растопка купели фурако с пихтой" class="booking-extra-cb rounded border-pine-900/30 text-pine-800 focus:ring-0">
+              <span class="font-medium text-pine-900">Растопка купели фурако с пихтой</span>
+            </span>
+            <span class="font-mono font-semibold text-pine-700">+4 500 ₽</span>
+          </label>
+          <label class="flex items-center justify-between gap-3 text-xs sm:text-sm cursor-pointer">
+            <span class="flex items-center gap-2.5">
+              <input type="checkbox" data-extra-price="5000" data-extra-name="Панорамная баня на дровах (2 часа)" class="booking-extra-cb rounded border-pine-900/30 text-pine-800 focus:ring-0">
+              <span class="font-medium text-pine-900">Панорамная баня на дровах (2 часа)</span>
+            </span>
+            <span class="font-mono font-semibold text-pine-700">+5 000 ₽</span>
+          </label>
+          <label class="flex items-center justify-between gap-3 text-xs sm:text-sm cursor-pointer">
+            <span class="flex items-center gap-2.5">
+              <input type="checkbox" data-extra-price="1800" data-extra-name="Фермерский завтрак в домик (на двоих)" class="booking-extra-cb rounded border-pine-900/30 text-pine-800 focus:ring-0">
+              <span class="font-medium text-pine-900">Фермерский завтрак в домик (на двоих)</span>
+            </span>
+            <span class="font-mono font-semibold text-pine-700">+1 800 ₽</span>
+          </label>
+        </div>
+
+        <form id="cabin-booking-form" novalidate class="flex flex-col gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="guest-name" class="block text-xs font-semibold text-pine-800 mb-1">Ваше имя</label>
+              <input id="guest-name" type="text" required placeholder="Анна" class="w-full px-4 py-3 rounded-xl bg-birch-50 border border-pine-900/18 text-pine-900 text-base sm:text-sm focus:border-pine-700 focus:ring-0">
+            </div>
+            <div>
+              <label for="guest-phone" class="block text-xs font-semibold text-pine-800 mb-1">Телефон или Telegram</label>
+              <input id="guest-phone" type="text" required placeholder="+7 (999) 000-00-00" class="w-full px-4 py-3 rounded-xl bg-birch-50 border border-pine-900/18 text-pine-900 font-mono text-base sm:text-sm focus:border-pine-700 focus:ring-0">
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-3 border-t border-pine-900/12">
+            <div>
+              <div class="text-[11px] font-mono uppercase text-pine-600">Итого за проживание</div>
+              <div id="modal-total-price" class="font-display font-bold text-3xl text-pine-900">29 800 ₽</div>
+            </div>
+            <button type="submit" class="btn-pine px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.12em] cursor-pointer">
+              Забронировать →
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Demo Confirmation + Structured PMS/CRM Payload (Shown ONLY on Submit) -->
+      <div id="booking-demo-result" class="hidden flex-col gap-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-status-free/15 text-pine-800 text-[11px] font-mono uppercase tracking-wider w-max">
+          <span>✓</span>
+          <span>Интерактивная демонстрация бронирования</span>
+        </div>
+
+        <h3 class="font-display font-bold uppercase text-2xl sm:text-3xl text-pine-900 leading-tight">
+          Объект зарезервирован в демо-режиме
+        </h3>
+        <p class="text-xs sm:text-sm text-pine-700 leading-relaxed">
+          Это демонстрационный проект — реального списания и передачи данных не происходит. На живом сайте статус этого домика на карте сразу сменится на <strong class="text-pine-900">«Бронь»</strong> (уже обновилось на плане!), а в вашу <strong class="text-pine-900">CRM / PMS / Telegram</strong> придёт готовая карточка брони:
+        </p>
+
+        <div class="rounded-2xl bg-pine-950 text-birch-100 p-4 sm:p-5">
+          <div class="flex items-center justify-between gap-2 pb-2.5 mb-2.5 border-b border-birch-100/12 font-mono text-[10.5px]">
+            <span class="text-amber-soft">Booking Webhook → Telegram / CRM / PMS</span>
+            <button id="copy-booking-json" type="button" class="text-birch-100/80 hover:text-white underline underline-offset-4 cursor-pointer">
+              Скопировать JSON
+            </button>
+          </div>
+          <pre id="booking-payload-pre" class="font-mono text-[11px] text-birch-100/85 leading-relaxed whitespace-pre-wrap break-words overflow-x-auto"></pre>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-pine-900/12">
+          <button id="booking-result-close" type="button" class="px-5 py-3 rounded-full bg-birch-200 hover:bg-birch-300 text-pine-900 text-xs font-semibold cursor-pointer transition-colors">
+            Посмотреть статус на плане
+          </button>
+          <a href="../index.html#feedback" class="btn-pine inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-[0.1em]">
+            <span>Заказать такое же решение →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="forest-toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-[90] px-4 py-2.5 rounded-full bg-birch-100 text-pine-900 border border-pine-900/15 text-xs font-semibold opacity-0 pointer-events-none translate-y-2 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-status-free"></span>
+    <span id="forest-toast-text">Готово</span>
+  </div>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
