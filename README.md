@@ -22,6 +22,7 @@
 | [`booking-bot/`](./booking-bot/) | **SREZ** | Интерактивный Telegram-бот онлайн-записи для барбершопа (FSM + авто-напоминание за 2 часа) + код Python (Aiogram 3 + APScheduler) | [Открыть демо](https://butorov.dev/booking-bot/demo/) |
 | [`paywall-bot/`](./paywall-bot/) | **РЕЗЕРВ** | Telegram-бот платной подписки на закрытый канал (ЮKassa/СБП, одноразовая ссылка `1/1`, автоудаление по сроку) + код Python | [Открыть демо](https://butorov.dev/paywall-bot/demo/) |
 | [`b2b-lead-scraper/`](./b2b-lead-scraper/) | **ГЕОЛИД** | Парсер B2B-баз компаний с 2ГИС и Яндекс Карт с гео-радаром, дедупликацией, Excel CSV / CRM-экспортом + код Python | [Открыть демо](https://butorov.dev/b2b-lead-scraper/demo/) |
+| [`marketplace-analytics/`](./marketplace-analytics/) | **ПУЛЬС MP** | Мониторинг артикулов Wildberries и Ozon: цена с СПП, остатки по 6 складам, 14д SVG-график, CSV + код Python | [Открыть демо](https://butorov.dev/marketplace-analytics/demo/) |
 
 ---
 
