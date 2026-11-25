@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MOTION 2026 — Конференция по дизайну, продукту и AI</title>
+
+  <!-- Google Fonts: Onest (Ultra-Clean Geometric Display & UI) & JetBrains Mono (Tickets, Prices & 54-FZ Receipts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Warm Alabaster / Obsidian / Flame Orange Design System -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Onest", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            alabaster: {
+              50: "#FAF8F5",
+              100: "#F5F2EC",
+              200: "#ECE7DF",
+              300: "#DFD9CE"
+            },
+            obsidian: {
+              950: "#090909",
+              900: "#111111",
+              800: "#1D1D1D",
+              600: "#54524E",
+              400: "#8A867F"
+            },
+            flame: {
+              DEFAULT: "#FF4D00",
+              hover: "#E24300",
+              glow: "#FF7A2F",
+              soft: "#FFF0E8"
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-alabaster-100 text-obsidian-900 font-sans antialiased min-h-screen flex flex-col">
+  <div class="studio-grain" aria-hidden="true"></div>
+  <header id="site-header" class="motion-header fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-[1320px] mx-auto px-4 sm:px-8 h-16 sm:h-[76px] flex items-center justify-between gap-4">
+      <!-- Brand Mark: Sharp Geometric M/M-Flame Monogram -->
+      <a href="#top" class="flex items-center gap-2.5 group shrink-0">
+        <svg class="w-8 h-7 shrink-0" viewBox="0 0 38 30" fill="none" aria-hidden="true">
+          <path d="M2 27V3H8.5L16.5 16.5L24.5 3H30.5V27H24.8V12.5L16.5 25.5L8 12.5V27H2Z" fill="#111111"/>
+          <path d="M28.5 27L35.5 11H30.5V27H28.5Z" fill="#FF4D00"/>
+          <circle cx="34" cy="5.5" r="3" fill="#FF4D00"/>
+        </svg>
+        <span class="font-extrabold text-[15px] sm:text-base tracking-[-0.03em] text-obsidian-900">MOTION <span class="text-obsidian-400 font-semibold">2026</span></span>
+      </a>
+
+      <!-- Center Minimal Navigation -->
+      <nav aria-label="Навигация конференции" class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px] font-medium text-obsidian-600">
+        <a href="#top" class="text-obsidian-900 font-semibold border-b-2 border-flame pb-0.5">Главная</a>
+        <a href="#about" class="hover:text-obsidian-900 transition-colors">О событии</a>
+        <a href="#tickets" class="hover:text-obsidian-900 transition-colors">Билеты</a>
+        <a href="#program" class="hover:text-obsidian-900 transition-colors">Спикеры</a>
+        <a href="#process" class="hover:text-obsidian-900 transition-colors">Оплата и чек</a>
+      </nav>
+
+      <!-- Right Action Pill (Like Reference Outline Pill) -->
+      <div class="flex items-center gap-2.5">
+        <button type="button" data-open-checkout="pro" class="open-checkout-trigger btn-outline-pill inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold shrink-0 cursor-pointer">
+          <span>Купить билет</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <button id="mobile-menu-btn" type="button" aria-label="Меню" aria-expanded="false" class="md:hidden w-10 h-10 rounded-full border border-obsidian-900/20 flex items-center justify-center text-obsidian-900 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="mobile-drawer md:hidden absolute top-full left-0 right-0 bg-alabaster-100 border-b border-obsidian-900/12 px-5 py-5 shadow-xl">
+      <div class="flex flex-col gap-3 text-[15px] font-medium">
+        <a href="#about" class="mobile-link py-1.5 border-b border-obsidian-900/8 text-obsidian-900">О конференции</a>
+        <a href="#tickets" class="mobile-link py-1.5 border-b border-obsidian-900/8 text-obsidian-600">Категории билетов</a>
+        <a href="#program" class="mobile-link py-1.5 border-b border-obsidian-900/8 text-obsidian-600">Спикеры и треки</a>
+        <a href="#process" class="mobile-link py-1.5 border-b border-obsidian-900/8 text-obsidian-600">Как получить билет и чек</a>
+        <button type="button" data-open-checkout="pro" class="open-checkout-trigger mobile-link btn-flame mt-1 py-3 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer">
+          Оформить билет →
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ==================== 01 HIGH-FASHION EDITORIAL HERO WITH LIGHT TRAILS ==================== -->
+  <section id="top" class="hero-stage-shell relative w-full overflow-hidden flex flex-col lg:flex-row lg:items-center pt-24 pb-8 sm:pt-28 sm:pb-12 lg:pt-24 lg:pb-12">
+
+    <!-- Full-Bleed Architectural Flow Hairline Connecting Hero to Page -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-70" viewBox="0 0 1440 820" preserveAspectRatio="none" fill="none" aria-hidden="true">
+      <path d="M-40 610 C320 560, 560 760, 940 725 C1190 702, 1340 620, 1480 560" stroke="#111111" stroke-opacity="0.065" stroke-width="1.2"/>
+    </svg>
+
+    <!-- FOREGROUND EDITORIAL CONTENT CONTAINER (ALWAYS FIRST ON MOBILE & TABLET) -->
+    <div class="relative z-40 max-w-[1320px] w-full mx-auto px-4 sm:px-8 lg:pr-16 xl:pr-12 order-1">
+      <div class="w-full lg:w-[46%] xl:w-[45%] flex flex-col items-start">
+        <!-- Eyebrow Dash + Studio Label -->
+        <div class="flex items-center gap-3 mb-5 sm:mb-6">
+          <span class="w-9 h-[2px] bg-flame shrink-0"></span>
+          <span id="hero-track-eyebrow" class="font-mono text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-obsidian-600">
+            18–19 Декабря · Москва · Artplay
+          </span>
+        </div>
+
+        <!-- Monumental Reference-Scale Stacked Display Headline -->
+        <h1 class="hero-display-stack font-black uppercase text-obsidian-950 select-none mb-5 sm:mb-7">
+          <span class="block">ДВИГАЙ</span>
+          <span class="block">ИДЕИ</span>
+          <span class="block text-flame">ВПЕРЁД<span class="text-obsidian-950">.</span></span>
+        </h1>
+
+        <!-- Crisp 2-Line Editorial Statement -->
+        <p id="hero-track-copy" class="text-sm sm:text-[15.5px] text-obsidian-600 leading-[1.6] max-w-[380px] mb-7 sm:mb-8">
+          Ежегодная конференция, где смелые идеи, дизайн и генеративный AI превращаются в реальные цифровые продукты.
+        </p>
+
+        <!-- Signature Dual CTA Row (Vibrant Flame Pill + Minimal Circular Play Trigger) -->
+        <div class="flex flex-wrap items-center gap-4 sm:gap-5">
+          <a href="#tickets" class="btn-flame inline-flex items-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full text-xs sm:text-[13px] font-bold">
+            <span>Выбрать билет</span>
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <button id="open-program-reel-btn" type="button" class="group inline-flex items-center gap-3 text-xs sm:text-[13px] font-semibold text-obsidian-900 hover:text-flame transition-colors cursor-pointer">
+            <span class="w-11 h-11 rounded-full border border-obsidian-900/22 bg-alabaster-50/85 backdrop-blur-sm group-hover:border-flame group-hover:bg-flame group-hover:text-white flex items-center justify-center transition-all shrink-0">
+              <svg class="w-3 h-3 ml-0.5 fill-current" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5-9-5.5z"/></svg>
+            </span>
+            <span>Смотреть программу</span>
+          </button>
+        </div>
+
+        <!-- Subtle Editorial Meta Footer Line -->
+        <div class="mt-7 sm:mt-9 pt-4 border-t border-obsidian-900/10 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-obsidian-400">
+          <span>3 сцены</span>
+          <span>·</span>
+          <span>32 спикера</span>
+          <span>·</span>
+          <span>ЮKassa / СБП</span>
+          <span>·</span>
+          <span class="text-obsidian-900 font-semibold">Чек 54-ФЗ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL-BLEED RIGHT-SIDE 3-LAYER KEY VISUAL COMPOSITE (CLEANLY BELOW TEXT ON < LG, FULL-BLEED RIGHT ON LG+) -->
+    <div id="hero-visual-stage" class="pointer-events-none relative lg:absolute lg:inset-0 w-full h-[340px] sm:h-[440px] lg:h-full order-2 lg:order-none mt-6 sm:mt-8 lg:mt-0 overflow-hidden">
+      <!-- Layer 1 (Back): Motion-Blur Speed Wisps + Rear Fiery Arcs Behind Subject -->
+      <canvas id="hero-back-canvas" class="absolute inset-0 w-full h-full z-10"></canvas>
+
+      <!-- Layer 2 (Middle): Seamlessly Multiplied Monochrome High-Fashion Figure (Zero Box/Oval!) -->
+      <div id="hero-subject-wrap" class="absolute inset-y-0 right-0 w-full lg:w-[56%] xl:w-[58%] z-20 flex items-end justify-center lg:justify-end">
+        <!-- Soft Motion-Blur Echo Layer -->
+        <img
+          alt=""
+          aria-hidden="true"
+          class="hero-subject-ghost absolute inset-0 w-full h-full object-cover object-[54%_18%] scale-[1.06] translate-x-5"
+          src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=1400&q=85"
+        >
+        <!-- Crisp Primary High-Contrast Editorial Subject -->
+        <img
+          id="hero-subject-img"
+          alt="MOTION 2026 — Визуальный образ конференции по дизайну и AI"
+          class="hero-subject-blend relative w-full h-full object-cover object-[54%_14%] lg:object-[56%_12%] scale-[1.04]"
+          src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=1600&q=90"
+          onerror="this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1400&q=85'"
+        >
+      </div>
+
+      <!-- Layer 3 (Front): Blazing Volumetric Orange-Gold Plasma Ribbons Wrapping IN FRONT of Subject -->
+      <canvas id="hero-front-canvas" class="absolute inset-0 w-full h-full z-30"></canvas>
+
+      <!-- Strong Left Alabaster Shield on Desktop So Left Typography Always Stays 100% Crisp -->
+      <div class="hidden lg:block absolute inset-y-0 left-0 w-[55%] xl:w-[51%] z-30" style="background: linear-gradient(90deg, #F5F2EC 0%, #F5F2EC 62%, rgba(245, 242, 236, 0.88) 80%, rgba(245, 242, 236, 0) 100%);"></div>
+      <!-- Top & Bottom Alabaster Seamless Fade -->
+      <div class="lg:hidden absolute inset-x-0 top-0 h-14 z-30 bg-gradient-to-b from-alabaster-100 to-transparent"></div>
+      <div class="absolute inset-x-0 bottom-0 h-20 z-30 bg-gradient-to-t from-alabaster-100 via-alabaster-100/75 to-transparent"></div>
+    </div>
+
+    <!-- RIGHT-EDGE VERTICAL INDEX INDICATOR (01 / 03 + HAIRLINE ARROW LIKE REFERENCE) -->
+    <div class="hidden lg:flex flex-col items-center gap-2.5 absolute right-4 xl:right-8 top-1/2 -translate-y-1/2 z-40 select-none bg-alabaster-100/75 backdrop-blur-sm py-3 px-2 rounded-full border border-obsidian-900/10">
+      <button type="button" data-hero-scene="0" class="hero-scene-dot font-mono text-[11px] font-bold text-obsidian-900 hover:text-flame transition-colors cursor-pointer">01</button>
+      <button type="button" data-hero-scene="1" class="hero-scene-dot font-mono text-[11px] font-medium text-obsidian-400 hover:text-flame transition-colors cursor-pointer">02</button>
+      <button type="button" data-hero-scene="2" class="hero-scene-dot font-mono text-[11px] font-medium text-obsidian-400 hover:text-flame transition-colors cursor-pointer">03</button>
+      <span class="w-px h-12 bg-obsidian-900/25 my-0.5"></span>
+      <a href="#about" aria-label="Листать вниз" class="text-obsidian-900 hover:text-flame transition-colors text-xs leading-none">↓</a>
+      <span class="w-px h-2 bg-obsidian-900/25 mt-0.5"></span>
+      <span class="w-1 h-1 rounded-full bg-obsidian-900/45"></span>
+    </div>
+  </section>
+  <section id="about" class="reveal-el py-14 sm:py-20 px-4 sm:px-8">
+    <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+      <!-- Left (5 cols): Architectural Visual with Glowing Orange Solar Orb (Echoing Reference!) -->
+      <div class="lg:col-span-5">
+        <div class="relative rounded-[24px] overflow-hidden aspect-[16/11] bg-obsidian-950 border border-obsidian-900/10 shadow-[0_26px_60px_-28px_rgba(17,17,17,0.35)]">
+          <!-- Architectural Brutalist Concrete Photo + Glowing Orange Sun Disc -->
+          <img
+            alt="Архитектурное пространство Artplay для конференции MOTION"
+            class="w-full h-full object-cover grayscale contrast-125 opacity-80"
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+            onerror="this.src='https://placehold.co/800x560/111111/FF4D00?text=ARTPLAY+STAGE'"
+          >
+          <!-- Glowing Volcanic Sun Sphere Overlay -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-48 sm:h-48 rounded-full opacity-90 mix-blend-screen pointer-events-none" style="background: radial-gradient(circle at 42% 38%, #FF9642 0%, #FF4D00 58%, rgba(255,77,0,0) 76%);"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950/65 via-transparent to-transparent pointer-events-none"></div>
+
+          <!-- Top-Left Dark Pill Label -->
+          <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-obsidian-950/80 backdrop-blur-md border border-white/12 text-[11px] font-medium text-white">
+            <span class="w-2 h-2 rounded-full bg-flame"></span>
+            <span>О конференции</span>
+          </div>
+
+          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-white/80">
+            <span>ЦЕНТР ДИЗАЙНА ARTPLAY</span>
+            <span>2 СЦЕНЫ + EXPO</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right (6 cols): Editorial Statement + 3 Sharp Metrics -->
+      <div class="lg:col-span-6 flex flex-col gap-5">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-[2px] bg-flame"></span>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-obsidian-600">Манифест MOTION 2026</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.1] text-obsidian-900">
+          Площадка, где дизайн, код и генеративный AI превращаются в <span class="text-flame">сильные продукты.</span>
+        </h2>
+
+        <p class="text-sm sm:text-[15px] text-obsidian-600 leading-relaxed max-w-xl">
+          Никаких общих презентаций и воды. 32 практика из ведущих дизайн-студий и технологических компаний разбирают реальные кейсы, интерфейсные системы и пайплайны 2026 года — в зале и в 4K-трансляции.
+        </p>
+
+        <!-- 3 Crisp Numbers Strip -->
+        <div class="grid grid-cols-3 gap-3 sm:gap-5 pt-4 border-t border-obsidian-900/12">
+          <div>
+            <div class="text-xl sm:text-3xl font-extrabold tracking-tight text-obsidian-900">1 200+</div>
+            <div class="text-[11px] sm:text-xs text-obsidian-600 mt-0.5 leading-snug">участников в зале</div>
+          </div>
+          <div>
+            <div class="text-xl sm:text-3xl font-extrabold tracking-tight text-obsidian-900">32</div>
+            <div class="text-[11px] sm:text-xs text-obsidian-600 mt-0.5 leading-snug">спикера-практика</div>
+          </div>
+          <div>
+            <div class="text-xl sm:text-3xl font-extrabold tracking-tight text-flame">54-ФЗ</div>
+            <div class="text-[11px] sm:text-xs text-obsidian-600 mt-0.5 leading-snug">мгновенный чек</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Far Right (1 col): Signature Geometric Orange Asterisk + Hairline Drop (From Reference!) -->
+      <div class="hidden lg:flex lg:col-span-1 flex-col items-center justify-center gap-5 self-stretch">
+        <svg class="w-10 h-10 text-flame" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <path d="M22 4V40M4 22H40M9.3 9.3L34.7 34.7M34.7 9.3L9.3 34.7" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
+        </svg>
+        <span class="w-px h-28 bg-obsidian-900/18"></span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 03 TICKETS & PASSES (STAGGERED 3-CARD SIGNATURE ROW!) ==================== -->
+  <section id="tickets" class="reveal-el py-16 sm:py-24 px-4 sm:px-8 border-t border-obsidian-900/8">
+    <div class="max-w-[1320px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-10 xl:gap-8 items-center">
+
+      <!-- Left Intro Column (Full Width on Tablet/Laptop, 4 cols on XL+) -->
+      <div class="xl:col-span-4 flex flex-col items-start gap-5">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-[2px] bg-flame"></span>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-obsidian-600">Категории участия</span>
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-[-0.035em] leading-[1.03] text-obsidian-900">
+          От онлайна до бэкстейджа —
+          <span class="text-flame block mt-1">выбирай свой формат.</span>
+        </h2>
+
+        <p class="text-sm text-obsidian-600 leading-relaxed max-w-xl">
+          Мгновенная оплата картой МИР / Visa / MasterCard или по СБП. Сразу после оплаты на почту приходят именной билет и фискальный чек 54-ФЗ.
+        </p>
+
+        <!-- Promo Code Hint Pill -->
+        <div class="inline-flex flex-wrap items-center gap-2 px-4 py-2 rounded-full bg-white border border-obsidian-900/12 text-xs text-obsidian-600">
+          <span>Промокод ранней птицы:</span>
+          <button type="button" data-copy-promo="EARLY20" class="promo-copy-btn font-mono font-bold text-flame hover:underline cursor-pointer">EARLY20 (−20%)</button>
+        </div>
+
+        <button type="button" data-open-checkout="pro" class="open-checkout-trigger btn-outline-pill inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-xs font-semibold cursor-pointer mt-1">
+          <span>Оформить билет</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+
+      <!-- Right Staggered 3 Sculptural Ticket Cards (Spans Full Width on MD–LG, 8 cols on XL+) -->
+      <div id="ticket-cards-grid" class="xl:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch xl:pt-6">
+        
+      </div>
+
+    </div>
+  </section>
+  <section id="program" class="reveal-el py-14 sm:py-22 px-4 sm:px-8 border-t border-obsidian-900/8">
+    <div class="max-w-[1320px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-8 items-center">
+
+      <!-- Left Title & Prev/Next Circular Arrows (Like Reference) -->
+      <div class="xl:col-span-4 flex flex-col items-start gap-5">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-[2px] bg-flame"></span>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-obsidian-600">Хедлайнеры и треки</span>
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-[-0.035em] leading-[1.04] text-obsidian-900">
+          Спикеры, которые формируют <span class="text-flame">индустрию.</span>
+        </h2>
+
+        <p class="text-sm text-obsidian-600 leading-relaxed max-w-xl">
+          3 сцены: брендинг и арт-дирекшен, цифровые интерфейсы и дизайн-системы, motion и генеративный AI.
+        </p>
+
+        <div class="flex items-center gap-3 pt-1">
+          <button id="speakers-prev" type="button" aria-label="Предыдущие спикеры" class="w-11 h-11 rounded-full border border-obsidian-900/22 hover:bg-obsidian-900 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+            ←
+          </button>
+          <button id="speakers-next" type="button" aria-label="Следующие спикеры" class="w-11 h-11 rounded-full border border-obsidian-900/22 hover:bg-obsidian-900 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+            →
+          </button>
+          <span id="speakers-counter" class="font-mono text-xs text-obsidian-400 ml-2">01 / 02</span>
+        </div>
+      </div>
+
+      <!-- Right 3 Visual Rounded-Square Cards (Spans Full Width on SM–LG, 8 cols on XL+) -->
+      <div id="speakers-grid" class="xl:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
+        
+      </div>
+
+    </div>
+  </section>
+  <section id="process" class="reveal-el py-16 sm:py-24 px-4 sm:px-8 border-t border-obsidian-900/8">
+    <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+      <!-- Left (4 cols): Custom Sculptural Glowing Obsidian-Flame Torus Artwork -->
+      <div class="lg:col-span-4 flex items-center justify-center">
+        <svg viewBox="0 0 360 240" fill="none" class="w-full max-w-[330px] h-auto" aria-hidden="true">
+          <defs>
+            <linearGradient id="torusBody" x1="15%" y1="15%" x2="85%" y2="85%">
+              <stop offset="0%" stop-color="#2E2E2E"/>
+              <stop offset="45%" stop-color="#0B0B0B"/>
+              <stop offset="78%" stop-color="#FF4D00"/>
+              <stop offset="100%" stop-color="#FF9B42"/>
+            </linearGradient>
+            <linearGradient id="orbitFlame" x1="0%" y1="50%" x2="100%" y2="50%">
+              <stop offset="0%" stop-color="#FF4D00" stop-opacity="0"/>
+              <stop offset="35%" stop-color="#FF4D00" stop-opacity="0.95"/>
+              <stop offset="65%" stop-color="#FFA352" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#FF4D00" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="ringGlow" x="-25%" y="-25%" width="150%" height="150%">
+              <feGaussianBlur stdDeviation="7" result="g"/>
+              <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Soft Shadow -->
+          <ellipse cx="180" cy="204" rx="110" ry="14" fill="#111111" fill-opacity="0.14"/>
+          <!-- Fine Geometric Wireframe Orbit -->
+          <ellipse cx="180" cy="116" rx="146" ry="56" transform="rotate(-14 180 116)" stroke="#111111" stroke-opacity="0.16" stroke-width="1"/>
+          <!-- Glowing Flame Light Trail Orbit -->
+          <path d="M40 144 C78 192, 238 196, 314 114" stroke="url(#orbitFlame)" stroke-width="8" stroke-linecap="round" filter="url(#ringGlow)"/>
+          <!-- Sculptural Metallic Dark-Flame Torus -->
+          <ellipse cx="180" cy="112" rx="88" ry="48" transform="rotate(-18 180 112)" stroke="url(#torusBody)" stroke-width="34"/>
+          <ellipse cx="180" cy="112" rx="88" ry="48" transform="rotate(-18 180 112)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="3" stroke-dasharray="60 220"/>
+          <!-- Front Hot Ember Thread -->
+          <path d="M52 152 C110 198, 224 182, 294 128" stroke="#FFF0D8" stroke-opacity="0.9" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Middle (4 cols): Editorial Process Title -->
+      <div class="lg:col-span-4 flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-[2px] bg-flame"></span>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-obsidian-600">Онлайн-покупка</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-[-0.035em] leading-[1.04] text-obsidian-900">
+          Простой процесс.<br>
+          Мгновенный <span class="text-flame">доступ.</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-obsidian-600 leading-relaxed mt-1">
+          Официальный приём платежей по 54-ФЗ без комиссий для покупателя. Возврат билета в 1 клик до 10 декабря.
+        </p>
+      </div>
+
+      <!-- Right (4 cols): 3 Numbered Steps (01, 02, 03 Like Reference) -->
+      <div class="lg:col-span-4 flex flex-col gap-5 lg:pl-6 lg:border-l border-obsidian-900/12">
+        <div class="flex items-start gap-4">
+          <span class="w-9 h-9 rounded-full border border-obsidian-900/20 bg-white font-mono text-xs font-bold text-obsidian-900 flex items-center justify-center shrink-0">01</span>
+          <div>
+            <h3 class="text-base font-bold text-obsidian-900">Выберите тариф и места</h3>
+            <p class="text-xs text-obsidian-600 mt-0.5 leading-relaxed">Online, Pro или VIP. Примените промокод и добавьте воркшоп при желании.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="w-9 h-9 rounded-full border border-obsidian-900/20 bg-white font-mono text-xs font-bold text-obsidian-900 flex items-center justify-center shrink-0">02</span>
+          <div>
+            <h3 class="text-base font-bold text-obsidian-900">Оплатите через ЮKassa или СБП</h3>
+            <p class="text-xs text-obsidian-600 mt-0.5 leading-relaxed">Защищённый шлюз с поддержкой карт МИР, Visa, MasterCard и QR-оплаты СБП.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="w-9 h-9 rounded-full border border-flame/40 bg-flame-soft font-mono text-xs font-bold text-flame flex items-center justify-center shrink-0">03</span>
+          <div>
+            <h3 class="text-base font-bold text-obsidian-900">Получите билет и чек 54-ФЗ</h3>
+            <p class="text-xs text-obsidian-600 mt-0.5 leading-relaxed">Кассовый чек с QR-кодом ФНС и электронный пропуск приходят мгновенно.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== 06 FULL-WIDTH OBSIDIAN CTA BANNER WITH FLAME SPARK (ECHOES REF) ==================== -->
+  <section class="reveal-el py-8 sm:py-12 px-4 sm:px-8">
+    <div class="max-w-[1320px] mx-auto">
+      <div class="relative rounded-[24px] sm:rounded-[28px] bg-obsidian-950 text-white px-6 sm:px-10 lg:px-12 py-8 sm:py-10 overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-[0_28px_64px_-24px_rgba(9,9,9,0.55)]">
+        <!-- Signature Glowing Flame Cross-Flare Accent (Shown Only on XL+ With Clean Separation) -->
+        <div class="hidden xl:block absolute right-[25%] top-1/2 -translate-y-1/2 pointer-events-none opacity-75" aria-hidden="true">
+          <div class="w-56 h-[2px] bg-gradient-to-r from-transparent via-flame to-transparent opacity-85"></div>
+          <div class="w-[2px] h-24 bg-gradient-to-b from-transparent via-flame to-transparent opacity-85 mx-auto -mt-12"></div>
+          <div class="w-16 h-16 rounded-full bg-flame/40 blur-xl mx-auto -mt-20"></div>
+        </div>
+
+        <div class="relative z-10 max-w-xl">
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-[-0.025em] leading-tight">
+            Готовы зарядиться идеями <span class="text-flame">на весь 2027 год?</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-white/65 mt-2">
+            Осталось 38 билетов по цене второй волны. Промокод <strong class="font-mono text-white">EARLY20</strong> даёт −20% прямо при оплате.
+          </p>
+        </div>
+
+        <button type="button" data-open-checkout="pro" class="open-checkout-trigger btn-flame relative z-10 inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-xs sm:text-[13px] font-bold shrink-0 w-full lg:w-auto cursor-pointer">
+          <span>Купить билет сейчас</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <footer class="mt-auto pt-12 pb-8 px-4 sm:px-8 border-t border-obsidian-900/10">
+    <div class="max-w-[1320px] mx-auto">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-obsidian-900/10">
+        <div class="flex items-center gap-2.5">
+          <svg class="w-7 h-6 shrink-0" viewBox="0 0 38 30" fill="none" aria-hidden="true">
+            <path d="M2 27V3H8.5L16.5 16.5L24.5 3H30.5V27H24.8V12.5L16.5 25.5L8 12.5V27H2Z" fill="#111111"/>
+            <path d="M28.5 27L35.5 11H30.5V27H28.5Z" fill="#FF4D00"/>
+            <circle cx="34" cy="5.5" r="3" fill="#FF4D00"/>
+          </svg>
+          <span class="font-extrabold text-sm tracking-[-0.02em] text-obsidian-900">MOTION 2026</span>
+        </div>
+
+        <nav class="flex flex-wrap items-center gap-6 text-xs sm:text-[13px] font-medium text-obsidian-600">
+          <a href="#about" class="hover:text-obsidian-900 transition-colors">О событии</a>
+          <a href="#tickets" class="hover:text-obsidian-900 transition-colors">Билеты</a>
+          <a href="#program" class="hover:text-obsidian-900 transition-colors">Спикеры</a>
+          <a href="#process" class="hover:text-obsidian-900 transition-colors">Оплата и чек</a>
+          <a href="mailto:tickets@example.ru" class="font-mono hover:text-flame transition-colors">tickets@example.ru</a>
+        </nav>
+
+        <div class="flex items-center gap-2 text-xs font-mono text-obsidian-600">
+          <a href="tel:+79990000000" class="px-3.5 py-1.5 rounded-full border border-obsidian-900/15 hover:border-obsidian-900 text-obsidian-900 transition-colors">+7 (999) 000-00-00</a>
+        </div>
+      </div>
+
+      <div class="py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] font-mono text-obsidian-400">
+        <span>© 2026 ООО «Моушн Ивентс» · ИНН 0000000000 · г. Москва, ул. Нижняя Сыромятническая, д. 10</span>
+        <span>Design · Product · <span class="text-flame">AI</span></span>
+      </div>
+
+      <!-- Portfolio Demo Attribution (Strictly Only at Very Bottom of Footer) -->
+      <div class="mt-3 p-4 sm:p-5 rounded-2xl bg-obsidian-950 text-white flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-white/75 leading-relaxed">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Реализую приём онлайн-оплаты (ЮKassa, Т-Банк, СБП) и автоматическую фискализацию чеков по 54-ФЗ под ваш бизнес.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full border border-white/20 hover:border-white text-white/85 hover:text-white text-xs font-medium transition-colors">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="btn-flame px-5 py-2 rounded-full text-xs font-bold">
+            Заказать такой сайт →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== YUKASSA / SBP CHECKOUT SANDBOX + 54-FZ RECEIPT MODAL ==================== -->
+  <div id="checkout-modal" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center p-3.5 sm:p-6 bg-obsidian-950/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title" aria-hidden="true">
+    <div class="modal-panel relative w-full max-w-4xl rounded-[26px] bg-alabaster-100 text-obsidian-900 border border-obsidian-900/15 p-5 sm:p-7 lg:p-8 shadow-2xl max-h-[92svh] overflow-y-auto">
+      <button id="checkout-close-btn" type="button" aria-label="Закрыть окно оплаты" class="absolute top-4 right-4 sm:top-5 sm:right-5 z-20 w-9 h-9 rounded-full bg-alabaster-200 hover:bg-obsidian-900 hover:text-white flex items-center justify-center text-obsidian-600 transition-colors cursor-pointer">
+        ✕
+      </button>
+
+      <!-- STEP 1: CHECKOUT & YUKASSA / SBP SANDBOX -->
+      <div id="checkout-step-pay" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+        <!-- Left (5 cols): Order Summary, Quantity, Workshop Add-on & Promo Code -->
+        <div class="lg:col-span-5 flex flex-col justify-between gap-5 pb-5 lg:pb-0 lg:pr-6 border-b lg:border-b-0 lg:border-r border-obsidian-900/12">
+          <div class="flex flex-col gap-4">
+            <div class="pr-10 lg:pr-0">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-flame-soft text-flame font-mono text-[10.5px] font-semibold uppercase tracking-wider mb-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-flame animate-pulse"></span>
+                <span>Песочница ЮKassa / СБП</span>
+              </div>
+              <h3 id="checkout-modal-title" class="text-2xl font-extrabold tracking-tight text-obsidian-900">Оформление билета</h3>
+              <p class="text-xs text-obsidian-600 mt-1 leading-relaxed">
+                Демонстрация платёжного шлюза: реальные деньги не списываются, а после оплаты формируется чек 54-ФЗ.
+              </p>
+            </div>
+
+            <!-- Ticket Tier Switcher inside Modal -->
+            <div class="flex flex-col gap-1.5">
+              <span class="text-[10.5px] font-mono uppercase tracking-wider text-obsidian-400">Категория билета</span>
+              <div id="modal-tier-pills" class="grid grid-cols-3 gap-1.5"></div>
+            </div>
+
+            <!-- Quantity & Optional Workshop -->
+            <div class="p-3.5 rounded-2xl bg-white border border-obsidian-900/10 flex flex-col gap-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold text-obsidian-900">Количество билетов</span>
+                <div class="inline-flex items-center gap-2 rounded-full bg-alabaster-100 border border-obsidian-900/12 px-2 py-0.5">
+                  <button id="qty-minus-btn" type="button" class="w-6 h-6 rounded-full hover:bg-white font-bold text-obsidian-900 cursor-pointer">−</button>
+                  <span id="qty-value" class="font-mono text-xs font-bold w-5 text-center">1</span>
+                  <button id="qty-plus-btn" type="button" class="w-6 h-6 rounded-full hover:bg-white font-bold text-obsidian-900 cursor-pointer">+</button>
+                </div>
+              </div>
+
+              <label class="flex items-center justify-between gap-2 pt-2.5 border-t border-obsidian-900/8 text-xs cursor-pointer">
+                <span class="flex items-center gap-2">
+                  <input id="addon-workshop-cb" type="checkbox" class="rounded border-obsidian-900/30 text-flame focus:ring-0">
+                  <span class="text-obsidian-900 font-medium">AI-воркшоп (19 дек)</span>
+                </span>
+                <span class="font-mono font-semibold text-obsidian-600">+3 500 ₽</span>
+              </label>
+            </div>
+
+            <!-- Promo Code Input -->
+            <div class="flex gap-2">
+              <input id="promo-code-input" type="text" placeholder="Промокод (напр. EARLY20)" class="pay-input flex-1 px-3.5 py-2.5 font-mono text-base sm:text-xs uppercase placeholder-obsidian-400">
+              <button id="apply-promo-btn" type="button" class="px-4 py-2.5 rounded-xl bg-obsidian-900 hover:bg-flame text-white text-xs font-semibold transition-colors cursor-pointer shrink-0">
+                Применить
+              </button>
+            </div>
+            <div id="promo-status-msg" class="hidden text-[11px] font-mono"></div>
+          </div>
+
+          <!-- Total Cost Breakdown -->
+          <div class="p-4 rounded-2xl bg-obsidian-950 text-white flex flex-col gap-2">
+            <div class="flex items-center justify-between text-xs text-white/65">
+              <span id="summary-line-label">Pro Pass × 1</span>
+              <span id="summary-subtotal" class="font-mono">12 900 ₽</span>
+            </div>
+            <div id="summary-discount-row" class="hidden flex items-center justify-between text-xs text-flame-glow">
+              <span>Скидка по промокоду</span>
+              <span id="summary-discount-val" class="font-mono">−2 580 ₽</span>
+            </div>
+            <div class="flex items-baseline justify-between pt-2 border-t border-white/12">
+              <span class="text-xs font-mono uppercase text-white/65">К оплате</span>
+              <span id="summary-final-total" class="font-mono text-2xl font-bold text-white">12 900 ₽</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right (7 cols): Buyer Info + Payment Method (YuKassa Card / SBP QR) -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          <form id="sandbox-payment-form" novalidate class="flex flex-col gap-4">
+            <!-- Buyer Contact (Required for 54-FZ Receipt Delivery) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="buyer-name" class="block text-[11px] font-semibold text-obsidian-600 mb-1">Имя участника (на бейдж)</label>
+                <input id="buyer-name" type="text" required value="Алексей Смирнов" class="pay-input w-full px-3.5 py-2.5 text-base sm:text-sm">
+              </div>
+              <div>
+                <label for="buyer-email" class="block text-[11px] font-semibold text-obsidian-600 mb-1">Email для билета и чека 54-ФЗ</label>
+                <input id="buyer-email" type="email" required value="alexey@example.ru" class="pay-input w-full px-3.5 py-2.5 text-base sm:text-sm">
+              </div>
+            </div>
+
+            <!-- Payment Method Switcher: Card vs SBP -->
+            <div>
+              <span class="block text-[11px] font-semibold text-obsidian-600 mb-1.5">Способ оплаты (ЮKassa)</span>
+              <div class="grid grid-cols-2 gap-2">
+                <button type="button" data-pay-method="card" class="pay-method-btn px-4 py-3 rounded-xl border-2 border-flame bg-white text-left flex items-center justify-between gap-2 cursor-pointer transition-all">
+                  <div>
+                    <div class="text-xs font-bold text-obsidian-900">Банковская карта</div>
+                    <div class="text-[10.5px] font-mono text-obsidian-400">МИР · Visa · MC</div>
+                  </div>
+                  <span class="w-2.5 h-2.5 rounded-full bg-flame shrink-0"></span>
+                </button>
+                <button type="button" data-pay-method="sbp" class="pay-method-btn px-4 py-3 rounded-xl border border-obsidian-900/15 bg-white/60 hover:bg-white text-left flex items-center justify-between gap-2 cursor-pointer transition-all">
+                  <div>
+                    <div class="text-xs font-bold text-obsidian-900">СБП по QR-коду</div>
+                    <div class="text-[10.5px] font-mono text-obsidian-400">Мгновенно · 0%</div>
+                  </div>
+                  <span class="w-2.5 h-2.5 rounded-full border border-obsidian-900/25 shrink-0"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- METHOD A: BANK CARD SANDBOX FIELDS -->
+            <div id="method-card-panel" class="p-4 rounded-2xl bg-white border border-obsidian-900/12 flex flex-col gap-3">
+              <!-- Quick 1-Click Test Cards Bar -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-obsidian-900/8">
+                <span class="text-[10.5px] font-mono text-obsidian-400 uppercase">Тестовые карты песочницы:</span>
+                <div class="flex items-center gap-1.5">
+                  <button type="button" data-test-card="success" class="test-card-btn px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[10px] font-semibold hover:bg-emerald-100 cursor-pointer">
+                    ✓ Одобрение (МИР)
+                  </button>
+                  <button type="button" data-test-card="decline" class="test-card-btn px-2.5 py-1 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 font-mono text-[10px] font-semibold hover:bg-rose-100 cursor-pointer">
+                    ✕ Отказ банка
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label for="card-number" class="block text-[10.5px] font-mono uppercase text-obsidian-400 mb-1">Номер карты</label>
+                <input id="card-number" type="text" value="2200 7001 0000 0042" maxlength="19" class="pay-input w-full px-3.5 py-2.5 font-mono text-base sm:text-sm font-semibold tracking-wider">
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="card-exp" class="block text-[10.5px] font-mono uppercase text-obsidian-400 mb-1">Срок (ММ/ГГ)</label>
+                  <input id="card-exp" type="text" value="12/28" maxlength="5" class="pay-input w-full px-3.5 py-2.5 font-mono text-base sm:text-sm">
+                </div>
+                <div>
+                  <label for="card-cvc" class="block text-[10.5px] font-mono uppercase text-obsidian-400 mb-1">CVC / CVV</label>
+                  <input id="card-cvc" type="text" value="123" maxlength="3" class="pay-input w-full px-3.5 py-2.5 font-mono text-base sm:text-sm">
+                </div>
+              </div>
+            </div>
+
+            <!-- METHOD B: SBP QR SANDBOX PANEL -->
+            <div id="method-sbp-panel" class="hidden p-4 sm:p-5 rounded-2xl bg-white border border-obsidian-900/12 flex flex-col sm:flex-row items-center gap-5">
+              <!-- Crisp Vector Demo QR Code for SBP -->
+              <div class="w-36 h-36 rounded-2xl bg-white border border-obsidian-900/15 p-2.5 shrink-0 flex items-center justify-center shadow-sm">
+                <svg viewBox="0 0 120 120" class="w-full h-full" aria-label="Тестовый QR-код СБП">
+                  <rect width="120" height="120" fill="#FFFFFF"/>
+                  <!-- Finder Squares -->
+                  <rect x="6" y="6" width="32" height="32" rx="4" fill="#111111"/><rect x="11" y="11" width="22" height="22" rx="2" fill="#FFFFFF"/><rect x="16" y="16" width="12" height="12" rx="1" fill="#111111"/>
+                  <rect x="82" y="6" width="32" height="32" rx="4" fill="#111111"/><rect x="87" y="11" width="22" height="22" rx="2" fill="#FFFFFF"/><rect x="92" y="16" width="12" height="12" rx="1" fill="#111111"/>
+                  <rect x="6" y="82" width="32" height="32" rx="4" fill="#111111"/><rect x="11" y="87" width="22" height="22" rx="2" fill="#FFFFFF"/><rect x="16" y="92" width="12" height="12" rx="1" fill="#111111"/>
+                  <!-- Matrix Data Modules -->
+                  <g fill="#111111">
+                    <rect x="46" y="8" width="8" height="8"/><rect x="62" y="8" width="12" height="8"/><rect x="46" y="22" width="16" height="8"/>
+                    <rect x="8" y="46" width="12" height="8"/><rect x="26" y="46" width="10" height="16"/><rect x="8" y="62" width="14" height="12"/>
+                    <rect x="82" y="46" width="12" height="10"/><rect x="102" y="46" width="12" height="14"/><rect x="82" y="66" width="18" height="8"/>
+                    <rect x="46" y="82" width="10" height="12"/><rect x="64" y="82" width="14" height="8"/><rect x="46" y="102" width="16" height="10"/>
+                    <rect x="74" y="98" width="14" height="14"/><rect x="96" y="86" width="16" height="10"/><rect x="96" y="104" width="16" height="8"/>
+                  </g>
+                  <!-- Center SBP Emblem -->
+                  <rect x="44" y="44" width="32" height="32" rx="8" fill="#111111"/>
+                  <text x="60" y="64" text-anchor="middle" fill="#FF4D00" font-family="Onest, sans-serif" font-size="11" font-weight="800">СБП</text>
+                </svg>
+              </div>
+              <div class="flex flex-col gap-2 text-center sm:text-left">
+                <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-emerald-700 justify-center sm:justify-start">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>Ожидание подтверждения СБП</span>
+                </span>
+                <div class="text-sm font-bold text-obsidian-900">Отсканируйте QR в приложении банка</div>
+                <p class="text-xs text-obsidian-600 leading-relaxed">
+                  В песочнице достаточно нажать кнопку ниже — система сымитирует подтверждение платежа по СБП и сразу пробьёт чек 54-ФЗ.
+                </p>
+              </div>
+            </div>
+
+            <!-- Bank Decline Error Alert (Shown when testing decline scenario) -->
+            <div id="payment-error-box" class="hidden p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-start justify-between gap-3">
+              <div>
+                <strong class="font-bold block">Оплата отклонена банком-эмитентом (код 51)</strong>
+                <span>Недостаточно средств на тестовой карте. Выберите карту «✓ Одобрение» или способ СБП для успешного чека.</span>
+              </div>
+              <button type="button" id="fix-test-card-btn" class="px-3 py-1.5 rounded-lg bg-rose-700 text-white text-[11px] font-semibold shrink-0 cursor-pointer">
+                Исправить
+              </button>
+            </div>
+
+            <button type="submit" id="pay-submit-btn" class="btn-flame w-full py-4 px-6 rounded-full text-xs sm:text-sm font-bold cursor-pointer">
+              Оплатить 12 900 ₽ (Тестовая оплата) →
+            </button>
+
+            <div class="flex items-center justify-between text-[10.5px] font-mono text-obsidian-400">
+              <span>PCI DSS · 3-D Secure 2.2 · ЮKassa</span>
+              <span>Фискализация 54-ФЗ (ОФД)</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- STEP 2: PROCESSING 3-D SECURE / FISCALIZATION ANIMATION -->
+      <div id="checkout-step-processing" class="hidden py-14 flex-col items-center justify-center text-center gap-5">
+        <div class="w-16 h-16 rounded-full border-4 border-obsidian-900/10 border-t-flame pay-spinner"></div>
+        <div>
+          <h3 id="processing-title" class="text-2xl font-extrabold text-obsidian-900">Связь с платёжным шлюзом ЮKassa...</h3>
+          <p id="processing-sub" class="text-xs sm:text-sm font-mono text-obsidian-600 mt-1.5">Авторизация транзакции и передача данных в ОФД (54-ФЗ)</p>
+        </div>
+      </div>
+
+      <!-- STEP 3: PAYMENT SUCCESS + REALISTIC 54-FZ RECEIPT + ELECTRONIC TICKET + WEBHOOK JSON -->
+      <div id="checkout-step-success" class="hidden flex-col gap-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pr-12 pb-4 border-b border-obsidian-900/12">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-mono text-[10.5px] font-bold uppercase tracking-wider mb-1.5">
+              <span>✓</span>
+              <span>Оплачено · Чек 54-ФЗ сформирован</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-obsidian-900">Платёж проведён успешно</h3>
+          </div>
+
+          <!-- Switch between 54-FZ Receipt and Webhook JSON -->
+          <div class="inline-flex items-center p-1 rounded-full bg-white border border-obsidian-900/12 shrink-0 self-start sm:self-center">
+            <button type="button" data-success-tab="receipt" class="success-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-obsidian-900 text-white cursor-pointer">
+              Чек 54-ФЗ + Билет
+            </button>
+            <button type="button" data-success-tab="webhook" class="success-tab-btn px-4 py-1.5 rounded-full text-xs font-semibold text-obsidian-600 hover:text-obsidian-900 cursor-pointer">
+              Webhook ЮKassa (JSON)
+            </button>
+          </div>
+        </div>
+
+        <!-- VIEW A: AUTHENTIC 54-FZ FISCAL RECEIPT + E-TICKET -->
+        <div id="success-view-receipt" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pb-3">
+          <!-- Left (6 cols): Crisp Electronic 54-FZ Fiscal Receipt -->
+          <div class="lg:col-span-6 receipt-paper rounded-t-2xl border border-obsidian-900/12 p-5 sm:p-6 font-mono text-[11px] text-obsidian-900 shadow-lg">
+            <div class="text-center pb-3 mb-3 border-b border-dashed border-obsidian-900/25">
+              <div class="font-bold text-xs uppercase tracking-wider">КАССОВЫЙ ЧЕК · 54-ФЗ</div>
+              <div class="text-[10.5px] text-obsidian-600 mt-0.5">ООО «МОУШН ИВЕНТС» · ИНН 0000000000</div>
+              <div class="text-[10px] text-obsidian-400">ПРИХОД · БЕЗНАЛИЧНЫМИ (<span id="rec-method">ЮKassa</span>)</div>
+            </div>
+
+            <div class="flex flex-col gap-1.5 pb-3 mb-3 border-b border-dashed border-obsidian-900/25">
+              <div class="flex justify-between gap-2">
+                <span class="text-obsidian-600">Дата и время:</span>
+                <span id="rec-datetime" class="font-semibold"></span>
+              </div>
+              <div class="flex justify-between gap-2">
+                <span class="text-obsidian-600">Покупатель (email):</span>
+                <span id="rec-email" class="font-semibold truncate max-w-[190px]"></span>
+              </div>
+              <div class="flex justify-between gap-2">
+                <span class="text-obsidian-600">СНО / Место расчётов:</span>
+                <span>УСН Доход · motion2026.ru</span>
+              </div>
+            </div>
+
+            <!-- Itemized Receipt Lines -->
+            <div id="rec-items-list" class="flex flex-col gap-2 pb-3 mb-3 border-b border-dashed border-obsidian-900/25"></div>
+
+            <!-- Fiscal Total -->
+            <div class="flex items-baseline justify-between text-sm font-bold pb-3 mb-3 border-b border-dashed border-obsidian-900/25">
+              <span>ИТОГ (НДС не облагается)</span>
+              <span id="rec-total" class="text-base">12 900.00 ₽</span>
+            </div>
+
+            <!-- Fiscal Drive Requisites + Compact FNS QR -->
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex flex-col gap-0.5 text-[10px] text-obsidian-600">
+                <div>РН ККТ: <span id="rec-rn" class="text-obsidian-900 font-semibold">0006824190051422</span></div>
+                <div>ФН №: <span id="rec-fn" class="text-obsidian-900 font-semibold">7281440700918412</span></div>
+                <div>ФД №: <span id="rec-fd" class="text-obsidian-900 font-semibold">14928</span> · Смена №184</div>
+                <div>ФПД: <span id="rec-fpd" class="text-obsidian-900 font-semibold">3948102418</span></div>
+                <div class="text-obsidian-400 mt-0.5">ОФД: Платформа ОФД · nalog.gov.ru</div>
+              </div>
+              <svg viewBox="0 0 64 64" class="w-16 h-16 shrink-0 border border-obsidian-900/15 p-1 bg-white" aria-label="QR фискального чека">
+                <rect x="2" y="2" width="18" height="18" fill="#111"/><rect x="5" y="5" width="12" height="12" fill="#FFF"/><rect x="8" y="8" width="6" height="6" fill="#111"/>
+                <rect x="44" y="2" width="18" height="18" fill="#111"/><rect x="47" y="5" width="12" height="12" fill="#FFF"/><rect x="50" y="8" width="6" height="6" fill="#111"/>
+                <rect x="2" y="44" width="18" height="18" fill="#111"/><rect x="5" y="47" width="12" height="12" fill="#FFF"/><rect x="8" y="50" width="6" height="6" fill="#111"/>
+                <rect x="26" y="4" width="6" height="6" fill="#111"/><rect x="34" y="10" width="6" height="10" fill="#111"/>
+                <rect x="24" y="24" width="14" height="6" fill="#111"/><rect x="44" y="26" width="14" height="6" fill="#111"/>
+                <rect x="6" y="26" width="10" height="12" fill="#111"/><rect x="26" y="36" width="10" height="12" fill="#111"/>
+                <rect x="42" y="42" width="8" height="8" fill="#111"/><rect x="52" y="48" width="10" height="12" fill="#111"/>
+                <rect x="28" y="54" width="18" height="6" fill="#111"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Right (6 cols): Issued Electronic Conference Pass -->
+          <div class="lg:col-span-6 flex flex-col gap-4">
+            <div class="rounded-2xl bg-obsidian-950 text-white p-6 relative overflow-hidden shadow-xl">
+              <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-flame/35 blur-2xl pointer-events-none"></div>
+              <div class="relative z-10 flex items-center justify-between gap-2 pb-4 mb-4 border-b border-white/12">
+                <span class="font-extrabold text-sm tracking-tight">MOTION <span class="text-flame">2026</span></span>
+                <span id="ticket-pass-code" class="px-2.5 py-1 rounded-full bg-white/10 font-mono text-[10.5px] text-flame-glow">#MTN-8492</span>
+              </div>
+
+              <div class="relative z-10 flex flex-col gap-3">
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-white/45">Участник</div>
+                  <div id="ticket-holder-name" class="text-xl font-bold text-white">Алексей Смирнов</div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <div class="text-[10px] font-mono uppercase text-white/45">Категория</div>
+                    <div id="ticket-tier-label" class="font-semibold text-flame-glow mt-0.5">Pro Pass · 1 билет</div>
+                  </div>
+                  <div>
+                    <div class="text-[10px] font-mono uppercase text-white/45">Даты и площадка</div>
+                    <div class="font-semibold text-white mt-0.5">18–19 дек · Artplay</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white border border-obsidian-900/10 text-xs text-obsidian-600 leading-relaxed">
+              <strong class="text-obsidian-900 block mb-1">Что происходит на реальном сайте после этого шага:</strong>
+              ЮKassa отправляет серверный webhook <code class="font-mono text-flame">payment.succeeded</code>, облачная касса (АТОЛ / ЮKassa Чеки) регистрирует чек в ФНС, а клиент автоматически получает PDF-билет на почту и доступ в Telegram-чат.
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW B: YUKASSA WEBHOOK JSON -->
+        <div id="success-view-webhook" class="hidden rounded-2xl bg-obsidian-950 text-white p-5">
+          <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10 font-mono text-[11px]">
+            <span class="text-flame-glow">POST /api/webhooks/yookassa · event: payment.succeeded</span>
+            <button id="copy-webhook-json" type="button" class="text-white/80 hover:text-white underline underline-offset-4 cursor-pointer">
+              Скопировать JSON
+            </button>
+          </div>
+          <pre id="webhook-json-pre" class="font-mono text-[11px] text-white/85 max-h-[300px] overflow-y-auto whitespace-pre-wrap break-words leading-relaxed"></pre>
+        </div>
+
+        <!-- Success Modal Footer -->
+        <div class="pt-4 border-t border-obsidian-900/12 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <button id="checkout-new-test-btn" type="button" class="btn-outline-pill px-5 py-3 rounded-full text-xs font-semibold cursor-pointer">
+            Протестировать другой способ оплаты
+          </button>
+          <a href="../index.html#feedback" class="btn-flame inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-bold">
+            <span>Внедрить оплату и 54-ФЗ на свой сайт →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="motion-toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-[90] px-4 py-2.5 rounded-full bg-obsidian-950 text-white border border-white/15 text-xs font-medium opacity-0 pointer-events-none translate-y-2 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-flame"></span>
+    <span id="motion-toast-text">Готово</span>
+  </div>
+
+
+  <!-- ==================== INTERACTIVE TICKETS, YUKASSA / SBP SANDBOX & 54-FZ ENGINE ==================== -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
