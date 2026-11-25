@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MONOLITH — Архитектурный ремонт квартир · Квиз-смета (Демо-проект)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Manrope", "sans-serif"],
+            serif: ["Cormorant Garamond", "Georgia", "serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            stone: {
+              bg: "#F4F1EA",
+              card: "#FAF8F4",
+              soft: "#EAE4D9",
+              line: "rgba(21, 20, 18, 0.12)"
+            },
+            ink: {
+              primary: "#151412",
+              secondary: "#5B564E",
+              muted: "#8C857B"
+            },
+            terra: {
+              DEFAULT: "#C85A32",
+              hover: "#AD4722",
+              soft: "rgba(200, 90, 50, 0.1)"
+            },
+            sage: {
+              DEFAULT: "#3F5947",
+              soft: "rgba(63, 89, 71, 0.1)"
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-stone-bg text-ink-primary font-sans antialiased min-h-screen flex flex-col">
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <div class="relative z-50 bg-ink-primary text-stone-card border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-terra/25 text-[#F4B49A] uppercase tracking-wider text-[10px] shrink-0">
+          <span class="w-1.5 h-1.5 rounded-full bg-terra animate-pulse"></span>
+          Демо-проект
+        </span>
+        <span class="text-stone-soft/85 truncate">
+          Из портфолио <strong class="text-white font-semibold">Данила Буторова</strong> · Реализую такое же решение под ваш бизнес
+        </span>
+      </div>
+      <div class="flex items-center gap-4 shrink-0">
+        <a href="../portfolio.html" class="text-stone-soft/80 hover:text-white transition-colors">← Вернуться в портфолио</a>
+        <a href="../index.html#feedback" class="text-[#F4B49A] hover:text-white underline underline-offset-4 transition-colors font-medium">Заказать такой сайт →</a>
+      </div>
+    </div>
+  </div>
+
+  <header id="site-header" class="arch-nav sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3 group shrink-0">
+        <span class="w-8 h-8 rounded-lg bg-ink-primary text-stone-card flex items-center justify-center font-mono text-xs font-semibold tracking-tight group-hover:bg-terra transition-colors">
+          M/
+        </span>
+        <div class="flex flex-col leading-none">
+          <span class="font-extrabold text-sm sm:text-base tracking-[0.16em] uppercase text-ink-primary">MONOLITH</span>
+          <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-muted mt-0.5">Architectural Bureau</span>
+        </div>
+      </a>
+
+      <nav aria-label="Навигация по демо-сайту" class="hidden md:flex items-center gap-7 text-xs font-semibold uppercase tracking-[0.12em] text-ink-secondary">
+        <a href="#quiz" class="hover:text-terra transition-colors">Квиз-смета</a>
+        <a href="#projects" class="hover:text-terra transition-colors">Объекты</a>
+        <a href="#standards" class="hover:text-terra transition-colors">Стандарты</a>
+        <a href="#demo-contacts" class="hover:text-terra transition-colors">Контакты</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <a href="tel:+79990000000" title="Демонстрационный номер" class="hidden lg:inline-flex items-center gap-1.5 text-xs font-mono text-ink-secondary hover:text-ink-primary transition-colors">
+          <span>+7 (999) 000-00-00</span>
+        </a>
+        <a href="#quiz" class="btn-dark inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-[11px] font-semibold uppercase tracking-[0.12em] shrink-0">
+          <span>Рассчитать смету</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <button id="mobile-nav-toggle" type="button" aria-label="Меню" aria-expanded="false" class="md:hidden w-10 h-10 rounded-full border border-ink-primary/20 flex items-center justify-center text-ink-primary cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-nav-panel" class="mobile-menu-panel md:hidden absolute top-full left-0 right-0 bg-stone-card border-b border-ink-primary/15 px-5 py-5 shadow-xl">
+      <div class="flex flex-col gap-3 text-xs font-semibold uppercase tracking-[0.14em]">
+        <a href="#quiz" class="mobile-link py-2 border-b border-ink-primary/10 text-ink-primary">Квиз-смета (5 шагов)</a>
+        <a href="#projects" class="mobile-link py-2 border-b border-ink-primary/10 text-ink-secondary">Реализованные объекты</a>
+        <a href="#standards" class="mobile-link py-2 border-b border-ink-primary/10 text-ink-secondary">Стандарты работы</a>
+        <a href="#demo-contacts" class="mobile-link py-2 text-ink-secondary">Контакты (демо)</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" class="relative blueprint-grid border-b border-ink-primary/12 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-10 sm:pt-14 lg:pt-16 pb-14 sm:pb-20 lg:pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div class="lg:col-span-6 flex flex-col items-start">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stone-card border border-ink-primary/14 text-[10.5px] font-mono uppercase tracking-[0.16em] text-ink-secondary mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-terra"></span>
+            <span>01 / Дизайн и ремонт квартир под ключ</span>
+          </div>
+
+          <h1 class="text-[36px] sm:text-[50px] lg:text-[58px] font-extrabold tracking-[-0.03em] leading-[1.02] text-ink-primary mb-5">
+            Инженерный ремонт с
+            <span class="font-serif italic font-medium text-terra tracking-[-0.01em] text-[1.12em]">точной сметой</span>
+            до старта работ
+          </h1>
+
+          <p class="text-sm sm:text-base text-ink-secondary leading-[1.7] max-w-xl mb-8">
+            Ответьте на 5 коротких вопросов о вашей квартире — система в реальном времени рассчитает стоимость черновых, чистовых и инженерных работ, сроки и закрепит <strong class="text-ink-primary font-semibold">скидку 7%</strong> на реализацию.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
+            <a href="#quiz" class="btn-terra inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-xs font-bold uppercase tracking-[0.14em]">
+              <span>Рассчитать стоимость за 60 сек</span>
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a href="#projects" class="btn-outline-dark inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full text-xs font-semibold uppercase tracking-[0.14em]">
+              <span>Смотреть интерьеры</span>
+            </a>
+          </div>
+
+          <div class="w-full grid grid-cols-3 gap-4 sm:gap-6 pt-6 border-t border-ink-primary/14">
+            <div class="flex flex-col gap-1">
+              <span class="font-mono text-xl sm:text-2xl font-semibold text-ink-primary tracking-tight">140+</span>
+              <span class="text-[11px] text-ink-secondary leading-snug">реализованных квартир</span>
+            </div>
+            <div class="flex flex-col gap-1 border-l border-ink-primary/12 pl-4 sm:pl-6">
+              <span class="font-mono text-xl sm:text-2xl font-semibold text-terra tracking-tight">0 ₽</span>
+              <span class="text-[11px] text-ink-secondary leading-snug">скрытых доплат по договору</span>
+            </div>
+            <div class="flex flex-col gap-1 border-l border-ink-primary/12 pl-4 sm:pl-6">
+              <span class="font-mono text-xl sm:text-2xl font-semibold text-ink-primary tracking-tight">3 года</span>
+              <span class="text-[11px] text-ink-secondary leading-snug">гарантии на инженерию</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 relative">
+          <div class="relative rounded-3xl overflow-hidden border border-ink-primary/14 bg-stone-soft aspect-[4/4.3] sm:aspect-[16/12] lg:aspect-[4/4.5] shadow-[0_32px_70px_-28px_rgba(21,20,18,0.28)]">
+            <img
+              alt="Минималистичный интерьер квартиры после архитектурного ремонта"
+              class="w-full h-full object-cover"
+              src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85"
+              onerror="this.src='https://placehold.co/900x1000/EAE4D9/151412?text=MONOLITH+INTERIOR'"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-primary/45 via-transparent to-transparent pointer-events-none"></div>
+
+            <div class="absolute top-4 left-4 sm:top-5 sm:left-5 px-3.5 py-1.5 rounded-full bg-stone-card/90 backdrop-blur-md border border-ink-primary/10 text-[10px] font-mono uppercase tracking-[0.16em] text-ink-primary">
+              ЖК Садовые Кварталы · 86 м²
+            </div>
+
+            <div class="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 p-4 sm:p-5 rounded-2xl bg-ink-primary/90 backdrop-blur-md border border-white/12 text-stone-card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-[#F4B49A] mb-1">Пример расчёта по квизу</div>
+                <div class="text-sm sm:text-base font-bold text-white">Тёплый минимализм · Новостройка 86 м²</div>
+              </div>
+              <div class="flex items-center sm:flex-col sm:items-end justify-between border-t sm:border-t-0 border-white/10 pt-2.5 sm:pt-0 shrink-0">
+                <span class="font-mono text-base sm:text-lg font-semibold text-white">2 540 000 ₽</span>
+                <span class="text-[10.5px] font-mono text-stone-soft/70">Срок: ~3.5 мес</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="reveal-el relative py-16 sm:py-22 lg:py-26 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 mb-8 sm:mb-10 border-b border-ink-primary/12">
+        <div class="max-w-2xl">
+          <div class="text-[11px] font-mono uppercase tracking-[0.2em] text-terra mb-2.5">
+            02 / Интерактивный расчёт стоимости
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-[-0.025em] leading-[1.06] text-ink-primary">
+            Узнайте бюджет ремонта
+            <span class="font-serif italic font-medium text-terra">прямо сейчас</span>
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-ink-secondary max-w-md leading-relaxed">
+          Пройдите 5 шагов — справа автоматически формируется детальная смета с разбивкой по этапам, срокам и скидкой. Все значения пересчитываются мгновенно.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div class="lg:col-span-8 rounded-3xl bg-stone-card border border-ink-primary/14 shadow-[0_24px_60px_-32px_rgba(21,20,18,0.18)] overflow-hidden flex flex-col">
+          <div class="px-5 sm:px-8 pt-6 pb-5 border-b border-ink-primary/10 bg-stone-bg/55">
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <div class="flex items-center gap-2.5">
+                <span id="quiz-step-badge" class="px-2.5 py-1 rounded-md bg-ink-primary text-stone-card font-mono text-[10.5px] font-semibold tracking-wider uppercase">
+                  Шаг 01 / 05
+                </span>
+                <span id="quiz-step-label" class="text-xs font-medium text-ink-secondary hidden sm:inline">
+                  Тип объекта
+                </span>
+              </div>
+              <span id="quiz-progress-text" class="font-mono text-xs font-semibold text-terra">20%</span>
+            </div>
+
+            <div class="w-full h-1.5 rounded-full bg-ink-primary/10 overflow-hidden">
+              <div id="quiz-progress-bar" class="h-full bg-terra rounded-full transition-all duration-500 ease-out" style="width: 20%;"></div>
+            </div>
+          </div>
+
+          <div id="quiz-stage" class="p-5 sm:p-8 min-h-[420px] flex flex-col justify-between"></div>
+
+          <div id="quiz-nav-footer" class="px-5 sm:px-8 py-5 border-t border-ink-primary/10 bg-stone-bg/45 flex items-center justify-between gap-4">
+            <button id="quiz-prev-btn" type="button" class="btn-outline-dark inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.12em] disabled:opacity-35 disabled:pointer-events-none cursor-pointer">
+              <span aria-hidden="true">←</span>
+              <span>Назад</span>
+            </button>
+
+            <div class="hidden sm:flex items-center gap-2 text-[11px] font-mono text-ink-muted">
+              <span class="w-1.5 h-1.5 rounded-full bg-sage"></span>
+              <span>Смета обновляется автоматически</span>
+            </div>
+
+            <button id="quiz-next-btn" type="button" class="btn-dark inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 rounded-full text-xs font-bold uppercase tracking-[0.12em] cursor-pointer">
+              <span id="quiz-next-label">Далее</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-4 lg:sticky lg:top-24 rounded-3xl bg-ink-primary text-stone-card border border-ink-primary p-6 sm:p-7 shadow-[0_28px_64px_-24px_rgba(21,20,18,0.45)] flex flex-col gap-5">
+          <div class="flex items-center justify-between pb-4 border-b border-white/12">
+            <div>
+              <div class="text-[10px] font-mono uppercase tracking-[0.18em] text-[#F4B49A]">Live Blueprint</div>
+              <h3 class="text-base font-bold text-white mt-0.5">Предварительная смета</h3>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-white/8 border border-white/12 font-mono text-[10px] text-stone-soft">
+              2026
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center justify-between text-[11px] font-mono text-stone-soft/70">
+              <span>Ориентир «под ключ»</span>
+              <span id="live-discount-badge" class="px-2 py-0.5 rounded bg-terra/25 text-[#F4B49A] font-semibold">Скидка −7%</span>
+            </div>
+            <div class="flex items-baseline gap-2.5 flex-wrap">
+              <span id="live-total-price" class="font-mono text-3xl sm:text-[34px] font-semibold tracking-tight text-white">1 720 500 ₽</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono text-stone-soft/60">
+              <span id="live-old-price" class="line-through">1 850 000 ₽</span>
+              <span>·</span>
+              <span id="live-per-sqm" class="text-[#F4B49A]">26 469 ₽ / м²</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2.5 py-4 border-y border-white/12 text-xs">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-stone-soft/75">Черновые и базовые работы</span>
+              <span id="live-rough-cost" class="font-mono text-white font-medium">647 500 ₽</span>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-stone-soft/75">Чистовая отделка и стиль</span>
+              <span id="live-finish-cost" class="font-mono text-white font-medium">925 000 ₽</span>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-stone-soft/75">Инженерия и опции</span>
+              <span id="live-options-cost" class="font-mono text-white font-medium">277 500 ₽</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-white/10">
+              <span class="text-[#F4B49A]">Ваша экономия по квизу</span>
+              <span id="live-saving-cost" class="font-mono text-[#F4B49A] font-semibold">−129 500 ₽</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <span class="text-[10px] font-mono uppercase tracking-[0.16em] text-stone-soft/60">Выбранные параметры</span>
+            <div id="live-summary-tags" class="flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <div class="rounded-2xl bg-white/[0.06] border border-white/10 p-4 flex flex-col gap-2.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-stone-soft/75">Срок реализации</span>
+              <span id="live-duration" class="font-mono font-semibold text-white">~3.0 месяца</span>
+            </div>
+            <div class="flex items-start justify-between gap-3 text-xs pt-2 border-t border-white/10">
+              <span class="text-stone-soft/75 shrink-0">Бонус</span>
+              <span id="live-bonus-text" class="font-medium text-[#F4B49A] text-right">Скидка −7% на все работы</span>
+            </div>
+          </div>
+
+          <button id="live-jump-final-btn" type="button" class="w-full py-3 px-4 rounded-xl bg-white/10 hover:bg-terra text-white text-[11px] font-mono uppercase tracking-[0.14em] transition-colors cursor-pointer">
+            Зафиксировать эту смету →
+          </button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal-el py-16 sm:py-22 px-4 sm:px-8 border-t border-ink-primary/12 bg-stone-card/60">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
+        <div>
+          <div class="text-[11px] font-mono uppercase tracking-[0.2em] text-terra mb-2.5">
+            03 / Реализованные пространства
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-[-0.025em] leading-tight text-ink-primary">
+            Интерьеры, где смета
+            <span class="font-serif italic font-medium text-terra">совпала до рубля</span>
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-ink-secondary max-w-sm leading-relaxed">
+          Нажмите «Рассчитать похожий» на любом проекте — квиз автоматически подставит его площадь и стиль.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7">
+        <article class="group rounded-2xl bg-stone-card border border-ink-primary/12 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+          <div>
+            <div class="aspect-[4/3] overflow-hidden bg-stone-soft relative">
+              <img
+                alt="ЖК Lucky — Тёплый минимализм 74 м²"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80"
+                onerror="this.src='https://placehold.co/800x600/EAE4D9/151412?text=Minimalism+74m2'"
+              >
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-stone-card/90 backdrop-blur-sm font-mono text-[10px] uppercase tracking-wider text-ink-primary">
+                74 м² · 3.5 мес
+              </span>
+            </div>
+            <div class="p-5 sm:p-6">
+              <div class="text-[10.5px] font-mono uppercase tracking-[0.14em] text-terra mb-1.5">Скандинавский минимализм</div>
+              <h3 class="text-lg font-bold text-ink-primary mb-2">Апартаменты в ЖК «Тихий Парк»</h3>
+              <p class="text-xs text-ink-secondary leading-relaxed">
+                Перепланировка из бетона, скрытые двери в потолок, инженерная доска, приточная вентиляция и тёплые полы.
+              </p>
+            </div>
+          </div>
+          <div class="px-5 sm:px-6 pb-5 pt-3.5 border-t border-ink-primary/10 flex items-center justify-between gap-2">
+            <span class="font-mono text-sm font-semibold text-ink-primary">2 180 000 ₽</span>
+            <button type="button" data-preset-area="74" data-preset-style="minimalism" data-preset-type="new_concrete" class="preset-load-btn text-[11px] font-mono uppercase tracking-wider text-terra hover:text-ink-primary transition-colors cursor-pointer">
+              Рассчитать похожий →
+            </button>
+          </div>
+        </article>
+
+        <article class="group rounded-2xl bg-stone-card border border-ink-primary/12 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+          <div>
+            <div class="aspect-[4/3] overflow-hidden bg-stone-soft relative">
+              <img
+                alt="ЖК Вест Гарден — Тёплый Japandi 96 м²"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80"
+                onerror="this.src='https://placehold.co/800x600/EAE4D9/151412?text=Japandi+96m2'"
+              >
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-stone-card/90 backdrop-blur-sm font-mono text-[10px] uppercase tracking-wider text-ink-primary">
+                96 м² · 4.5 мес
+              </span>
+            </div>
+            <div class="p-5 sm:p-6">
+              <div class="text-[10.5px] font-mono uppercase tracking-[0.14em] text-terra mb-1.5">Тёплый Japandi</div>
+              <h3 class="text-lg font-bold text-ink-primary mb-2">Семейная квартира с террасой</h3>
+              <p class="text-xs text-ink-secondary leading-relaxed">
+                Микроцемент в санузлах, натуральный шпон дуба, умные сценарии освещения и акустическая шумоизоляция спальни.
+              </p>
+            </div>
+          </div>
+          <div class="px-5 sm:px-6 pb-5 pt-3.5 border-t border-ink-primary/10 flex items-center justify-between gap-2">
+            <span class="font-mono text-sm font-semibold text-ink-primary">3 420 000 ₽</span>
+            <button type="button" data-preset-area="96" data-preset-style="japandi" data-preset-type="new_whitebox" class="preset-load-btn text-[11px] font-mono uppercase tracking-wider text-terra hover:text-ink-primary transition-colors cursor-pointer">
+              Рассчитать похожий →
+            </button>
+          </div>
+        </article>
+
+        <article class="group rounded-2xl bg-stone-card border border-ink-primary/12 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+          <div>
+            <div class="aspect-[4/3] overflow-hidden bg-stone-soft relative">
+              <img
+                alt="Исторический фонд — Современная неоклассика 118 м²"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+                onerror="this.src='https://placehold.co/800x600/EAE4D9/151412?text=Neoclassic+118m2'"
+              >
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-stone-card/90 backdrop-blur-sm font-mono text-[10px] uppercase tracking-wider text-ink-primary">
+                118 м² · 5.5 мес
+              </span>
+            </div>
+            <div class="p-5 sm:p-6">
+              <div class="text-[10.5px] font-mono uppercase tracking-[0.14em] text-terra mb-1.5">Авторский премиум</div>
+              <h3 class="text-lg font-bold text-ink-primary mb-2">Реконструкция в сталинском доме</h3>
+              <p class="text-xs text-ink-secondary leading-relaxed">
+                Полный демонтаж, замена всех стояков, лепнина из гипса, латунные профили и канальное кондиционирование.
+              </p>
+            </div>
+          </div>
+          <div class="px-5 sm:px-6 pb-5 pt-3.5 border-t border-ink-primary/10 flex items-center justify-between gap-2">
+            <span class="font-mono text-sm font-semibold text-ink-primary">4 890 000 ₽</span>
+            <button type="button" data-preset-area="118" data-preset-style="luxury" data-preset-type="secondary" class="preset-load-btn text-[11px] font-mono uppercase tracking-wider text-terra hover:text-ink-primary transition-colors cursor-pointer">
+              Рассчитать похожий →
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="standards" class="reveal-el py-16 sm:py-22 px-4 sm:px-8 border-t border-ink-primary/12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div>
+          <div class="text-[11px] font-mono uppercase tracking-[0.2em] text-terra mb-2.5">
+            04 / Прозрачный процесс
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-[-0.025em] leading-tight text-ink-primary">
+            Как мы удерживаем
+            <span class="font-serif italic font-medium text-terra">срок и бюджет</span>
+          </h2>
+        </div>
+        <a href="#quiz" class="text-xs font-mono uppercase tracking-[0.14em] text-ink-primary border-b border-terra pb-1 hover:text-terra transition-colors w-max">
+          Перейти к расчёту →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-ink-primary/14">
+        <div class="p-6 sm:p-7 border-r border-b border-ink-primary/14 bg-stone-card/40 flex flex-col gap-3">
+          <span class="font-mono text-xs text-terra font-semibold">01 / ЗАМЕР</span>
+          <h3 class="text-base font-bold text-ink-primary">Лазерный аудит объекта</h3>
+          <p class="text-xs text-ink-secondary leading-relaxed">
+            Инженер выезжает с 3D-сканером, проверяет геометрию стен, перепады пола и состояние инженерных узлов.
+          </p>
+        </div>
+
+        <div class="p-6 sm:p-7 border-r border-b border-ink-primary/14 bg-stone-card/40 flex flex-col gap-3">
+          <span class="font-mono text-xs text-terra font-semibold">02 / СМЕТА</span>
+          <h3 class="text-base font-bold text-ink-primary">Фиксация цены в договоре</h3>
+          <p class="text-xs text-ink-secondary leading-relaxed">
+            Построчная ведомость всех работ и черновых материалов. Стоимость не меняется в процессе ремонта.
+          </p>
+        </div>
+
+        <div class="p-6 sm:p-7 border-r border-b border-ink-primary/14 bg-stone-card/40 flex flex-col gap-3">
+          <span class="font-mono text-xs text-terra font-semibold">03 / КОНТРОЛЬ</span>
+          <h3 class="text-base font-bold text-ink-primary">Видеоотчёты в Telegram</h3>
+          <p class="text-xs text-ink-secondary leading-relaxed">
+            Каждые 3 дня прораб присылает фото и видео скрытых работ, акты опрессовки труб и календарь поставок.
+          </p>
+        </div>
+
+        <div class="p-6 sm:p-7 border-r border-b border-ink-primary/14 bg-stone-card/40 flex flex-col gap-3">
+          <span class="font-mono text-xs text-terra font-semibold">04 / СДАЧА</span>
+          <h3 class="text-base font-bold text-ink-primary">Приёмка по 120 пунктам</h3>
+          <p class="text-xs text-ink-secondary leading-relaxed">
+            Профессиональный клининг, паспорта на инженерные сети и официальная гарантия 36 месяцев.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="demo-contacts" class="mt-auto bg-ink-primary text-stone-card pt-14 sm:pt-16 pb-8 px-4 sm:px-8 border-t border-white/10">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/12">
+        <div class="md:col-span-5 flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-terra text-white flex items-center justify-center font-mono text-xs font-semibold">M/</span>
+            <span class="font-extrabold text-base tracking-[0.16em] uppercase text-white">MONOLITH</span>
+          </div>
+          <p class="text-xs text-stone-soft/75 leading-relaxed max-w-sm">
+            Архитектурный ремонт квартир и апартаментов с фиксированной сметой и авторским контролем.
+          </p>
+          <span class="inline-flex items-center gap-2 text-[10.5px] font-mono text-stone-soft/55">
+            <span>ИНН 0000000000 · ОГРН 0000000000000 (Демонстрационные данные)</span>
+          </span>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-2.5 text-xs">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[#F4B49A] mb-1">Контакты студии (шаблон)</span>
+          <a href="tel:+79990000000" class="font-mono text-sm text-white hover:text-[#F4B49A] transition-colors">+7 (999) 000-00-00</a>
+          <a href="mailto:demo@example.ru" class="font-mono text-stone-soft/80 hover:text-white transition-colors">demo@example.ru</a>
+          <span class="text-stone-soft/65">г. Москва, ул. Примерная, д. 10, оф. 404</span>
+          <span class="text-stone-soft/50 text-[11px]">Пн — Сб · 10:00 — 20:00</span>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col gap-2.5 text-xs">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[#F4B49A] mb-1">Разделы</span>
+          <a href="#quiz" class="text-stone-soft/80 hover:text-white transition-colors">Интерактивный квиз-расчёт</a>
+          <a href="#projects" class="text-stone-soft/80 hover:text-white transition-colors">Реализованные объекты</a>
+          <a href="#standards" class="text-stone-soft/80 hover:text-white transition-colors">Стандарты качества</a>
+        </div>
+      </div>
+
+      <div class="mt-8 p-5 sm:p-6 rounded-2xl bg-white/[0.05] border border-white/12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
+        <div class="flex flex-col gap-1.5">
+          <div class="inline-flex items-center gap-2 text-[10.5px] font-mono uppercase tracking-[0.18em] text-[#F4B49A]">
+            <span>✦</span>
+            <span>Демонстрация технологии · Квиз-лендинг со сметой</span>
+          </div>
+          <p class="text-xs sm:text-sm text-stone-soft/90 leading-relaxed">
+            Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong>. Реализую аналогичный квиз-сайт с расчётом цены, скидками и мгновенной передачей сметы в Telegram и CRM под вашу нишу.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
+          <a href="../portfolio.html" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full border border-white/25 hover:border-white text-white text-[11px] font-mono uppercase tracking-[0.12em] transition-colors">
+            <span>← Вернуться в портфолио</span>
+          </a>
+          <a href="../index.html#feedback" class="btn-terra inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[11px] font-mono font-semibold uppercase tracking-[0.12em]">
+            <span>Заказать такой сайт →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="demo-result-modal" class="modal-overlay fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6 bg-ink-primary/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" aria-hidden="true">
+    <div class="modal-card relative w-full max-w-2xl rounded-3xl bg-stone-card border border-ink-primary/20 p-6 sm:p-8 shadow-2xl max-h-[90svh] overflow-y-auto">
+      <button id="demo-modal-close" type="button" aria-label="Закрыть" class="absolute top-4 right-4 w-9 h-9 rounded-full border border-ink-primary/15 hover:border-ink-primary flex items-center justify-center text-ink-secondary hover:text-ink-primary transition-colors cursor-pointer">
+        ✕
+      </button>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sage-soft text-sage text-[10.5px] font-mono font-semibold uppercase tracking-wider mb-4">
+        <span>✓</span>
+        <span>Интерактивная демонстрация заявки</span>
+      </div>
+
+      <h3 id="demo-modal-title" class="text-2xl sm:text-3xl font-extrabold text-ink-primary tracking-tight mb-2">
+        Смета сформирована и готова к отправке
+      </h3>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed mb-5">
+        Это демо-версия сайта. В реальном проекте для вашего бизнеса данные из квиза мгновенно улетят вам в <strong class="text-ink-primary">Telegram-бота, AmoCRM или Битрикс24</strong> именно в таком структурированном виде:
+      </p>
+
+      <div class="rounded-2xl bg-ink-primary text-stone-card p-5 font-mono text-xs leading-relaxed mb-6 border border-ink-primary">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-white/12 text-[10.5px]">
+          <span class="text-[#F4B49A] uppercase tracking-wider">⚡ Новая заявка из квиза → Telegram / CRM</span>
+          <button id="copy-json-btn" type="button" class="px-2.5 py-1 rounded-md bg-white/10 hover:bg-terra text-stone-card transition-colors cursor-pointer">
+            Скопировать JSON-пример
+          </button>
+        </div>
+        <pre id="demo-payload-preview" class="whitespace-pre-wrap break-words text-[11.5px] text-stone-soft/90 overflow-x-auto"></pre>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-ink-primary/12">
+        <button id="demo-modal-restart" type="button" class="btn-outline-dark px-5 py-3 rounded-full text-[11px] font-semibold uppercase tracking-[0.12em] cursor-pointer">
+          Пройти квиз заново
+        </button>
+        <a href="../index.html#feedback" class="btn-terra inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[11px] font-bold uppercase tracking-[0.12em]">
+          <span>Хочу такой же квиз для бизнеса →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

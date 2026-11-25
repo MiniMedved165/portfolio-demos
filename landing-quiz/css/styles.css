@@ -1,0 +1,268 @@
+:root {
+  --bg-stone: #F4F1EA;
+  --ink-dark: #151412;
+  --terra: #C85A32;
+  --ease-arch: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background-color: var(--bg-stone);
+  color: var(--ink-dark);
+  scroll-padding-top: 108px;
+  -webkit-tap-highlight-color: rgba(200, 90, 50, 0.14);
+}
+
+body {
+  background-color: var(--bg-stone);
+  overflow-x: clip;
+}
+
+::selection {
+  background-color: rgba(200, 90, 50, 0.18);
+  color: #151412;
+}
+
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgba(21, 20, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21, 20, 18, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.arch-nav {
+  background: rgba(244, 241, 234, 0.84);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  border-bottom: 1px solid rgba(21, 20, 18, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.arch-nav.is-scrolled {
+  background: rgba(250, 248, 244, 0.94);
+  box-shadow: 0 12px 32px -18px rgba(21, 20, 18, 0.18);
+}
+
+.btn-dark {
+  background-color: #151412;
+  color: #FAF8F4;
+  border: 1px solid #151412;
+  transition: transform 0.25s var(--ease-arch), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.3s ease;
+}
+
+.btn-dark:hover {
+  background-color: var(--terra);
+  border-color: var(--terra);
+  box-shadow: 0 14px 28px -12px rgba(200, 90, 50, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-dark:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.btn-terra {
+  background-color: var(--terra);
+  color: #FAF8F4;
+  border: 1px solid var(--terra);
+  transition: transform 0.25s var(--ease-arch), background-color 0.25s ease, box-shadow 0.3s ease;
+}
+
+.btn-terra:hover {
+  background-color: #AD4722;
+  box-shadow: 0 14px 30px -10px rgba(200, 90, 50, 0.48);
+  transform: translateY(-1px);
+}
+
+.btn-outline-dark {
+  background-color: transparent;
+  color: #151412;
+  border: 1px solid rgba(21, 20, 18, 0.26);
+  transition: all 0.25s var(--ease-arch);
+}
+
+.btn-outline-dark:hover {
+  background-color: #151412;
+  color: #FAF8F4;
+  border-color: #151412;
+  transform: translateY(-1px);
+}
+
+input[type="range"].arch-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    #C85A32 0%,
+    #C85A32 var(--slider-pct, 30%),
+    rgba(21, 20, 18, 0.14) var(--slider-pct, 30%),
+    rgba(21, 20, 18, 0.14) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"].arch-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #151412;
+  border: 3px solid #FAF8F4;
+  box-shadow: 0 4px 14px rgba(21, 20, 18, 0.3), 0 0 0 1px rgba(21, 20, 18, 0.15);
+  transition: transform 0.2s var(--ease-arch), background-color 0.2s ease;
+}
+
+input[type="range"].arch-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+  background: #C85A32;
+}
+
+input[type="range"].arch-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #151412;
+  border: 3px solid #FAF8F4;
+  box-shadow: 0 4px 14px rgba(21, 20, 18, 0.3);
+  transition: transform 0.2s var(--ease-arch), background-color 0.2s ease;
+}
+
+.quiz-option {
+  border: 1px solid rgba(21, 20, 18, 0.14);
+  background-color: #FAF8F4;
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.28s var(--ease-arch), box-shadow 0.3s ease;
+}
+
+.quiz-option:hover {
+  border-color: rgba(21, 20, 18, 0.42);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -18px rgba(21, 20, 18, 0.22);
+}
+
+.quiz-option.is-selected {
+  border-color: #C85A32;
+  background-color: #FFFDF9;
+  box-shadow: 0 0 0 1px #C85A32, 0 18px 34px -18px rgba(200, 90, 50, 0.28);
+}
+
+.quiz-option .check-dot {
+  transition: all 0.22s var(--ease-arch);
+}
+
+.quiz-option.is-selected .check-dot {
+  background-color: #C85A32;
+  border-color: #C85A32;
+  color: #FAF8F4;
+}
+
+@keyframes stepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quiz-step-animate {
+  animation: stepFadeIn 0.38s var(--ease-arch) forwards;
+}
+
+.reveal-el {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.75s var(--ease-arch), transform 0.8s var(--ease-arch);
+}
+
+.js-ready .reveal-el {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.js-ready .reveal-el.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu-panel {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.28s var(--ease-arch), visibility 0.25s ease;
+}
+
+.mobile-menu-panel.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.modal-overlay {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-card {
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 0.3s var(--ease-arch), transform 0.35s var(--ease-arch);
+}
+
+.modal-overlay.is-open .modal-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js-ready .reveal-el {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4F1EA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8C1B4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #151412;
+}

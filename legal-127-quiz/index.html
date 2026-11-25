@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Норма · Бюро — Калькулятор сметы и списание долгов по 127-ФЗ (Демо-проект)</title>
+  <meta name="description" content="Интерактивный квиз-лендинг с мгновенным расчётом сметы процедуры банкротства по 127-ФЗ. Демонстрационный проект из портфолио Данила Буторова." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            limestone: "#F5F2EB",
+            parchment: "#ECE7DC",
+            ivory: "#FDFCF9",
+            obsidian: "#121514",
+            emeraldDeep: "#143B2E",
+            emeraldHover: "#1B4D3D",
+            copper: "#B5653B",
+            mutedInk: "#585D5A"
+          },
+          fontFamily: {
+            sans: ["Manrope", "system-ui", "sans-serif"],
+            serif: ["Cormorant Garamond", "Georgia", "serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="font-sans text-obsidian antialiased selection:bg-emeraldDeep selection:text-ivory">
+
+  <div class="bg-obsidian text-limestone/90 text-xs border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-center sm:text-left">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-copper shrink-0" aria-hidden="true"></span>
+        <span>Демо-проект из портфолио Данила Буторова · Реализую такое же решение под ваш бизнес</span>
+      </div>
+      <div class="flex items-center gap-4 shrink-0 font-medium">
+        <a href="../portfolio.html" class="text-limestone/80 hover:text-ivory transition-colors underline underline-offset-4 decoration-white/25 hover:decoration-ivory">
+          ← Вернуться в портфолио
+        </a>
+        <a href="../index.html#feedback" class="text-copper hover:text-amber-300 transition-colors">
+          Заказать такой сайт →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-40 bg-limestone/92 backdrop-blur-md hairline-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-baseline gap-2.5 group focus:outline-none">
+        <span class="font-serif text-2xl sm:text-3xl font-semibold tracking-tight text-obsidian">НОРМА</span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-emeraldDeep border border-emeraldDeep/30 px-1.5 py-0.5">Бюро</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-mutedInk" aria-label="Основная навигация">
+        <a href="#quiz" class="hover:text-obsidian transition-colors">Калькулятор сметы</a>
+        <a href="#transparency" class="hover:text-obsidian transition-colors">Прозрачность цены</a>
+        <a href="#cases" class="hover:text-obsidian transition-colors">Судебная практика</a>
+        <a href="#process" class="hover:text-obsidian transition-colors">Этапы 127-ФЗ</a>
+        <a href="#faq" class="hover:text-obsidian transition-colors">Вопросы</a>
+      </nav>
+
+      <div class="hidden md:flex items-center gap-5">
+        <div class="text-right">
+          <div class="font-mono text-xs font-medium text-obsidian">+7 (999) 000-00-00</div>
+          <div class="text-[11px] text-mutedInk">Демонстрационная линия</div>
+        </div>
+        <a href="#quiz" class="inline-flex items-center gap-2 bg-emeraldDeep hover:bg-emeraldHover text-ivory text-sm font-medium px-5 py-2.5 transition-colors">
+          <span>Рассчитать смету</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <button id="mobileMenuBtn" type="button" class="lg:hidden inline-flex items-center justify-center w-10 h-10 hairline-all bg-ivory text-obsidian" aria-label="Открыть меню" aria-expanded="false">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden lg:hidden hairline-t bg-ivory px-4 py-5 space-y-4">
+      <nav class="flex flex-col space-y-3 text-base font-medium text-obsidian">
+        <a href="#quiz" class="mobile-nav-link py-1">Калькулятор сметы</a>
+        <a href="#transparency" class="mobile-nav-link py-1">Прозрачность цены</a>
+        <a href="#cases" class="mobile-nav-link py-1">Судебная практика</a>
+        <a href="#process" class="mobile-nav-link py-1">Этапы 127-ФЗ</a>
+        <a href="#faq" class="mobile-nav-link py-1">Частые вопросы</a>
+      </nav>
+      <div class="pt-3 hairline-t flex flex-col gap-3">
+        <div class="font-mono text-sm text-mutedInk">+7 (999) 000-00-00 · demo@example.ru</div>
+        <a href="#quiz" class="mobile-nav-link inline-flex justify-center items-center gap-2 bg-emeraldDeep text-ivory text-sm font-medium px-5 py-3">
+          Пройти квиз и получить смету →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="relative paper-texture hairline-b overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-14 lg:pt-16 lg:pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div class="lg:col-span-7 space-y-7 reveal">
+            <div class="inline-flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-emeraldDeep">
+              <span class="px-2.5 py-1 bg-emeraldDeep/10 border border-emeraldDeep/20">Федеральный закон № 127-ФЗ</span>
+              <span class="text-mutedInk">·</span>
+              <span class="text-copper">Интерактивный расчёт за 60 сек</span>
+            </div>
+
+            <h1 class="font-sans text-4xl sm:text-5xl lg:text-[3.65rem] font-semibold tracking-tight leading-[1.06] text-obsidian">
+              Законное списание долгов с
+              <span class="font-serif italic font-medium text-emeraldDeep text-[1.12em]">прозрачной сметой</span>
+              до подписания договора
+            </h1>
+
+            <p class="text-base sm:text-lg text-mutedInk leading-relaxed max-w-2xl">
+              Ответьте на 5 коротких вопросов — система в реальном времени оценит шансы на списание по ст. 213.4 Закона № 127-ФЗ, покажет обязательные судебные расходы без скрытых доплат и зафиксирует персональную скидку до 10%.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+              <a href="#quiz" class="inline-flex items-center justify-center gap-3 bg-emeraldDeep hover:bg-emeraldHover text-ivory px-7 py-4 text-sm sm:text-base font-medium transition-all shadow-sm">
+                <span>Рассчитать точную смету</span>
+                <span class="font-mono text-xs bg-white/15 px-2 py-0.5">5 шагов</span>
+              </a>
+              <a href="#cases" class="inline-flex items-center justify-center gap-2 bg-ivory hover:bg-parchment text-obsidian hairline-all px-6 py-4 text-sm sm:text-base font-medium transition-colors">
+                <span>Посмотреть примеры дел</span>
+              </a>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 pt-6 hairline-t">
+              <div>
+                <div class="font-serif text-3xl sm:text-4xl font-semibold text-obsidian">98,4%</div>
+                <div class="text-xs sm:text-sm text-mutedInk mt-0.5 leading-snug">успешных списаний в практике (демо)</div>
+              </div>
+              <div class="pl-4 border-l border-obsidian/15">
+                <div class="font-serif text-3xl sm:text-4xl font-semibold text-obsidian">100%</div>
+                <div class="text-xs sm:text-sm text-mutedInk mt-0.5 leading-snug">сохранность единственного жилья</div>
+              </div>
+              <div class="pl-4 border-l border-obsidian/15">
+                <div class="font-serif text-3xl sm:text-4xl font-semibold text-obsidian">0 ₽</div>
+                <div class="text-xs sm:text-sm text-mutedInk mt-0.5 leading-snug">скрытых доплат сверх сметы</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 reveal">
+            <div class="relative bg-obsidian p-2.5 sm:p-3 hairline-all shadow-xl">
+              <div class="relative aspect-[4/5] sm:aspect-[4/4.6] overflow-hidden bg-emeraldDeep">
+                <img
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=80"
+                  alt="Интерьер юридического бюро Норма"
+                  class="w-full h-full object-cover object-center grayscale-[28%] contrast-[1.06] opacity-90"
+                  loading="eager"
+                  onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 720%22%3E%3Crect width=%22600%22 height=%22720%22 fill=%22%23143B2E%22/%3E%3Cpath d=%22M60 60h480v600H60z%22 fill=%22none%22 stroke=%22%23F5F2EB%22 stroke-opacity=%220.22%22/%3E%3Ctext x=%22300%22 y=%22350%22 text-anchor=%22middle%22 fill=%22%23F5F2EB%22 font-family=%22Georgia,serif%22 font-size=%2236%22%3EНОРМА · БЮРО%3C/text%3E%3Ctext x=%22300%22 y=%22395%22 text-anchor=%22middle%22 fill=%22%23B5653B%22 font-family=%22monospace%22 font-size=%2214%22%3E127-ФЗ · ДЕМО%3C/text%3E%3C/svg%3E';"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent"></div>
+
+                <div class="absolute top-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-ivory/90 uppercase tracking-widest">
+                  <span class="bg-obsidian/70 backdrop-blur-sm px-2.5 py-1 border border-white/15">АРБИТРАЖНАЯ ПРАКТИКА</span>
+                  <span class="bg-copper/90 px-2.5 py-1 text-ivory">ДЕМО</span>
+                </div>
+
+                <div class="absolute bottom-4 left-4 right-4 bg-ivory/96 backdrop-blur-md p-4 sm:p-5 border border-obsidian/15">
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-emeraldDeep">Пример живого расчёта</span>
+                    <span class="font-mono text-[11px] text-copper font-medium">Скидка −10%</span>
+                  </div>
+                  <div class="flex items-baseline justify-between gap-3">
+                    <div>
+                      <div class="text-xs text-mutedInk">Рассрочка «под ключ»</div>
+                      <div class="font-serif text-2xl sm:text-3xl font-semibold text-obsidian">от 11 400 ₽<span class="text-sm font-sans font-normal text-mutedInk">/мес</span></div>
+                    </div>
+                    <a href="#quiz" class="shrink-0 text-xs font-mono uppercase tracking-wider text-emeraldDeep hover:text-copper border-b border-emeraldDeep/40 pb-0.5 transition-colors">
+                      Настроить →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="py-16 lg:py-24 bg-limestone scroll-mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 reveal">
+          <div class="max-w-2xl">
+            <div class="font-mono text-xs uppercase tracking-[0.2em] text-emeraldDeep mb-3">01 / ИНТЕРАКТИВНЫЙ КВИЗ-КАЛЬКУЛЯТОР</div>
+            <h2 class="font-sans text-3xl sm:text-4xl font-semibold tracking-tight text-obsidian">
+              Рассчитайте смету и проверьте право на списание долгов
+            </h2>
+          </div>
+          <p class="text-sm text-mutedInk max-w-md leading-relaxed">
+            Смета справа обновляется автоматически при каждом вашем ответе. За каждый пройденный шаг квиза начисляется +2% персональной скидки.
+          </p>
+        </div>
+
+        <div id="mobileStickyEstimate" class="lg:hidden mb-6 bg-obsidian text-ivory p-4 hairline-all flex items-center justify-between gap-4">
+          <div>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-limestone/65">Предварительная смета</div>
+            <div class="flex items-baseline gap-2 mt-0.5">
+              <span id="mobileMonthlyPrice" class="font-serif text-2xl font-semibold text-ivory">—</span>
+              <span id="mobileMonthlySuffix" class="text-xs text-limestone/70">/ мес</span>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-mono text-[11px] text-copper font-medium">Скидка: <span id="mobileDiscountPct">2%</span></div>
+            <div class="text-xs text-limestone/80">Шанс: <span id="mobileChancePct">96%</span></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          <div class="lg:col-span-7 bg-ivory hairline-all shadow-sm overflow-hidden">
+            <div class="px-5 sm:px-8 pt-6 pb-5 hairline-b bg-parchment/45">
+              <div class="flex items-center justify-between gap-4 mb-3">
+                <div class="flex items-center gap-3">
+                  <span id="stepCounterBadge" class="font-mono text-xs font-medium bg-obsidian text-ivory px-2.5 py-1">ШАГ 01 / 05</span>
+                  <span id="stepCategoryLabel" class="text-xs font-medium text-mutedInk uppercase tracking-wider">Размер задолженности</span>
+                </div>
+                <button id="resetQuizBtn" type="button" class="text-xs font-mono text-mutedInk hover:text-obsidian underline underline-offset-4 transition-colors">
+                  Сбросить
+                </button>
+              </div>
+              <div class="w-full h-1.5 bg-obsidian/10 overflow-hidden">
+                <div id="quizProgressBar" class="h-full bg-emeraldDeep transition-all duration-300" style="width: 20%;"></div>
+              </div>
+            </div>
+
+            <div id="quizStepContainer" class="p-5 sm:p-8 min-h-[390px] flex flex-col justify-between"></div>
+
+            <div id="quizNavFooter" class="px-5 sm:px-8 py-5 hairline-t bg-parchment/30 flex items-center justify-between gap-4">
+              <button id="prevStepBtn" type="button" class="inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-obsidian hairline-all bg-ivory hover:bg-parchment disabled:opacity-35 disabled:pointer-events-none transition-colors">
+                <span aria-hidden="true">←</span>
+                <span>Назад</span>
+              </button>
+
+              <div class="hidden sm:flex items-center gap-1.5" id="stepDots" aria-hidden="true"></div>
+
+              <button id="nextStepBtn" type="button" class="inline-flex items-center gap-2.5 px-6 py-3 text-sm font-medium bg-emeraldDeep hover:bg-emeraldHover text-ivory transition-colors">
+                <span id="nextStepBtnText">Следующий шаг</span>
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+
+          <aside class="lg:col-span-5 lg:sticky lg:top-24 bg-obsidian text-limestone hairline-all shadow-lg overflow-hidden">
+            <div class="px-6 py-5 border-b border-white/10 flex items-center justify-between gap-3">
+              <div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-limestone/60">Живая смета · 127-ФЗ</div>
+                <div id="estimateProcedureType" class="text-sm font-medium text-ivory mt-0.5">Судебное банкротство</div>
+              </div>
+              <div class="text-right">
+                <div class="font-mono text-[10px] uppercase tracking-wider text-limestone/60">Прогноз списания</div>
+                <div class="inline-flex items-center gap-1.5 mt-0.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span id="liveChanceValue" class="font-mono text-sm font-semibold text-emerald-300">96%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 bg-white/[0.03] border-b border-white/10">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="text-limestone/75">Накопленная скидка за квиз</span>
+                <span id="liveDiscountBadge" class="font-mono font-medium text-copper">2% (−2 600 ₽)</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 overflow-hidden">
+                <div id="liveDiscountBar" class="h-full bg-copper transition-all duration-300" style="width: 20%;"></div>
+              </div>
+              <div id="liveDiscountHint" class="text-[11px] text-limestone/55 mt-1.5">
+                Отвечайте на вопросы дальше — скидка вырастет до 10%
+              </div>
+            </div>
+
+            <div class="p-6 space-y-4">
+              <div class="space-y-2.5 text-sm">
+                <div class="flex items-baseline justify-between gap-3">
+                  <span class="text-limestone/70">Сумма списания:</span>
+                  <span id="liveDebtDisplay" class="font-mono font-medium text-ivory">850 000 ₽</span>
+                </div>
+                <div class="flex items-baseline justify-between gap-3">
+                  <span class="text-limestone/70">Работа юристов «под ключ»:</span>
+                  <div class="text-right">
+                    <span id="liveBaseLegalFee" class="font-mono text-xs text-limestone/45 line-through mr-1.5">135 000 ₽</span>
+                    <span id="liveNetLegalFee" class="font-mono font-medium text-ivory">132 300 ₽</span>
+                  </div>
+                </div>
+                <div class="flex items-baseline justify-between gap-3">
+                  <span class="text-limestone/70">Судебный депозит и публикации:</span>
+                  <span id="liveCourtFees" class="font-mono text-limestone/90">43 500 ₽</span>
+                </div>
+                <div class="flex items-baseline justify-between gap-3">
+                  <span class="text-limestone/70">Ориентировочный срок:</span>
+                  <span id="liveDuration" class="font-mono text-limestone/90">7–9 мес.</span>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-white/15">
+                <div class="flex items-end justify-between gap-3">
+                  <div>
+                    <div id="livePaymentLabel" class="font-mono text-[10px] uppercase tracking-[0.16em] text-limestone/60">Платёж в рассрочку (10 мес.)</div>
+                    <div id="liveHeadlinePrice" class="font-serif text-4xl font-semibold text-ivory leading-none mt-1.5">13 230 ₽<span class="font-sans text-sm font-normal text-limestone/65">/мес</span></div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-[11px] text-limestone/55">Ваша выгода</div>
+                    <div id="liveNetSavings" class="font-mono text-xs font-medium text-emerald-300 mt-0.5">+674 200 ₽</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3.5 bg-emeraldDeep/40 border border-emerald-400/20 text-xs leading-relaxed text-limestone/90">
+                <div class="font-mono text-[10px] uppercase tracking-wider text-emerald-300 mb-1">Правовое заключение системы</div>
+                <p id="liveLegalComment">Единственное жильё защищено исполнительским иммунитетом по ст. 446 ГПК РФ и не включается в конкурсную массу.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="transparency" class="py-16 lg:py-24 bg-ivory hairline-t hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-12 reveal">
+          <div class="lg:col-span-6">
+            <div class="font-mono text-xs uppercase tracking-[0.2em] text-emeraldDeep mb-3">02 / ПРИНЦИП ОТКРЫТОЙ СМЕТЫ</div>
+            <h2 class="font-sans text-3xl sm:text-4xl font-semibold tracking-tight text-obsidian">
+              Почему мы разделяем гонорар юристов и обязательные расходы суда
+            </h2>
+          </div>
+          <div class="lg:col-span-6 lg:pt-6">
+            <p class="text-base text-mutedInk leading-relaxed">
+              На рынке банкротства часто называют заниженную «рекламную» цену, а позже выставляют счета за публикации в ЕФРСБ, депозит финансового управляющего и почтовые уведомления. В нашем калькуляторе все статьи расходов видны заранее.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+          <article class="bg-limestone p-7 hairline-all flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-xs text-copper mb-4">СТАТЬЯ 01 · ФИКСИРОВАНО В ДОГОВОРЕ</div>
+              <h3 class="font-serif text-2xl font-semibold text-obsidian mb-3">Юридическое сопровождение</h3>
+              <p class="text-sm text-mutedInk leading-relaxed">
+                Сбор справок, подготовка заявления в Арбитражный суд, представительство на заседаниях и контроль действий управляющего до финального определения о списании.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 hairline-t font-mono text-xs text-emeraldDeep">Цена фиксируется и не растёт при продлении сроков</div>
+          </article>
+
+          <article class="bg-limestone p-7 hairline-all flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-xs text-copper mb-4">СТАТЬЯ 02 · ПО ЗАКОНУ № 127-ФЗ</div>
+              <h3 class="font-serif text-2xl font-semibold text-obsidian mb-3">Депозит и публикации</h3>
+              <p class="text-sm text-mutedInk leading-relaxed">
+                25 000 ₽ вносятся на депозит Арбитражного суда за процедуру реализации имущества, плюс ~18 500 ₽ — обязательные публикации в «Коммерсанте» и реестре ЕФРСБ.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 hairline-t font-mono text-xs text-emeraldDeep">Оплачиваются по официальным реквизитам суда</div>
+          </article>
+
+          <article class="bg-emeraldDeep text-ivory p-7 hairline-all flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-xs text-amber-300/90 mb-4">ГАРАНТИЯ · ПУНКТ 4.2 ДОГОВОРА</div>
+              <h3 class="font-serif text-2xl font-semibold text-ivory mb-3">Ответственность за результат</h3>
+              <p class="text-sm text-limestone/80 leading-relaxed">
+                Мы не берём в работу дела с непреодолимыми рисками недобросовестности. Если правовой аудит подтвердил возможность списания — мы закрепляем гарантию возврата гонорара.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/15 font-mono text-xs text-emerald-200">Бесплатный предсудебный аудит сделок за 3 года</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases" class="py-16 lg:py-24 bg-limestone hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 reveal">
+          <div>
+            <div class="font-mono text-xs uppercase tracking-[0.2em] text-emeraldDeep mb-3">03 / ПРАКТИКА СПИСАНИЯ (ДЕМО-КЕЙСЫ)</div>
+            <h2 class="font-sans text-3xl sm:text-4xl font-semibold tracking-tight text-obsidian">
+              Примеры дел с расчётом сметы
+            </h2>
+          </div>
+          <p class="text-sm text-mutedInk max-w-md">
+            Нажмите «Примерить расчёт» на любом кейсе — параметры автоматически загрузятся в квиз-калькулятор выше.
+          </p>
+        </div>
+
+        <div id="casesGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal"></div>
+      </div>
+    </section>
+
+    <section id="process" class="py-16 lg:py-24 bg-ivory hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-12 reveal">
+          <div class="font-mono text-xs uppercase tracking-[0.2em] text-emeraldDeep mb-3">04 / ДОРОЖНАЯ КАРТА 127-ФЗ</div>
+          <h2 class="font-sans text-3xl sm:text-4xl font-semibold tracking-tight text-obsidian">
+            4 спокойных этапа от аудита до освобождения от долгов
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 hairline-all bg-limestone reveal">
+          <div class="p-6 sm:p-7 hairline-b lg:hairline-b-0 sm:hairline-r">
+            <div class="font-mono text-xs text-copper mb-5">ЭТАП 01 · НЕДЕЛЯ 1–2</div>
+            <h3 class="font-serif text-2xl font-semibold text-obsidian mb-2.5">Аудит и сбор пакета</h3>
+            <p class="text-sm text-mutedInk leading-relaxed">Проверяем сделки за 3 года, запрашиваем справки у кредиторов и ФССП по доверенности без вашего участия.</p>
+          </div>
+          <div class="p-6 sm:p-7 hairline-b lg:hairline-b-0 lg:hairline-r">
+            <div class="font-mono text-xs text-copper mb-5">ЭТАП 02 · МЕСЯЦ 1–2</div>
+            <h3 class="font-serif text-2xl font-semibold text-obsidian mb-2.5">Признание банкротом</h3>
+            <p class="text-sm text-mutedInk leading-relaxed">Суд вводит процедуру. Прекращается начисление процентов и пеней, снимаются аресты приставов, коллекторы теряют право звонить.</p>
+          </div>
+          <div class="p-6 sm:p-7 hairline-b sm:hairline-b-0 sm:hairline-r">
+            <div class="font-mono text-xs text-copper mb-5">ЭТАП 03 · МЕСЯЦ 3–7</div>
+            <h3 class="font-serif text-2xl font-semibold text-obsidian mb-2.5">Защита и реестр</h3>
+            <p class="text-sm text-mutedInk leading-relaxed">Финансовый управляющий формирует отчёт, исключает единственное жильё и обеспечивает выплату прожиточного минимума.</p>
+          </div>
+          <div class="p-6 sm:p-7">
+            <div class="font-mono text-xs text-emeraldDeep mb-5">ЭТАП 04 · ФИНАЛ</div>
+            <h3 class="font-serif text-2xl font-semibold text-obsidian mb-2.5">Определение о списании</h3>
+            <p class="text-sm text-mutedInk leading-relaxed">Вы получаете судебный акт об освобождении от дальнейшего исполнения обязательств. Все долги законно аннулированы.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="py-16 lg:py-24 bg-limestone">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10 reveal">
+          <div class="font-mono text-xs uppercase tracking-[0.2em] text-emeraldDeep mb-3">05 / ЧАСТЫЕ ВОПРОСЫ</div>
+          <h2 class="font-sans text-3xl sm:text-4xl font-semibold tracking-tight text-obsidian">
+            Главное о последствиях и защите имущества
+          </h2>
+        </div>
+
+        <div id="faqContainer" class="divide-y divide-obsidian/15 hairline-t hairline-b reveal"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-obsidian text-limestone">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-10 border-b border-white/10">
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-baseline gap-2.5">
+            <span class="font-serif text-3xl font-semibold text-ivory">НОРМА</span>
+            <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-300 border border-emerald-400/30 px-1.5 py-0.5">Бюро</span>
+          </div>
+          <p class="text-sm text-limestone/70 leading-relaxed max-w-sm">
+            Вымышленная юридическая компания, созданная для демонстрации работы интерактивного квиз-лендинга с мгновенным расчётом сметы и интеграцией в CRM/Telegram.
+          </p>
+        </div>
+
+        <div class="md:col-span-4 space-y-2.5 text-sm">
+          <div class="font-mono text-[11px] uppercase tracking-widest text-limestone/50 mb-3">Демонстрационные контакты</div>
+          <div class="font-mono text-ivory">+7 (999) 000-00-00</div>
+          <div class="font-mono text-limestone/80">demo@example.ru</div>
+          <div class="text-limestone/65">г. Москва, ул. Примерная, д. 12, оф. 404 (вымышленный адрес)</div>
+        </div>
+
+        <div class="md:col-span-3 space-y-2 text-xs text-limestone/60">
+          <div class="font-mono text-[11px] uppercase tracking-widest text-limestone/50 mb-3">Реквизиты (Демо)</div>
+          <div>ООО «ЮБ Норма-Демо»</div>
+          <div>ИНН 0000000000 · ОГРН 0000000000000</div>
+          <div class="text-copper pt-1">Демонстрационные данные · Не является офертой</div>
+        </div>
+      </div>
+
+      <div class="pt-7 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-limestone/80">
+        <div class="flex items-center gap-2 text-center md:text-left">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-copper shrink-0" aria-hidden="true"></span>
+          <span>Демо-проект из портфолио Данила Буторова · Реализую такое же решение под ваш бизнес</span>
+        </div>
+        <div class="flex items-center gap-5 font-medium shrink-0">
+          <a href="../portfolio.html" class="hover:text-ivory transition-colors underline underline-offset-4 decoration-white/25 hover:decoration-ivory">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="text-copper hover:text-amber-300 transition-colors">
+            Заказать такой сайт →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="demoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
+    <div class="bg-ivory text-obsidian w-full max-w-2xl max-h-[90vh] overflow-y-auto hairline-all shadow-2xl">
+      <div class="px-6 py-5 bg-emeraldDeep text-ivory flex items-start justify-between gap-4">
+        <div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300 mb-1">Интерактивная демонстрация</div>
+          <h3 id="demoModalTitle" class="font-serif text-2xl sm:text-3xl font-semibold">Заявка и смета сформированы</h3>
+        </div>
+        <button id="closeModalBtn" type="button" class="text-ivory/75 hover:text-ivory p-1 transition-colors" aria-label="Закрыть окно">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-5">
+        <p class="text-sm text-mutedInk leading-relaxed">
+          Это демонстрационный режим — ваши данные никуда не передавались. В реальном проекте нижеприведённая карточка и смета мгновенно отправляются в <strong class="text-obsidian">Telegram-бот юриста</strong> или в <strong class="text-obsidian">amoCRM / Bitrix24</strong>.
+        </p>
+
+        <div class="flex border-b border-obsidian/15">
+          <button id="tabCrmBtn" type="button" class="px-4 py-2.5 text-xs font-mono uppercase tracking-wider border-b-2 border-emeraldDeep text-emeraldDeep font-medium">
+            Карточка лида (CRM / Telegram)
+          </button>
+          <button id="tabJsonBtn" type="button" class="px-4 py-2.5 text-xs font-mono uppercase tracking-wider border-b-2 border-transparent text-mutedInk hover:text-obsidian">
+            JSON-payload (Webhook)
+          </button>
+        </div>
+
+        <div id="tabCrmContent" class="bg-limestone p-5 hairline-all space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 hairline-b">
+            <span id="crmLeadId" class="font-mono text-xs text-emeraldDeep font-medium">LEAD #DEMO-127</span>
+            <span id="crmPriorityBadge" class="font-mono text-[11px] px-2 py-0.5 bg-copper/15 text-copper font-medium">Высокий приоритет</span>
+          </div>
+          <dl id="crmLeadFields" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm"></dl>
+        </div>
+
+        <div id="tabJsonContent" class="hidden space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs text-mutedInk">POST /api/webhook/telegram-crm</span>
+            <button id="copyJsonBtn" type="button" class="font-mono text-xs px-3 py-1.5 bg-obsidian text-ivory hover:bg-emeraldDeep transition-colors">
+              Скопировать JSON
+            </button>
+          </div>
+          <pre id="jsonPayloadOutput" class="bg-obsidian text-emerald-200 p-4 text-xs font-mono overflow-x-auto leading-relaxed max-h-72"></pre>
+        </div>
+
+        <div class="pt-3 hairline-t flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <a href="../index.html#feedback" class="inline-flex justify-center items-center gap-2 bg-emeraldDeep hover:bg-emeraldHover text-ivory text-sm font-medium px-5 py-3 transition-colors">
+            Заказать такой квиз-сайт для своего бизнеса →
+          </a>
+          <button id="modalDoneBtn" type="button" class="px-5 py-3 text-sm font-medium hairline-all bg-ivory hover:bg-parchment transition-colors">
+            Закрыть превью
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastBanner" class="toast-banner fixed bottom-5 right-5 z-50 bg-obsidian text-ivory px-5 py-3.5 shadow-xl border border-white/15 flex items-center gap-3 text-sm max-w-sm" role="status" aria-live="polite">
+    <span class="w-2 h-2 rounded-full bg-copper shrink-0"></span>
+    <span id="toastText">Параметры кейса загружены в калькулятор</span>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
