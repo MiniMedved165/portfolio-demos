@@ -16,6 +16,7 @@
 | [`multilanding-utm/`](./multilanding-utm/) | **ВЕКТОР** | Мультилендинг грузоперевозок с динамической подменой офферов, автопарка и заявок по UTM-меткам | [Открыть демо](https://butorov.dev/multilanding-utm/demo/) |
 | [`object-showcase/`](./object-showcase/) | **ПОД СОСНАМИ** | Витрина глэмпинга с интерактивным топографическим SVG-планом территории, фильтрами и бронью | [Открыть демо](https://butorov.dev/object-showcase/demo/) |
 | [`product-configurator/`](./product-configurator/) | **/hardware.** | Визуальный конфигуратор ПК со сметой, прогнозом FPS, проверкой БП и слоистым SVG-рендером | [Открыть демо](https://butorov.dev/product-configurator/demo/) |
+| [`crm-integration/`](./crm-integration/) | **SAYSO.** | Школа английского с прямой интеграцией AmoCRM API v4 / Битрикс24 REST, анти-дублем и логом API | [Открыть демо](https://butorov.dev/crm-integration/demo/) |
 
 ---
 

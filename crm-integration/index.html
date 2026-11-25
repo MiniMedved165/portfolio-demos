@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>SAYSO. — Школа живого английского языка</title>
+
+  <!-- Google Fonts: Cormorant Garamond (Sculptural Editorial Serif), Golos Text (Native Cyrillic Neo-Grotesque) & JetBrains Mono (IPA & API Logs) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Modern London Editorial Palette -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ["Cormorant Garamond", "Georgia", "serif"],
+            sans: ["Golos Text", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            gallery: {
+              bg: "#F9F7F2",
+              card: "#FFFFFF",
+              warm: "#F1ECE1",
+              line: "rgba(20, 25, 23, 0.11)"
+            },
+            ink: {
+              950: "#0F1412",
+              900: "#141917",
+              600: "#4A5450",
+              400: "#7E8783"
+            },
+            british: {
+              900: "#14382C",
+              800: "#1D4E3E",
+              700: "#286551",
+              soft: "#E4EFEA"
+            },
+            vermilion: {
+              DEFAULT: "#E63E26",
+              hover: "#CC311B",
+              soft: "#FCECE9"
+            },
+            pastel: {
+              butter: "#FBF3D5",
+              sky: "#E8EFF9",
+              mint: "#E4F0EA",
+              clay: "#F7E7E2",
+              lavender: "#EFEBF7",
+              sand: "#F3EDE0"
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-gallery-bg text-ink-900 font-sans antialiased min-h-screen flex flex-col">
+  <div class="editorial-grain" aria-hidden="true"></div>
+  <header id="site-header" class="sayso-header fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-[1340px] mx-auto px-4 sm:px-8 h-16 sm:h-[74px] flex items-center justify-between gap-4">
+      <!-- Distinctive Editorial Wordmark -->
+      <a href="#top" class="flex items-baseline gap-2.5 group shrink-0">
+        <span class="font-sans font-extrabold text-xl sm:text-[22px] tracking-[-0.04em] text-ink-900">
+          SAYSO<span class="text-vermilion">.</span>
+        </span>
+        <span class="hidden sm:inline font-mono text-[11px] text-ink-400 group-hover:text-british-800 transition-colors">/ˈseɪ.səʊ/</span>
+      </a>
+
+      <!-- Center Minimal Navigation -->
+      <nav aria-label="Навигация по сайту" class="hidden lg:flex items-center gap-8 text-[13.5px] font-medium text-ink-600">
+        <a href="#levels" class="hover:text-ink-900 transition-colors">Карта уровней</a>
+        <a href="#check" class="hover:text-ink-900 transition-colors">Быстрый тест</a>
+        <a href="#programs" class="hover:text-ink-900 transition-colors">Форматы и цены</a>
+        <a href="#enroll" class="hover:text-ink-900 transition-colors">Вводный урок</a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="tel:+79990000000" class="hidden md:inline-flex items-center gap-1.5 text-[13px] font-medium text-ink-600 hover:text-ink-900 transition-colors">
+          <span>+7 (999) 000-00-00</span>
+        </a>
+        <a href="#enroll" class="btn-british inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-semibold shrink-0">
+          <span class="w-1.5 h-1.5 rounded-full bg-vermilion"></span>
+          <span>Пробный урок</span>
+        </a>
+        <button id="mobile-menu-btn" type="button" aria-label="Меню" aria-expanded="false" class="lg:hidden w-10 h-10 rounded-full border border-ink-900/15 flex items-center justify-center text-ink-900 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="mobile-drawer lg:hidden absolute top-full left-0 right-0 bg-gallery-bg border-b border-ink-900/12 px-5 py-5 shadow-xl">
+      <div class="flex flex-col gap-3 text-[15px] font-medium">
+        <a href="#levels" class="mobile-link py-1.5 border-b border-ink-900/8 text-ink-900">Карта уровней A1–B2</a>
+        <a href="#check" class="mobile-link py-1.5 border-b border-ink-900/8 text-ink-600">Быстрый тест (3 ситуации)</a>
+        <a href="#programs" class="mobile-link py-1.5 border-b border-ink-900/8 text-ink-600">Форматы и стоимость</a>
+        <a href="#enroll" class="mobile-link py-1.5 text-british-800 font-semibold">Записаться на вводный урок →</a>
+        <a href="tel:+79990000000" class="pt-2 font-mono text-xs text-ink-400">+7 (999) 000-00-00</a>
+      </div>
+    </div>
+  </header>
+  <section id="top" class="pt-24 sm:pt-28 pb-10 sm:pb-14 px-4 sm:px-8">
+    <div class="max-w-[1340px] mx-auto flex flex-col gap-10 lg:gap-12">
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+        <!-- LEFT (7 cols): Sculptural Typography + Interactive Audio Pronunciation Pill -->
+        <div class="lg:col-span-7 flex flex-col items-start">
+          <!-- Interactive British Pronunciation Chip -->
+          <button id="hero-speak-btn" type="button" class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-ink-900/12 hover:border-british-800 shadow-sm transition-all mb-6 cursor-pointer">
+            <span class="flex items-center gap-[3px] h-3.5 text-vermilion" aria-hidden="true">
+              <span class="wave-bar w-[2.5px] h-full rounded-full bg-current"></span>
+              <span class="wave-bar w-[2.5px] h-full rounded-full bg-current"></span>
+              <span class="wave-bar w-[2.5px] h-full rounded-full bg-current"></span>
+              <span class="wave-bar w-[2.5px] h-full rounded-full bg-current"></span>
+            </span>
+            <span class="font-mono text-xs font-medium text-ink-900">/ˈfluː.ən.si/</span>
+            <span class="text-xs text-ink-600">·</span>
+            <span id="hero-speak-label" class="text-xs font-medium text-british-800 group-hover:underline">Послушать живую речь</span>
+          </button>
+
+          <!-- Unmistakably Editorial Headline Mixing Crisp Neo-Grotesque + Oversized Italic Serif -->
+          <h1 class="text-[40px] sm:text-[58px] lg:text-[68px] font-bold tracking-[-0.035em] leading-[0.98] text-ink-900 mb-6">
+            Английский, на котором
+            <span class="font-serif italic font-medium text-british-800 tracking-[-0.015em] text-[1.12em] block sm:inline">хочется думать</span>
+            <span class="block mt-1">и говорить свободно</span>
+          </h1>
+
+          <p class="text-[15px] sm:text-lg text-ink-600 leading-[1.6] max-w-xl mb-8">
+            Современная школа живого английского для школьников, подростков и взрослых. Без скучных учебников из 90-х — с понятной картой навыков <strong class="text-ink-900 font-semibold">A1–C1</strong>, живыми диалогами и измеримым прогрессом каждый месяц.
+          </p>
+
+          <!-- Primary CTA Row -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
+            <a href="#enroll" class="btn-british inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full text-sm font-semibold">
+              <span>Записаться на вводный урок</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <a href="#check" class="btn-ink-outline inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-medium">
+              <span>Проверить уровень за 60 сек</span>
+            </a>
+          </div>
+
+          <!-- Clean Editorial Proof Row -->
+          <div class="w-full max-w-xl grid grid-cols-3 gap-5 pt-6 border-t border-ink-900/12">
+            <div>
+              <div class="font-serif font-bold text-3xl sm:text-4xl text-ink-900 leading-none">85%</div>
+              <div class="text-xs text-ink-600 mt-1.5 leading-snug">времени урока говорит ученик, а не преподаватель</div>
+            </div>
+            <div class="border-l border-ink-900/10 pl-5">
+              <div class="font-serif font-bold text-3xl sm:text-4xl text-british-800 leading-none">6 чел</div>
+              <div class="text-xs text-ink-600 mt-1.5 leading-snug">максимум в мини-группе или формат 1-на-1</div>
+            </div>
+            <div class="border-l border-ink-900/10 pl-5">
+              <div class="font-serif font-bold text-3xl sm:text-4xl text-ink-900 leading-none">0 ₽</div>
+              <div class="text-xs text-ink-600 mt-1.5 leading-snug">первая встреча-диагностика 45 минут</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT (5 cols): Sculptural Arch Portrait + Tactile Interactive British Idiom Card -->
+        <div class="lg:col-span-5 relative flex flex-col items-center lg:items-end">
+          <div class="relative w-full max-w-[440px]">
+            <!-- Arch Portrait Frame -->
+            <div class="editorial-arch relative overflow-hidden bg-gallery-warm aspect-[4/4.7] border border-ink-900/10 shadow-[0_32px_70px_-34px_rgba(20,25,23,0.34)]">
+              <img
+                alt="Живое общение на английском в уютном классе Sayso"
+                class="w-full h-full object-cover object-center"
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1100&q=85"
+                onerror="this.src='https://placehold.co/800x940/E4EFEA/141917?text=SAYSO.+STUDIO'"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-950/35 via-transparent to-transparent pointer-events-none"></div>
+
+              <!-- Subtle Vertical Stamp Badge Top-Right -->
+              <div class="absolute top-6 right-5 px-3 py-1.5 rounded-full bg-gallery-bg/92 backdrop-blur-sm border border-ink-900/10 text-[10.5px] font-mono uppercase tracking-wider text-ink-900 shadow-sm">
+                Online · Москва
+              </div>
+            </div>
+
+            <!-- Overlapping Interactive "Live English" Card (Breaks the Grid & Invites Clicks!) -->
+            <div class="relative sm:absolute sm:-bottom-6 sm:-left-10 z-20 mt-4 sm:mt-0 w-full sm:w-[320px] rounded-[22px] bg-white border border-ink-900/12 p-4 sm:p-5 shadow-[0_24px_54px_-20px_rgba(20,25,23,0.22)]">
+              <div class="flex items-center justify-between gap-2 mb-2.5">
+                <span class="inline-flex items-center gap-1.5 text-[10.5px] font-mono uppercase tracking-wider text-british-800 font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-vermilion"></span>
+                  <span>Живая фраза дня</span>
+                </span>
+                <button id="next-idiom-btn" type="button" class="text-[11px] font-mono text-ink-400 hover:text-ink-900 transition-colors cursor-pointer">
+                  Ещё ↻
+                </button>
+              </div>
+
+              <div id="idiom-content" class="flex flex-col gap-1.5">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Editorial Index Bar (Clean Magazine Rhythm) -->
+      <div class="pt-6 sm:pt-8 mt-2 border-t border-ink-900/12 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-ink-600">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <span><strong class="text-ink-900">A1 – C1</strong> по шкале CEFR</span>
+          <span>·</span>
+          <span>Школьники 7–17 лет и взрослые 18+</span>
+          <span>·</span>
+          <span>Подготовка к ОГЭ, ЕГЭ и IELTS</span>
+        </div>
+        <span class="text-british-800 font-semibold">Набор в группы на декабрь открыт</span>
+      </div>
+
+    </div>
+  </section>
+  <section id="levels" class="reveal-el py-16 sm:py-24 px-4 sm:px-8 border-t border-ink-900/10">
+    <div class="max-w-[1340px] mx-auto flex flex-col gap-10">
+
+      <!-- Header + Tactile Level Switcher -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-vermilion font-semibold mb-2">
+            Программа по стандарту CEFR
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-[-0.03em] leading-[1.04] text-ink-900">
+            Прозрачный ориентир:<br>
+            <span class="font-serif italic font-medium text-british-800 text-[1.08em]">что вы сможете на каждом уровне</span>
+          </h2>
+        </div>
+
+        <!-- Clean Pill Level Tabs -->
+        <div id="cefr-switcher" class="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white border border-ink-900/12 shadow-sm overflow-x-auto max-w-full no-scrollbar self-start lg:self-auto">
+          
+        </div>
+      </div>
+
+      <!-- Asymmetric Magazine Spread: Left (5 cols) = Level Poster + Live Interactive Dialogue, Right (7 cols) = 6 Pastel Editorial Skill Tiles -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-7 items-stretch">
+
+        <!-- LEFT COLUMN: Deep Botanical Emerald Level Feature Card + Hoverable Live Dialogue -->
+        <div id="level-feature-column" class="lg:col-span-5 rounded-[28px] bg-british-800 text-gallery-bg p-6 sm:p-8 flex flex-col justify-between gap-7 shadow-[0_28px_60px_-28px_rgba(20,56,44,0.5)]">
+          
+        </div>
+
+        <!-- RIGHT COLUMN: 6 Airy Pastel-Tinted Editorial Skill Tiles (2x3) -->
+        <div id="skills-grid" class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <section id="check" class="reveal-el py-14 sm:py-22 px-4 sm:px-8">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="rounded-[32px] bg-ink-900 text-gallery-bg p-6 sm:p-10 lg:p-14 relative overflow-hidden shadow-[0_32px_80px_-32px_rgba(15,20,18,0.55)]">
+        <!-- Subtle Top-Right Decorative Botanical Accent -->
+        <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-british-700/35 blur-[80px] pointer-events-none" aria-hidden="true"></div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <!-- Left Intro -->
+          <div class="lg:col-span-5 flex flex-col gap-4">
+            <span class="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-vermilion font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-vermilion"></span>
+              <span>Экспресс-диагностика</span>
+            </span>
+            <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-[-0.03em] leading-[1.04] text-white">
+              3 живые ситуации — <span class="font-serif italic font-medium text-[#B9DEC9]">и ваш уровень готов</span>
+            </h2>
+            <p class="text-sm text-gallery-bg/70 leading-relaxed">
+              Без нудной теории: выберите, как бы вы ответили в реальной жизни. Результат автоматически прикрепится к вашей записи на вводный урок.
+            </p>
+            <div class="flex items-center gap-3 pt-2">
+              <span id="diag-step-indicator" class="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 font-mono text-xs text-white">
+                Ситуация 1 / 3
+              </span>
+              <span class="font-mono text-xs text-gallery-bg/50">~40 секунд</span>
+            </div>
+          </div>
+
+          <!-- Right Interactive Crisp Paper Flashcard -->
+          <div class="lg:col-span-7">
+            <div id="diag-card-stage" class="rounded-[24px] bg-gallery-bg text-ink-900 p-6 sm:p-8 shadow-2xl">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="programs" class="reveal-el py-14 sm:py-22 px-4 sm:px-8">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-ink-900/15">
+        <div>
+          <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-british-800 font-semibold mb-2">Форматы обучения</div>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-[-0.03em] leading-[1.04] text-ink-900">
+            Программы под ваш ритм
+          </h2>
+        </div>
+        <p class="text-sm text-ink-600 max-w-md leading-relaxed">
+          Все материалы, интерактивный тренажёр слов и еженедельные разговорные клубы уже включены в абонемент.
+        </p>
+      </div>
+
+      <!-- Horizontal Editorial Program Strips -->
+      <div class="flex flex-col">
+
+        <!-- Row 1 -->
+        <article class="program-row py-7 sm:py-9 px-2 sm:px-4 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="lg:col-span-4 flex items-center gap-4">
+            <img
+              alt="Школьный старт 7–11 лет"
+              class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover shrink-0 border border-ink-900/10"
+              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=300&q=80"
+              onerror="this.src='https://placehold.co/160x160/FBF3D5/141917?text=A1'"
+            >
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded-full bg-pastel-butter text-ink-900 font-mono text-[10.5px] font-semibold mb-1.5">7–11 лет · A1–A2</span>
+              <h3 class="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">Школьный старт</h3>
+            </div>
+          </div>
+          <div class="lg:col-span-4 text-sm text-ink-600 leading-relaxed">
+            Учим читать с нуля, ставим чистое произношение и убираем страх говорить на школьных уроках. 8 живых занятий + игровой клуб и отчёт родителям.
+          </div>
+          <div class="lg:col-span-2 flex lg:flex-col items-baseline lg:items-end justify-between gap-1">
+            <span class="font-serif font-bold text-3xl text-ink-900 leading-none">11 900 ₽</span>
+            <span class="text-xs font-mono text-ink-400">за 8 уроков / мес</span>
+          </div>
+          <div class="lg:col-span-2 flex lg:justify-end">
+            <button type="button" data-pick-program="Школьный старт (A1–A2)" data-pick-budget="11900" class="pick-program-btn btn-ink-outline w-full lg:w-auto px-6 py-3 rounded-full text-xs font-semibold cursor-pointer">
+              Выбрать →
+            </button>
+          </div>
+        </article>
+
+        <!-- Row 2 (Highlighted Popular) -->
+        <article class="program-row py-7 sm:py-9 px-2 sm:px-4 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="lg:col-span-4 flex items-center gap-4">
+            <img
+              alt="Подростки и экзамены 12–17 лет"
+              class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover shrink-0 border border-ink-900/10"
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300&q=80"
+              onerror="this.src='https://placehold.co/160x160/E4F0EA/141917?text=B1'"
+            >
+            <div>
+              <div class="flex items-center gap-1.5 mb-1.5">
+                <span class="inline-block px-2.5 py-0.5 rounded-full bg-pastel-mint text-british-900 font-mono text-[10.5px] font-semibold">12–17 лет · A2–B2</span>
+                <span class="inline-block px-2 py-0.5 rounded-full bg-vermilion text-white font-mono text-[10px] font-semibold">Хит</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">Подростки и экзамены</h3>
+            </div>
+          </div>
+          <div class="lg:col-span-4 text-sm text-ink-600 leading-relaxed">
+            Свободное общение без барьера + системная подготовка к ОГЭ и ЕГЭ на 85+ баллов. Еженедельная практика с носителем и 4 пробных экзамена.
+          </div>
+          <div class="lg:col-span-2 flex lg:flex-col items-baseline lg:items-end justify-between gap-1">
+            <span class="font-serif font-bold text-3xl text-ink-900 leading-none">14 900 ₽</span>
+            <span class="text-xs font-mono text-ink-400">за 8 уроков / мес</span>
+          </div>
+          <div class="lg:col-span-2 flex lg:justify-end">
+            <button type="button" data-pick-program="Подростки и экзамены (A2–B2)" data-pick-budget="14900" class="pick-program-btn btn-british w-full lg:w-auto px-6 py-3 rounded-full text-xs font-semibold cursor-pointer">
+              Выбрать →
+            </button>
+          </div>
+        </article>
+
+        <!-- Row 3 -->
+        <article class="program-row py-7 sm:py-9 px-2 sm:px-4 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="lg:col-span-4 flex items-center gap-4">
+            <img
+              alt="Английский для карьеры и релокации 18+"
+              class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover shrink-0 border border-ink-900/10"
+              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=300&q=80"
+              onerror="this.src='https://placehold.co/160x160/E8EFF9/141917?text=B2'"
+            >
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded-full bg-pastel-sky text-ink-900 font-mono text-[10.5px] font-semibold mb-1.5">18+ · 1-на-1 · A1–C1</span>
+              <h3 class="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">Карьера и релокация</h3>
+            </div>
+          </div>
+          <div class="lg:col-span-4 text-sm text-ink-600 leading-relaxed">
+            Персональная программа под собеседования, презентации, переговоры и свободные путешествия. Гибкий перенос занятий и личный методист.
+          </div>
+          <div class="lg:col-span-2 flex lg:flex-col items-baseline lg:items-end justify-between gap-1">
+            <span class="font-serif font-bold text-3xl text-ink-900 leading-none">19 500 ₽</span>
+            <span class="text-xs font-mono text-ink-400">за 8 уроков / мес</span>
+          </div>
+          <div class="lg:col-span-2 flex lg:justify-end">
+            <button type="button" data-pick-program="Карьера и релокация (1-на-1)" data-pick-budget="19500" class="pick-program-btn btn-ink-outline w-full lg:w-auto px-6 py-3 rounded-full text-xs font-semibold cursor-pointer">
+              Выбрать →
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+  <section id="enroll" class="reveal-el py-16 sm:py-24 px-4 sm:px-8 border-t border-ink-900/10 bg-gallery-warm/65">
+    <div class="max-w-[1340px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+      <!-- Left Editorial Column: Lead Methodologist + Live Nearest Free Slots -->
+      <div class="lg:col-span-5 flex flex-col gap-7">
+        <div>
+          <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-vermilion font-semibold mb-2">
+            Вводный урок · 45 минут · 0 ₽
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-[-0.03em] leading-[1.03] text-ink-900 mb-4">
+            Познакомимся на <span class="font-serif italic font-medium text-british-800">живом уроке</span>
+          </h2>
+          <p class="text-sm sm:text-[15px] text-ink-600 leading-relaxed">
+            Проведём мягкую диагностику всех 6 навыков, подберём преподавателя по темпераменту и подарим чек-лист живых выражений под ваш уровень.
+          </p>
+        </div>
+
+        <!-- Tutor Profile Card -->
+        <div class="p-5 rounded-[22px] bg-white border border-ink-900/10 flex items-center gap-4 shadow-sm">
+          <img
+            alt="Анна Волкова — академический директор Sayso"
+            class="w-16 h-16 rounded-2xl object-cover shrink-0"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=260&q=80"
+            onerror="this.src='https://placehold.co/140x140/E4F0EA/141917?text=AV'"
+          >
+          <div>
+            <div class="text-base font-bold text-ink-900">Анна Волкова</div>
+            <div class="text-xs font-medium text-british-800">Академический директор · CELTA / DELTA</div>
+            <div class="text-xs text-ink-400 mt-1">Подтверждаем время урока за 10 минут</div>
+          </div>
+        </div>
+
+        <!-- Interactive Nearest Free Slots Selector (Feeds Directly Into CRM Task!) -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono uppercase tracking-wider text-ink-600 font-semibold">Ближайшие свободные слоты</span>
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-mono text-british-800">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>МСК (UTC+3)</span>
+            </span>
+          </div>
+          <div id="slot-buttons" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Crisp White Minimalist Form -->
+      <div class="lg:col-span-7 rounded-[28px] bg-white border border-ink-900/10 p-6 sm:p-9 lg:p-10 shadow-[0_24px_60px_-32px_rgba(20,25,23,0.16)]">
+        <form id="enrollment-form" novalidate class="flex flex-col gap-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-ink-900/10">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">Забронировать вводный урок</h3>
+              <p id="selected-slot-caption" class="text-xs text-british-800 font-medium mt-0.5">Выбран слот: Завтра, 18:00 (МСК)</p>
+            </div>
+            <span id="form-diag-badge" class="hidden px-3 py-1 rounded-full bg-pastel-mint text-british-900 font-mono text-[11px] font-semibold"></span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="enroll-name" class="block text-xs font-semibold text-ink-900 mb-1.5">Ваше имя</label>
+              <input id="enroll-name" type="text" required placeholder="Мария Соколова" class="editorial-field w-full px-4 py-3.5 text-base sm:text-sm placeholder-ink-400">
+            </div>
+            <div>
+              <label for="enroll-phone" class="block text-xs font-semibold text-ink-900 mb-1.5">Телефон или Telegram</label>
+              <input id="enroll-phone" type="text" required placeholder="+7 (999) 000-00-00" class="editorial-field w-full px-4 py-3.5 font-mono text-base sm:text-sm placeholder-ink-400">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="enroll-program" class="block text-xs font-semibold text-ink-900 mb-1.5">Программа</label>
+              <select id="enroll-program" class="editorial-field w-full px-4 py-3.5 text-base sm:text-sm">
+                <option value="Школьный старт (A1–A2)" data-budget="11900">Школьный старт (7–11 лет) · 11 900 ₽</option>
+                <option value="Подростки и экзамены (A2–B2)" data-budget="14900" selected>Подростки и экзамены (12–17 лет) · 14 900 ₽</option>
+                <option value="Карьера и релокация (1-на-1)" data-budget="19500">Карьера и релокация (18+) · 19 500 ₽</option>
+              </select>
+            </div>
+            <div>
+              <label for="enroll-level" class="block text-xs font-semibold text-ink-900 mb-1.5">Текущий уровень</label>
+              <select id="enroll-level" class="editorial-field w-full px-4 py-3.5 text-base sm:text-sm">
+                <option value="A1 · Начальный">A1 · Начальный</option>
+                <option value="A2 · Элементарный">A2 · Элементарный</option>
+                <option value="B1 · Средний">B1 · Средний</option>
+                <option value="B2 · Продвинутый">B2 · Продвинутый</option>
+                <option value="Определим на уроке">Не знаю — определим на уроке</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="enroll-format" class="block text-xs font-semibold text-ink-900 mb-1.5">Формат</label>
+              <select id="enroll-format" class="editorial-field w-full px-4 py-3.5 text-base sm:text-sm">
+                <option value="Онлайн на платформе SAYSO">Онлайн на платформе SAYSO</option>
+                <option value="Очно в студии (Москва, Патриаршие)">Очно в студии (Москва, Патриаршие)</option>
+              </select>
+            </div>
+            <div>
+              <label for="enroll-email" class="block text-xs font-semibold text-ink-900 mb-1.5">Email (необязательно)</label>
+              <input id="enroll-email" type="email" placeholder="hello@example.ru" class="editorial-field w-full px-4 py-3.5 text-base sm:text-sm placeholder-ink-400">
+            </div>
+          </div>
+
+          <div>
+            <label for="enroll-comment" class="block text-xs font-semibold text-ink-900 mb-1.5">Цель или пожелания (необязательно)</label>
+            <textarea id="enroll-comment" rows="2" placeholder="Например: подготовиться к поездке в Лондон или подтянуть разговорную речь..." class="editorial-field w-full px-4 py-3 text-base sm:text-sm placeholder-ink-400 resize-none"></textarea>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-3 border-t border-ink-900/10">
+            <p class="text-[11px] text-ink-400 leading-relaxed max-w-xs">
+              Нажимая кнопку, вы соглашаетесь на обработку контактных данных для подтверждения урока.
+            </p>
+            <button type="submit" class="btn-british w-full sm:w-auto px-8 py-4 rounded-full text-sm font-semibold shrink-0 cursor-pointer">
+              Записаться бесплатно →
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+  <footer id="contacts" class="mt-auto bg-ink-950 text-gallery-bg pt-14 pb-8 px-4 sm:px-8">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/10">
+        <div class="md:col-span-5 flex flex-col gap-3">
+          <div class="flex items-baseline gap-2.5">
+            <span class="font-sans font-extrabold text-2xl tracking-[-0.04em] text-white">SAYSO<span class="text-vermilion">.</span></span>
+            <span class="font-mono text-xs text-gallery-bg/45">/ˈseɪ.səʊ/</span>
+          </div>
+          <p class="text-xs sm:text-sm text-gallery-bg/65 leading-relaxed max-w-sm">
+            Школа живого английского языка: современные методики, разговорные клубы и прозрачный путь от A1 до C1.
+          </p>
+          <span class="text-[11px] font-mono text-gallery-bg/40">© 2026 ООО «Сейсо Академия» · ИНН 0000000000</span>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-gallery-bg/45 mb-1">Студия и контакты</span>
+          <a href="tel:+79990000000" class="font-mono text-base text-white hover:text-vermilion transition-colors">+7 (999) 000-00-00</a>
+          <a href="mailto:hello@example.ru" class="text-gallery-bg/75 hover:text-white transition-colors">hello@example.ru</a>
+          <span class="text-gallery-bg/55">г. Москва, Малый Козихинский пер., д. 8</span>
+          <span class="text-gallery-bg/40 text-xs">Ежедневно · 09:00 — 21:30</span>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-gallery-bg/45 mb-1">Разделы</span>
+          <a href="#levels" class="text-gallery-bg/70 hover:text-white transition-colors">Карта уровней A1–B2</a>
+          <a href="#check" class="text-gallery-bg/70 hover:text-white transition-colors">Экспресс-диагностика</a>
+          <a href="#programs" class="text-gallery-bg/70 hover:text-white transition-colors">Форматы и цены</a>
+          <a href="#enroll" class="text-gallery-bg/70 hover:text-white transition-colors">Вводный урок</a>
+        </div>
+      </div>
+
+      <!-- Portfolio Demo Attribution (Strictly Only at Footer Bottom) -->
+      <div class="mt-8 p-4 sm:p-5 rounded-2xl bg-white/[0.05] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-gallery-bg/75 leading-relaxed">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Реализую такую же прямую интеграцию сайта с AmoCRM или Битрикс24 (с проверкой дублей, сделками и уведомлениями) под ваш бизнес.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full border border-white/20 hover:border-white text-gallery-bg/90 hover:text-white text-xs font-medium transition-colors">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="btn-vermilion px-5 py-2 rounded-full text-xs font-semibold">
+            Заказать такой сайт →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="crm-api-modal" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center p-3.5 sm:p-6 bg-ink-950/82 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="crm-modal-title" aria-hidden="true">
+    <div class="modal-panel relative w-full max-w-5xl rounded-[28px] bg-gallery-bg text-ink-900 border border-ink-900/15 p-5 sm:p-7 lg:p-8 shadow-2xl max-h-[92svh] overflow-y-auto">
+      <button id="crm-modal-close" type="button" aria-label="Закрыть окно" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-9 h-9 rounded-full bg-gallery-warm hover:bg-ink-900 hover:text-white flex items-center justify-center text-ink-600 transition-colors cursor-pointer">
+        ✕
+      </button>
+
+      <!-- Top Header: Honest Demo Notice + Live CRM Provider Switcher -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pr-10 pb-5 border-b border-ink-900/12 mb-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pastel-mint text-british-900 font-mono text-[10.5px] font-semibold uppercase tracking-wider mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span>Интерактивная демонстрация CRM API</span>
+          </div>
+          <h3 id="crm-modal-title" class="text-2xl sm:text-3xl font-bold tracking-[-0.025em] text-ink-900 leading-tight">
+            Сделка создана · Живой лог интеграции
+          </h3>
+          <p class="text-xs sm:text-sm text-ink-600 mt-1">
+            Это демонстрация — реальная передача данных отключена. Ниже показан точный обмен с API выбранной CRM.
+          </p>
+        </div>
+
+        <!-- Switch CRM Provider Live (AmoCRM v4 <-> Bitrix24 REST) -->
+        <div class="flex flex-col gap-1.5 shrink-0">
+          <span class="text-[10px] font-mono uppercase tracking-wider text-ink-400">Посмотреть обмен для:</span>
+          <div class="inline-flex items-center p-1 rounded-full bg-white border border-ink-900/12 shadow-sm">
+            <button type="button" data-crm-provider="amocrm" class="crm-provider-btn px-4 py-2 rounded-full text-xs font-mono font-semibold bg-british-800 text-white cursor-pointer transition-all">
+              AmoCRM (API v4)
+            </button>
+            <button type="button" data-crm-provider="bitrix24" class="crm-provider-btn px-4 py-2 rounded-full text-xs font-mono font-semibold text-ink-600 hover:text-ink-900 cursor-pointer transition-all">
+              Битрикс24 (REST)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two-Column Live Workspace: Left = Created CRM Deal Card, Right = Live HTTP API Console & JSON -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+        <!-- LEFT (5 cols): Visual Created CRM Deal Card -->
+        <div class="lg:col-span-5 rounded-2xl bg-white border border-ink-900/12 p-5 flex flex-col justify-between gap-5 shadow-sm">
+          <div>
+            <div class="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-ink-900/10">
+              <div class="flex items-center gap-2">
+                <span id="deal-crm-badge" class="px-2.5 py-1 rounded-md bg-british-800 text-white font-mono text-[10px] font-bold uppercase">AmoCRM v4</span>
+                <span id="deal-id-badge" class="font-mono text-sm font-bold text-ink-900">Сделка #482917</span>
+              </div>
+              <span id="deal-status-pill" class="px-2.5 py-0.5 rounded-full bg-pastel-mint text-british-900 font-mono text-[10px] font-semibold">201 Created</span>
+            </div>
+
+            <div class="flex flex-col gap-3.5 text-xs">
+              <div>
+                <div class="text-[10px] font-mono uppercase tracking-wider text-ink-400">Воронка и этап</div>
+                <div id="deal-pipeline-stage" class="font-semibold text-ink-900 mt-0.5">Продажи → Назначен вводный урок</div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-gallery-bg border border-ink-900/8">
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-ink-400">Бюджет сделки</div>
+                  <div id="deal-budget" class="font-mono text-base font-bold text-ink-900 mt-0.5">14 900 ₽</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-ink-400">Ответственный</div>
+                  <div class="font-semibold text-ink-900 mt-0.5">Анна Волкова</div>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-ink-400">Карточка контакта</div>
+                <div id="deal-contact-summary" class="text-sm font-bold text-ink-900"></div>
+                <div id="deal-contact-meta" class="font-mono text-[11px] text-ink-600"></div>
+                <div id="deal-duplicate-status" class="text-[11px] font-medium mt-0.5"></div>
+              </div>
+
+              <div>
+                <div class="text-[10px] font-mono uppercase tracking-wider text-ink-400 mb-1.5">Теги и кастомные поля</div>
+                <div id="deal-tags-list" class="flex flex-wrap gap-1.5"></div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-pastel-mint/75 border border-british-800/15">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-british-900 font-semibold">Авто-задача методисту</div>
+                <div id="deal-auto-task" class="text-xs text-ink-900 font-medium mt-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-ink-900/10">
+            <button id="crm-test-duplicate-btn" type="button" class="w-full py-2.5 px-4 rounded-xl border border-ink-900/20 hover:bg-ink-900 hover:text-white text-ink-900 font-mono text-[11px] font-semibold transition-colors cursor-pointer">
+              ↻ Отправить повторно (тест анти-дубля)
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT (7 cols): Live Dark Terminal API Console + Request/Response JSON -->
+        <div class="lg:col-span-7 rounded-2xl bg-ink-950 text-gallery-bg border border-white/10 p-5 flex flex-col justify-between gap-4">
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-white/10">
+              <div class="flex items-center gap-2 font-mono text-[11px] min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
+                <span id="console-endpoint-label" class="text-[#9EE0BE] truncate">POST https://sayso.amocrm.ru/api/v4/leads/complex</span>
+              </div>
+              <span id="console-latency" class="font-mono text-[10.5px] text-emerald-400 shrink-0">338 ms</span>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-gallery-bg/45">Журнал обмена с API (Live Log)</div>
+              <div id="api-live-log" class="flex flex-col gap-1.5 font-mono text-[11px] leading-relaxed min-h-[156px]"></div>
+            </div>
+
+            <div class="pt-2 border-t border-white/10">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="inline-flex items-center gap-1.5">
+                  <button type="button" data-json-view="response" class="json-tab-btn px-2.5 py-1 rounded bg-british-700 text-white font-mono text-[10px] font-bold uppercase cursor-pointer">Response JSON</button>
+                  <button type="button" data-json-view="request" class="json-tab-btn px-2.5 py-1 rounded bg-white/10 text-gallery-bg/80 hover:text-white font-mono text-[10px] uppercase cursor-pointer">Request Payload</button>
+                </div>
+                <button id="copy-crm-json-btn" type="button" class="text-[11px] font-mono text-[#9EE0BE] hover:text-white underline underline-offset-4 cursor-pointer">
+                  Скопировать JSON
+                </button>
+              </div>
+              <pre id="crm-json-pre" class="p-3.5 rounded-xl bg-black/50 border border-white/10 font-mono text-[10.5px] text-gallery-bg/85 max-h-[210px] overflow-y-auto whitespace-pre-wrap break-words leading-relaxed"></pre>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <button id="crm-modal-done-btn" type="button" class="px-5 py-2.5 rounded-full border border-white/20 hover:border-white text-gallery-bg text-xs font-medium cursor-pointer transition-colors">
+              Вернуться на сайт
+            </button>
+            <a href="../index.html#feedback" class="btn-vermilion inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold">
+              <span>Заказать интеграцию CRM →</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="sayso-toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-[90] px-4 py-2.5 rounded-full bg-ink-900 text-gallery-bg border border-white/12 text-xs font-medium opacity-0 pointer-events-none translate-y-2 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-vermilion"></span>
+    <span id="sayso-toast-text">Готово</span>
+  </div>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
