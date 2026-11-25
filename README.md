@@ -12,6 +12,7 @@
 | [`landing-quiz/`](./landing-quiz/) | **MONOLITH** | Квиз-лендинг со сметой ремонта, ползунком площади, пресетами интерьеров и JSON-вебхуком | [Открыть демо](https://butorov.dev/landing-quiz/demo/) |
 | [`legal-127-quiz/`](./legal-127-quiz/) | **Норма · Бюро (127-ФЗ)** | Юридический квиз-калькулятор банкротства с проверкой МФЦ, прогрессивной скидкой и карточкой CRM/JSON | [Открыть демо](https://butorov.dev/legal-127-quiz/demo/) |
 | [`cms-custom/`](./cms-custom/) | **КОРКА И КОФЕ** | Витрина пекарни со встроенной гостевой CMS: редактирование меню, цен и текстов в реальном времени | [Открыть демо](https://butorov.dev/cms-custom/demo/) |
+| [`promo-before-after/`](./promo-before-after/) | **KRONOS DETAIL** | Промо-сайт детейлинг-студии со шторкой «До / После» (Scroll-Sync + Pointer Events) и онлайн-записью | [Открыть демо](https://butorov.dev/promo-before-after/demo/) |
 
 ---
 
