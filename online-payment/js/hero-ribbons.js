@@ -90,6 +90,7 @@ export function initHeroRibbonsEngine() {
   let smoothX = 0;
   let smoothY = 0;
   let rafId = null;
+  let isStageVisible = true;
 
   const embers = Array.from({ length: 26 }, (_, i) => ({
     t: (i / 26) * Math.PI * 2,
@@ -258,19 +259,32 @@ export function initHeroRibbonsEngine() {
     drawSparkStar(frontCtx, cx + spanX * 0.58 + px * 0.3, cy - spanY * 1.22, 6.5, "rgba(17, 17, 17, 0.72)");
     drawSparkStar(frontCtx, cx - spanX * 0.62 - px * 0.2, cy - spanY * 0.65, 4.5, "rgba(255, 77, 0, 0.78)");
 
-    if (!reducedMotion && !document.hidden) {
+    if (!reducedMotion && !document.hidden && isStageVisible) {
       rafId = requestAnimationFrame(renderFrame);
     }
   }
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden && rafId !== null) {
+  function updatePlaybackState() {
+    const shouldPlay = !document.hidden && isStageVisible && !reducedMotion;
+    if (!shouldPlay && rafId !== null) {
       cancelAnimationFrame(rafId);
       rafId = null;
-    } else if (!document.hidden && !reducedMotion && rafId === null) {
+    } else if (shouldPlay && rafId === null) {
       rafId = requestAnimationFrame(renderFrame);
     }
-  });
+  }
+
+  document.addEventListener("visibilitychange", updatePlaybackState);
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      (entries) => {
+        isStageVisible = entries[0]?.isIntersecting ?? true;
+        updatePlaybackState();
+      },
+      { threshold: 0.02 }
+    ).observe(stage);
+  }
 
   document.querySelectorAll(".hero-scene-dot").forEach((btn) => {
     btn.addEventListener("click", () => {
