@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>РЕЗЕРВ — Закрытый клуб бизнес- и рыночной аналитики</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ["Cormorant Garamond", "Georgia", "serif"],
+            sans: ["Onest", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            paper: {
+              50: "#FBF9F5",
+              100: "#F5F1E9",
+              200: "#EAE3D5",
+              300: "#DAD0BE"
+            },
+            slateink: {
+              950: "#0B0F12",
+              900: "#11171B",
+              800: "#1B242A",
+              600: "#4D585E",
+              400: "#808B91"
+            },
+            oxblood: {
+              DEFAULT: "#8C1D2C",
+              hover: "#721622",
+              soft: "#F7E7E9"
+            },
+            emeraldcap: {
+              DEFAULT: "#0F8A5F",
+              light: "#34D399"
+            },
+            tg: {
+              bg: "#0E1621",
+              header: "#17212B",
+              bot: "#182533",
+              user: "#2B5278",
+              btn: "#233547",
+              btnHover: "#2E465E",
+              blue: "#2AABEE"
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-paper-100 text-slateink-900 font-sans antialiased min-h-screen flex flex-col">
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <header id="site-header" class="club-header fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-[1340px] mx-auto px-4 sm:px-8 h-16 sm:h-[74px] flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3 group shrink-0">
+        <span class="w-9 h-9 rounded-lg bg-slateink-900 group-hover:bg-oxblood text-paper-50 flex items-center justify-center font-serif font-bold text-xl leading-none transition-colors">
+          R
+        </span>
+        <div class="flex flex-col leading-none">
+          <span class="font-extrabold text-base sm:text-[17px] tracking-[0.14em] uppercase text-slateink-900">РЕЗЕРВ</span>
+          <span class="font-mono text-[9px] uppercase tracking-[0.18em] text-slateink-400 mt-0.5">Private Market Club</span>
+        </div>
+      </a>
+
+      <nav aria-label="Навигация клуба" class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px] font-medium text-slateink-600">
+        <a href="#paywall-studio" class="text-slateink-900 font-semibold">Доступ в канал</a>
+        <a href="#inside" class="hover:text-slateink-900 transition-colors">Что внутри</a>
+        <a href="#tariffs" class="hover:text-slateink-900 transition-colors">Тарифы</a>
+        <a href="#faq" class="hover:text-slateink-900 transition-colors">Вопросы</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <span class="hidden lg:inline-flex items-center gap-2 text-xs font-mono text-slateink-600">
+          <span class="w-2 h-2 rounded-full bg-emeraldcap animate-pulse"></span>
+          <span>1 480 резидентов</span>
+        </span>
+        <a href="#paywall-studio" class="btn-oxblood inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold shrink-0">
+          <span>Вступить в клуб</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <button id="mobile-menu-btn" type="button" aria-label="Меню" aria-expanded="false" class="md:hidden w-10 h-10 rounded-full border border-slateink-900/18 flex items-center justify-center text-slateink-900 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="mobile-drawer md:hidden absolute top-full left-0 right-0 bg-paper-100 border-b border-slateink-900/12 px-5 py-5 shadow-xl">
+      <div class="flex flex-col gap-3 text-[15px] font-medium">
+        <a href="#paywall-studio" class="mobile-link py-1.5 border-b border-slateink-900/8 text-slateink-900">Бот подписки и закрытый канал</a>
+        <a href="#inside" class="mobile-link py-1.5 border-b border-slateink-900/8 text-slateink-600">Материалы внутри</a>
+        <a href="#tariffs" class="mobile-link py-1.5 border-b border-slateink-900/8 text-slateink-600">Тарифы участия</a>
+        <a href="#faq" class="mobile-link py-1.5 text-slateink-600">Вопросы и условия</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" class="pt-24 sm:pt-28 pb-14 sm:pb-20 px-4 sm:px-8">
+    <div class="max-w-[1340px] mx-auto">
+
+      <div class="mb-7 pb-3.5 border-b border-slateink-900/12 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slateink-600">
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-1">
+          <span>IMOEX <strong class="text-emeraldcap">+1.42%</strong></span>
+          <span>OFZ 10Y <strong class="text-slateink-900">15.8%</strong></span>
+          <span>GOLD <strong class="text-emeraldcap">+0.84%</strong></span>
+          <span class="hidden sm:inline">BRENT <strong class="text-oxblood">−0.31%</strong></span>
+        </div>
+        <span class="text-slateink-400">Закрытый Telegram-канал · Выпуск #214 опубликован сегодня</span>
+      </div>
+
+      <div id="paywall-studio" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+
+        <div class="lg:col-span-6 flex flex-col gap-6">
+          <div class="flex flex-col items-start gap-4">
+            <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-oxblood font-semibold">
+              <span>◆</span>
+              <span>Закрытая аналитика рынков и бизнеса</span>
+            </div>
+
+            <h1 class="text-[36px] sm:text-[50px] xl:text-[54px] font-extrabold tracking-[-0.035em] leading-[1.01] text-slateink-900">
+              Закрытый канал по подписке —
+              <span class="font-serif italic font-semibold text-oxblood tracking-[-0.01em] text-[1.12em]">без ручной модерации</span>
+            </h1>
+
+            <p class="text-sm sm:text-[15px] text-slateink-600 leading-[1.62] max-w-xl">
+              Вход в закрытый Telegram-канал <strong class="text-slateink-900">«РЕЗЕРВ · Аналитика»</strong> оформляется автоматически через <strong class="text-slateink-900">@rezerv_club_bot</strong>. Протестируйте оплату справа, получите персональную одноразовую ссылку и проверьте, как работает автоудаление по окончании срока.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div data-life-step="pay" class="life-step px-3 py-2.5 rounded-xl bg-slateink-900 text-paper-50 border border-slateink-900 transition-all">
+              <div class="font-mono text-[10px] opacity-65">01</div>
+              <div class="text-xs font-semibold mt-0.5">Оплата</div>
+            </div>
+            <div data-life-step="invite" class="life-step px-3 py-2.5 rounded-xl bg-paper-50 text-slateink-600 border border-slateink-900/12 transition-all">
+              <div class="font-mono text-[10px] opacity-65">02</div>
+              <div class="text-xs font-semibold mt-0.5">Ссылка 1/1</div>
+            </div>
+            <div data-life-step="active" class="life-step px-3 py-2.5 rounded-xl bg-paper-50 text-slateink-600 border border-slateink-900/12 transition-all">
+              <div class="font-mono text-[10px] opacity-65">03</div>
+              <div class="text-xs font-semibold mt-0.5">В канале</div>
+            </div>
+            <div data-life-step="expire" class="life-step px-3 py-2.5 rounded-xl bg-paper-50 text-slateink-600 border border-slateink-900/12 transition-all">
+              <div class="font-mono text-[10px] opacity-65">04</div>
+              <div class="text-xs font-semibold mt-0.5">Срок / Кик</div>
+            </div>
+          </div>
+
+          <div id="access-console-card" class="rounded-[24px] bg-slateink-900 text-paper-100 border border-slateink-800 p-5 sm:p-6 shadow-[0_28px_64px_-28px_rgba(11,15,18,0.48)] flex flex-col gap-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/10">
+              <div>
+                <div class="flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-emeraldcap-light">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emeraldcap-light animate-pulse"></span>
+                  <span>Контроллер доступа к каналу</span>
+                </div>
+                <h2 class="text-base sm:text-lg font-bold text-white mt-0.5">Статус резидента и одноразовая ссылка</h2>
+              </div>
+
+              <div class="inline-flex items-center p-1 rounded-full bg-white/[0.06] border border-white/10 text-[11px] font-mono">
+                <button type="button" data-console-tab="access" class="console-tab-btn px-3 py-1.5 rounded-full bg-paper-100 text-slateink-950 font-semibold cursor-pointer transition-all">
+                  Доступ
+                </button>
+                <button type="button" data-console-tab="api" class="console-tab-btn px-3 py-1.5 rounded-full text-paper-200/70 hover:text-white cursor-pointer transition-all">
+                  Bot API / Cron
+                </button>
+              </div>
+            </div>
+
+            <div id="console-view-access" class="flex flex-col gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                  <div class="text-[10px] font-mono uppercase tracking-wider text-paper-200/50">Статус в закрытом канале</div>
+                  <div id="member-status-badge" class="mt-1.5 inline-flex items-center gap-2 text-xs font-mono font-bold text-paper-200/80">
+                    <span class="w-2 h-2 rounded-full bg-slateink-400"></span>
+                    <span>Нет активной подписки</span>
+                  </div>
+                </div>
+                <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                  <div class="text-[10px] font-mono uppercase tracking-wider text-paper-200/50">Оплаченный период</div>
+                  <div id="member-expiry-label" class="mt-1.5 font-mono text-xs font-semibold text-white">
+                    — (выберите тариф в боте)
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-black/35 border border-white/10 flex flex-col gap-2.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10.5px] font-mono uppercase tracking-wider text-paper-200/60">Персональная ссылка (member_limit = 1)</span>
+                  <span id="invite-limit-pill" class="px-2 py-0.5 rounded-full bg-white/10 font-mono text-[10px] text-paper-200/70">Не создана</span>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                  <code id="invite-url-display" class="font-mono text-xs text-paper-200/55 truncate">Ожидает подтверждения оплаты...</code>
+                  <button id="test-leak-btn" type="button" disabled class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-oxblood disabled:opacity-35 disabled:pointer-events-none text-[10.5px] font-mono text-white shrink-0 transition-colors cursor-pointer">
+                    Тест пересылки другу
+                  </button>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-white/[0.05] border border-white/10 flex flex-col gap-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10.5px] font-mono uppercase tracking-wider text-[#F2A6B0]">Симуляция срока подписки (Cron / Scheduler)</span>
+                  <span id="sim-day-counter" class="font-mono text-[11px] text-paper-200/60">День 0</span>
+                </div>
+                <p id="timewarp-hint" class="text-xs text-paper-200/70 leading-relaxed">
+                  Оформите тестовую подписку в боте справа и войдите в канал по одноразовой ссылке — после этого разблокируются кнопки проверки напоминания и автоудаления.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <button id="warp-warn-btn" type="button" disabled class="py-2.5 px-3.5 rounded-xl bg-white/10 hover:bg-amber-600 disabled:opacity-35 disabled:pointer-events-none text-white font-mono text-[11px] font-semibold transition-colors cursor-pointer">
+                    ⏩ За 3 дня: напомнить
+                  </button>
+                  <button id="warp-kick-btn" type="button" disabled class="py-2.5 px-3.5 rounded-xl bg-oxblood hover:bg-oxblood-hover disabled:bg-white/10 disabled:opacity-35 disabled:pointer-events-none text-white font-mono text-[11px] font-semibold transition-colors cursor-pointer">
+                    ⏩ Срок истёк: автоудаление
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="console-view-api" class="hidden flex-col gap-3">
+              <div class="flex items-center justify-between text-[11px] font-mono text-paper-200/60">
+                <span>Aiogram 3 · createChatInviteLink · banChatMember</span>
+                <button id="copy-api-log-btn" type="button" class="text-emeraldcap-light hover:text-white underline underline-offset-4 cursor-pointer">
+                  Копировать JSON
+                </button>
+              </div>
+              <pre id="bot-api-pre" class="p-3.5 rounded-xl bg-black/55 border border-white/10 font-mono text-[10.5px] text-paper-100/85 max-h-[300px] overflow-y-auto whitespace-pre-wrap break-words leading-relaxed"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 flex flex-col items-center lg:items-end">
+          <div class="w-full max-w-[436px] rounded-[36px] bg-slateink-950 p-2.5 sm:p-3 shadow-[0_38px_85px_-28px_rgba(11,15,18,0.62)] border border-slateink-800 relative">
+            <div class="relative rounded-[28px] overflow-hidden flex flex-col h-[630px] sm:h-[670px] bg-tg-bg text-white border border-white/8">
+              <div class="bg-[#121B24] px-3 pt-2.5 pb-2 border-b border-white/8 grid grid-cols-2 gap-1.5 shrink-0">
+                <button id="phone-tab-bot" type="button" class="py-1.5 px-2.5 rounded-xl bg-tg-header text-white text-[11.5px] font-semibold flex items-center justify-center gap-1.5 border border-white/10 cursor-pointer transition-all">
+                  <span>🤖</span>
+                  <span>@rezerv_club_bot</span>
+                </button>
+                <button id="phone-tab-channel" type="button" class="py-1.5 px-2.5 rounded-xl bg-transparent text-white/60 hover:text-white text-[11.5px] font-semibold flex items-center justify-center gap-1.5 border border-transparent cursor-pointer transition-all">
+                  <span id="channel-tab-lock-icon">🔒</span>
+                  <span>РЕЗЕРВ · Канал</span>
+                </button>
+              </div>
+
+              <div id="phone-view-bot" class="flex-1 flex flex-col min-h-0">
+                <div class="bg-tg-header px-4 py-2.5 border-b border-white/8 flex items-center justify-between gap-2 shrink-0">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-9 h-9 rounded-full bg-oxblood text-white font-serif font-bold text-lg flex items-center justify-center shrink-0 relative">
+                      <span>R</span>
+                      <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-tg-header"></span>
+                    </div>
+                    <div class="min-w-0 leading-tight">
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-bold text-sm truncate">РЕЗЕРВ · Подписка</span>
+                        <svg class="w-3.5 h-3.5 text-tg-blue shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M12 2L14.8 4.6L18.6 4.2L19.8 7.8L23 9.9L21.9 13.5L23 17.1L19.8 19.2L18.6 22.8L14.8 22.4L12 25L9.2 22.4L5.4 22.8L4.2 19.2L1 17.1L2.1 13.5L1 9.9L4.2 7.8L5.4 4.2L9.2 4.6L12 2ZM10.4 16.5L17 9.9L15.6 8.5L10.4 13.7L8.4 11.7L7 13.1L10.4 16.5Z"/>
+                        </svg>
+                      </div>
+                      <div id="tg-bot-status" class="text-[11px] text-tg-blue">бот · онлайн</div>
+                    </div>
+                  </div>
+                  <button id="tg-restart-btn" type="button" title="Сбросить сессию (/start)" class="px-2.5 py-1 rounded-full bg-white/8 hover:bg-white/16 font-mono text-[10px] uppercase tracking-wider cursor-pointer transition-colors">
+                    /start
+                  </button>
+                </div>
+
+                <div id="tg-chat-scroll" class="tg-wallpaper flex-1 overflow-y-auto px-3.5 py-4 flex flex-col gap-3"></div>
+
+                <div class="bg-tg-header px-3 py-2.5 border-t border-white/8 flex items-center justify-between gap-2 shrink-0">
+                  <button id="tg-cmd-tariffs" type="button" class="px-3 py-1.5 rounded-xl bg-tg-blue/18 hover:bg-tg-blue/30 text-tg-blue font-mono text-[11px] font-semibold cursor-pointer transition-colors">
+                    Тарифы
+                  </button>
+                  <button id="tg-cmd-status" type="button" class="px-3 py-1.5 rounded-xl bg-white/8 hover:bg-white/15 text-white/80 font-mono text-[11px] cursor-pointer transition-colors">
+                    Моя подписка
+                  </button>
+                  <button id="tg-cmd-channel" type="button" class="px-3 py-1.5 rounded-xl bg-white/8 hover:bg-white/15 text-white/80 font-mono text-[11px] cursor-pointer transition-colors">
+                    Канал →
+                  </button>
+                </div>
+              </div>
+
+              <div id="phone-view-channel" class="hidden flex-1 flex-col min-h-0 relative">
+                <div class="bg-tg-header px-4 py-2.5 border-b border-white/8 flex items-center justify-between gap-2 shrink-0">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-9 h-9 rounded-full bg-slateink-800 border border-white/15 text-paper-50 font-serif font-bold text-lg flex items-center justify-center shrink-0">
+                      R
+                    </div>
+                    <div class="min-w-0 leading-tight">
+                      <div class="font-bold text-sm truncate flex items-center gap-1.5">
+                        <span id="channel-header-lock">🔒</span>
+                        <span>РЕЗЕРВ · Аналитика</span>
+                      </div>
+                      <div id="channel-members-sub" class="text-[11px] text-white/55">1 480 подписчиков · закрытый канал</div>
+                    </div>
+                  </div>
+                  <button id="back-to-bot-btn" type="button" class="px-2.5 py-1 rounded-full bg-white/8 hover:bg-white/16 text-[11px] text-tg-blue font-medium cursor-pointer shrink-0">
+                    ← К боту
+                  </button>
+                </div>
+
+                <div class="relative flex-1 min-h-0 flex flex-col">
+                  <div id="tg-channel-scroll" class="tg-wallpaper flex-1 overflow-y-auto px-3.5 py-4 flex flex-col gap-3"></div>
+
+                  <div id="channel-lock-overlay" class="absolute inset-0 z-20 bg-tg-bg/82 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 gap-3.5">
+                    <div id="lock-overlay-icon" class="w-14 h-14 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-2xl">
+                      🔒
+                    </div>
+                    <h3 id="lock-overlay-title" class="text-lg font-bold text-white leading-snug">
+                      Доступ только для резидентов
+                    </h3>
+                    <p id="lock-overlay-desc" class="text-xs text-white/70 leading-relaxed max-w-[270px]">
+                      Это закрытый канал. Оформите подписку в боте @rezerv_club_bot и перейдите по персональной одноразовой ссылке.
+                    </p>
+                    <button id="lock-overlay-cta" type="button" class="px-5 py-2.5 rounded-full bg-tg-blue hover:bg-[#1E96D6] text-white text-xs font-semibold transition-colors cursor-pointer mt-1">
+                      Перейти в @rezerv_club_bot →
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div id="phone-pay-sheet" class="phone-sheet absolute inset-x-0 bottom-0 z-30 rounded-t-[24px] bg-[#17212B] border-t border-white/15 p-5 shadow-[0_-20px_50px_rgba(0,0,0,0.65)] flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-2 pb-3 border-b border-white/10">
+                  <div>
+                    <div class="font-mono text-[10px] uppercase tracking-wider text-tg-blue">Telegram Payments · ЮKassa / СБП</div>
+                    <div id="pay-sheet-title" class="text-base font-bold text-white mt-0.5">РЕЗЕРВ · 1 месяц</div>
+                  </div>
+                  <button id="pay-sheet-close" type="button" aria-label="Закрыть оплату" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs cursor-pointer">
+                    ✕
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" data-inphone-method="sbp" class="inphone-method-btn p-2.5 rounded-xl border border-tg-blue bg-tg-blue/15 text-left cursor-pointer">
+                    <div class="text-xs font-bold text-white">СБП (QR)</div>
+                    <div class="text-[10px] font-mono text-white/60">Мгновенно · 0%</div>
+                  </button>
+                  <button type="button" data-inphone-method="card" class="inphone-method-btn p-2.5 rounded-xl border border-white/12 bg-white/[0.04] text-left cursor-pointer">
+                    <div class="text-xs font-bold text-white">Карта МИР</div>
+                    <div class="text-[10px] font-mono text-white/60">Тест *0042</div>
+                  </button>
+                </div>
+
+                <div class="p-3 rounded-xl bg-black/30 border border-white/8 flex items-center justify-between text-xs">
+                  <span class="text-white/65">Автопродление (можно откл.)</span>
+                  <span id="pay-sheet-price" class="font-mono text-base font-bold text-white">4 900 ₽</span>
+                </div>
+
+                <p class="text-[10.5px] text-white/55 leading-relaxed">
+                  Интерактивная песочница портфолио Данила Буторова: деньги не списываются — сразу после нажатия бот проверит платёж и выдаст одноразовую ссылку (лимит 1 активация).
+                </p>
+
+                <button id="pay-sheet-confirm-btn" type="button" class="w-full py-3.5 rounded-xl bg-emeraldcap hover:bg-[#0D7550] text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer">
+                  Оплатить 4 900 ₽ →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full max-w-[436px] flex items-center justify-between px-3 pt-3 text-[11px] font-mono text-slateink-400">
+            <span>Переключайте вкладки «Бот» и «Канал» сверху экрана</span>
+            <button id="quick-reset-sim" type="button" class="text-oxblood hover:text-slateink-900 underline underline-offset-4 cursor-pointer">
+              Сбросить ↻
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="inside" class="reveal-el py-16 sm:py-22 px-4 sm:px-8 border-t border-slateink-900/10 bg-paper-50">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
+        <div class="max-w-2xl">
+          <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-oxblood font-semibold mb-2">
+            Содержание клуба
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] leading-[1.04] text-slateink-900">
+            Аналитика без информационного шума — <span class="font-serif italic font-semibold text-oxblood">3 раза в неделю</span>
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slateink-600 max-w-sm leading-relaxed">
+          Короткие выжимки с цифрами, моделями оценки и публичным модельным портфелем редакции.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="rounded-[22px] bg-paper-100 border border-slateink-900/10 p-6 sm:p-7 flex flex-col justify-between gap-6">
+          <div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-slateink-400 mb-4">
+              <span class="text-oxblood font-semibold">ПОНЕДЕЛЬНИК · 08:30</span>
+              <span>PDF + Пост</span>
+            </div>
+            <h3 class="font-serif font-bold text-2xl sm:text-[26px] text-slateink-900 leading-tight mb-3">
+              Макро-брифинг и ставки ЦБ
+            </h3>
+            <p class="text-xs sm:text-sm text-slateink-600 leading-relaxed">
+              Ключевые события недели на долговом рынке, валютные потоки, инфляционные ожидания и конкретные сценарии по облигациям и фондам ликвидности.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slateink-900/10 flex items-center justify-between text-xs font-mono text-slateink-600">
+            <span>Среднее время чтения: 6 мин</span>
+            <span class="text-oxblood">🔒 В канале</span>
+          </div>
+        </article>
+
+        <article class="rounded-[22px] bg-paper-100 border border-slateink-900/10 p-6 sm:p-7 flex flex-col justify-between gap-6">
+          <div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-slateink-400 mb-4">
+              <span class="text-oxblood font-semibold">СРЕДА · 19:00</span>
+              <span>Разбор бизнеса</span>
+            </div>
+            <h3 class="font-serif font-bold text-2xl sm:text-[26px] text-slateink-900 leading-tight mb-3">
+              Глубокие разборы эмитентов
+            </h3>
+            <p class="text-xs sm:text-sm text-slateink-600 leading-relaxed">
+              Финансовые модели в Excel, мультипликаторы, дивидендная доходность на 12 месяцев и прозрачные точки входа/выхода по публичному портфелю.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slateink-900/10 flex items-center justify-between text-xs font-mono text-slateink-600">
+            <span>Доходность 2025–26: +29.4%</span>
+            <span class="text-oxblood">🔒 В канале</span>
+          </div>
+        </article>
+
+        <article class="rounded-[22px] bg-paper-100 border border-slateink-900/10 p-6 sm:p-7 flex flex-col justify-between gap-6">
+          <div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-slateink-400 mb-4">
+              <span class="text-oxblood font-semibold">ПЯТНИЦА · 20:00</span>
+              <span>Закрытый чат + Эфир</span>
+            </div>
+            <h3 class="font-serif font-bold text-2xl sm:text-[26px] text-slateink-900 leading-tight mb-3">
+              Вопросы-ответы и нетворкинг
+            </h3>
+            <p class="text-xs sm:text-sm text-slateink-600 leading-relaxed">
+              Еженедельный голосовой разбор портфелей участников и закрытый чат предпринимателей, где обсуждаем бизнес-метрики и реальные сделки.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slateink-900/10 flex items-center justify-between text-xs font-mono text-slateink-600">
+            <span>Записи доступны всем резидентам</span>
+            <span class="text-oxblood">🔒 В канале</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="tariffs" class="reveal-el py-16 sm:py-22 px-4 sm:px-8 border-t border-slateink-900/10">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
+        <div>
+          <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-oxblood font-semibold mb-2">Тарифы доступа</div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] leading-[1.04] text-slateink-900">
+            Прозрачное членство
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slateink-600 max-w-md leading-relaxed">
+          Нажмите на любой тариф — бот сразу откроет оплату, а после проверки выдаст одноразовую ссылку в закрытый канал.
+        </p>
+      </div>
+
+      <div id="tariffs-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch"></div>
+    </div>
+  </section>
+
+  <section id="faq" class="reveal-el py-14 sm:py-20 px-4 sm:px-8 border-t border-slateink-900/10 bg-paper-50">
+    <div class="max-w-[1340px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-4">
+        <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-oxblood font-semibold mb-2">Частые вопросы</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-tight text-slateink-900">
+          Как устроен доступ в закрытый канал
+        </h2>
+      </div>
+
+      <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-paper-100 border border-slateink-900/10">
+          <h3 class="text-base font-bold text-slateink-900 mb-2">Как быстро я попаду в канал после оплаты?</h3>
+          <p class="text-xs sm:text-sm text-slateink-600 leading-relaxed">
+            В течение 3–5 секунд. Сразу после подтверждения платежа от ЮKassa бот присылает персональную ссылку-приглашение, которая срабатывает ровно один раз.
+          </p>
+        </div>
+        <div class="p-6 rounded-2xl bg-paper-100 border border-slateink-900/10">
+          <h3 class="text-base font-bold text-slateink-900 mb-2">Можно ли передать ссылку коллеге?</h3>
+          <p class="text-xs sm:text-sm text-slateink-600 leading-relaxed">
+            Нет, каждая ссылка создаётся с параметром <code class="font-mono text-xs text-oxblood">member_limit=1</code>. После вашего входа она автоматически аннулируется.
+          </p>
+        </div>
+        <div class="p-6 rounded-2xl bg-paper-100 border border-slateink-900/10">
+          <h3 class="text-base font-bold text-slateink-900 mb-2">Что произойдёт, когда срок закончится?</h3>
+          <p class="text-xs sm:text-sm text-slateink-600 leading-relaxed">
+            За 3 дня и за 24 часа бот пришлёт вежливое напоминание с кнопкой продления. Если не продлевать — система мягко исключит аккаунт из канала без блокировки, и вы сможете вернуться в любой момент.
+          </p>
+        </div>
+        <div class="p-6 rounded-2xl bg-paper-100 border border-slateink-900/10">
+          <h3 class="text-base font-bold text-slateink-900 mb-2">Приходит ли официальный чек об оплате?</h3>
+          <p class="text-xs sm:text-sm text-slateink-600 leading-relaxed">
+            Да, при каждой оплате по карте или СБП формируется электронный чек по 54-ФЗ, а для юрлиц возможна оплата годового доступа по счёту.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-auto bg-slateink-950 text-paper-100 pt-14 pb-8 px-4 sm:px-8 border-t border-white/10">
+    <div class="max-w-[1340px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/10">
+        <div class="md:col-span-5 flex flex-col gap-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-oxblood text-white font-serif font-bold text-lg flex items-center justify-center">R</span>
+            <span class="font-extrabold text-base tracking-[0.14em] uppercase text-white">РЕЗЕРВ · АНАЛИТИКА</span>
+          </div>
+          <p class="text-xs sm:text-sm text-paper-200/65 leading-relaxed max-w-sm">
+            Закрытый клуб рыночной и бизнес-аналитики в Telegram. Автоматическая выдача доступа, чеки 54-ФЗ и живое сообщество резидентов.
+          </p>
+          <span class="text-[11px] font-mono text-paper-200/40">© 2026 ООО «Резерв Аналитика» · ИНН 0000000000</span>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-[#F2A6B0] mb-1">Служба заботы о резидентах</span>
+          <a href="tel:+79990000000" class="font-mono text-base text-white hover:text-[#F2A6B0] transition-colors">+7 (999) 000-00-00</a>
+          <a href="mailto:club@example.ru" class="text-paper-200/75 hover:text-white transition-colors">club@example.ru</a>
+          <span class="text-paper-200/50 text-xs">Поддержка в Telegram: @rezerv_support</span>
+        </div>
+
+        <div class="md:col-span-3 flex flex-col gap-2 text-xs sm:text-sm">
+          <span class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-[#F2A6B0] mb-1">Разделы</span>
+          <a href="#paywall-studio" class="text-paper-200/75 hover:text-white transition-colors">Бот подписки</a>
+          <a href="#inside" class="text-paper-200/75 hover:text-white transition-colors">Содержание канала</a>
+          <a href="#tariffs" class="text-paper-200/75 hover:text-white transition-colors">Тарифы</a>
+          <a href="#faq" class="text-paper-200/75 hover:text-white transition-colors">Частые вопросы</a>
+        </div>
+      </div>
+
+      <div class="mt-8 p-4 sm:p-5 rounded-2xl bg-white/[0.05] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-paper-200/80 leading-relaxed">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Разработаю Telegram-бота платной подписки на закрытый канал или чат (с проверкой оплаты ЮKassa/СБП, одноразовыми ссылками и автоудалением по сроку) под ваш проект.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full border border-white/20 hover:border-white text-paper-100 text-xs font-medium transition-colors">
+            ← Вернуться в портфолио
+          </a>
+          <a href="../index.html#feedback" class="btn-oxblood px-5 py-2 rounded-full text-xs font-semibold">
+            Заказать такого бота →
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="club-toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-[90] px-4 py-2.5 rounded-full bg-slateink-950 text-white border border-white/15 text-xs font-medium opacity-0 pointer-events-none translate-y-2 transition-all duration-300 flex items-center gap-2 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-emeraldcap-light"></span>
+    <span id="club-toast-text">Готово</span>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
