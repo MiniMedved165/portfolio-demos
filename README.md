@@ -23,6 +23,9 @@
 | [`paywall-bot/`](./paywall-bot/) | **РЕЗЕРВ** | Telegram-бот платной подписки на закрытый канал (ЮKassa/СБП, одноразовая ссылка `1/1`, автоудаление по сроку) + код Python | [Открыть демо](https://butorov.dev/paywall-bot/demo/) |
 | [`b2b-lead-scraper/`](./b2b-lead-scraper/) | **ГЕОЛИД** | Парсер B2B-баз компаний с 2ГИС и Яндекс Карт с гео-радаром, дедупликацией, Excel CSV / CRM-экспортом + код Python | [Открыть демо](https://butorov.dev/b2b-lead-scraper/demo/) |
 | [`marketplace-analytics/`](./marketplace-analytics/) | **ПУЛЬС MP** | Мониторинг артикулов Wildberries и Ozon: цена с СПП, остатки по 6 складам, 14д SVG-график, CSV + код Python | [Открыть демо](https://butorov.dev/marketplace-analytics/demo/) |
+| [`altai-ridge/`](./altai-ridge/) | **ALTAI RIDGE** | Лендинг загородной недвижимости в горах: прогресс 75%, калькулятор доходности ROI и CRM-форма презентации | [Открыть демо](https://butorov.dev/altai-ridge/demo/) |
+| [`luxora-furniture/`](./luxora-furniture/) | **LUXORA** | Премиальный шоурум дизайнерской мебели: фильтр по 6 категориям, избранное и выдвижная корзина | [Открыть демо](https://butorov.dev/luxora-furniture/demo/) |
+| [`brew-haven/`](./brew-haven/) | **BREW HAVEN** | Спешелти кофейня: карта напитков, предзаказ ко времени для бариста и подписка с промокодом | [Открыть демо](https://butorov.dev/brew-haven/demo/) |
 
 ---
 

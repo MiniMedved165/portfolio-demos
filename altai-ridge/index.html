@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ALTAI RIDGE — Клубный посёлок резиденций в горах Алтая</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Onest", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-[#0B0F0D] text-[#F2F4F2] font-sans antialiased">
+
+  <section class="relative min-h-[100svh] flex flex-col justify-between overflow-hidden">
+    <img src="./img/hero-chalet.jpg" alt="Шале Altai Ridge на склоне гор Алтая" class="absolute inset-0 w-full h-full object-cover object-center scale-[1.02]">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F0D]/75 via-[#0B0F0D]/25 to-[#0B0F0D]/90"></div>
+
+    <header class="relative z-20 max-w-[1380px] w-full mx-auto px-5 sm:px-8 pt-6 pb-4 flex items-center justify-between gap-4 text-[11px] font-mono uppercase tracking-[0.14em] text-white/75">
+      <a href="#top" class="font-sans font-bold text-sm tracking-[0.18em] text-white">ALTAI RIDGE</a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#about" class="hover:text-white transition-colors">О проекте</a>
+        <a href="#comfort" class="hover:text-white transition-colors">Комфорт</a>
+        <a href="#docs" class="hover:text-white transition-colors">Документация</a>
+        <a href="#invest" class="hover:text-white transition-colors">Инвестиции</a>
+      </nav>
+      <button type="button" data-open-altai-modal="Презентация и каталог" class="px-4 py-2 rounded-full border border-white/25 hover:bg-white hover:text-[#0B0F0D] transition-all cursor-pointer">
+        Каталог PDF
+      </button>
+    </header>
+
+    <div class="relative z-10 max-w-[1380px] w-full mx-auto px-5 sm:px-8 pt-2 sm:pt-4 pointer-events-none select-none">
+      <h1 class="text-[13vw] sm:text-[106px] xl:text-[136px] font-extrabold leading-[0.84] tracking-[-0.04em] text-white/90 uppercase">
+        <span class="block">ALTAI</span>
+        <span class="block text-right text-white/85">RIDGE</span>
+      </h1>
+    </div>
+
+    <div class="relative z-20 max-w-[1380px] w-full mx-auto px-5 sm:px-8 pb-8 sm:pb-12 pt-10 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
+      <div class="ridge-glass rounded-2xl p-4 sm:p-5 w-full max-w-[330px]">
+        <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-white/70 mb-2">
+          <span>Процесс строительства</span>
+          <span class="px-1.5 py-0.5 rounded bg-white/15 text-white">75%</span>
+        </div>
+        <div class="w-full h-1.5 rounded-full bg-white/15 overflow-hidden mb-3">
+          <div class="h-full w-3/4 rounded-full bg-white"></div>
+        </div>
+        <div class="text-xs text-white/85 font-medium">Площадь резиденций от 150 м²</div>
+        <div class="text-[11px] font-mono text-white/55 mt-0.5">Алтай · 70 км от Горно-Алтайска</div>
+      </div>
+
+      <div class="flex flex-col items-start lg:items-end text-left lg:text-right max-w-md gap-3">
+        <div class="text-xl sm:text-2xl font-light text-white leading-snug">
+          Добро пожаловать в <strong class="font-semibold">Altai Ridge</strong>
+        </div>
+        <p class="text-xs sm:text-sm text-white/75 leading-relaxed">
+          Место, где первозданная природа Алтая сочетается с архитектурным комфортом. Ваша приватная резиденция в горах с панорамным остеклением и доходностью от аренды.
+        </p>
+        <a href="#invest" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-white text-[#0B0F0D] hover:bg-[#D9F99D] text-xs font-bold transition-colors">
+          <span>Посмотреть коттеджи</span>
+          <span aria-hidden="true">›</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-20 px-5 sm:px-8 border-t border-white/10">
+    <div class="max-w-[1380px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-5 flex flex-col gap-5">
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">01 · Концепция посёлка</span>
+        <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.06]">
+          Клубный посёлок <span class="text-white/55 font-light">для созерцания природы</span>
+        </h2>
+        <p class="text-sm text-white/70 leading-relaxed">
+          Архитектура из обожжённой лиственницы, природного камня и безрамного остекления органично вписана в горный рельеф. Закрытая охраняемая территория, вертолётная площадка и собственный SPA-комплекс.
+        </p>
+        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-white/10">
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">25%</div>
+            <div class="text-[11px] text-white/55 mt-1">первый взнос</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">10+</div>
+            <div class="text-[11px] text-white/55 mt-1">гектаров леса</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">30</div>
+            <div class="text-[11px] text-white/55 mt-1">резиденций</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 rounded-3xl overflow-hidden border border-white/12 relative">
+        <img src="./img/interior-view.jpg" alt="Интерьер шале Altai Ridge с видом на горы" class="w-full h-[360px] sm:h-[440px] object-cover">
+        <div class="absolute bottom-4 left-4 right-4 ridge-glass rounded-2xl p-4 flex items-center justify-between gap-4">
+          <div class="text-xs text-white/90">Панорамные окна Schüco с тёплым контуром до −45 °C</div>
+          <span class="font-mono text-[11px] text-[#D9F99D] shrink-0">Сдача 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="comfort" class="py-16 px-5 sm:px-8 border-t border-white/10 bg-[#0E1411]">
+    <div class="max-w-[1380px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div>
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">02 · Современный комфорт</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Приватность и простор</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-white/60 max-w-md">Каждая резиденция имеет собственный участок от 12 соток, террасу с костровой чашей и управляющую компанию 5★.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="ridge-card rounded-2xl p-5 flex flex-col gap-3">
+          <span class="font-mono text-[11px] text-white/40">/ 01</span>
+          <h3 class="text-base font-bold text-white">Развитая инфраструктура</h3>
+          <p class="text-xs text-white/65 leading-relaxed">Ресторан локальной кухни, банный комплекс на горном ручье и консьерж-служба 24/7.</p>
+        </div>
+        <div class="ridge-card rounded-2xl p-5 flex flex-col gap-3">
+          <span class="font-mono text-[11px] text-white/40">/ 02</span>
+          <h3 class="text-base font-bold text-white">Безграничный простор</h3>
+          <p class="text-xs text-white/65 leading-relaxed">Расстояние между домами от 35 метров — никто не нарушит вашу тишину и обзор на хребет.</p>
+        </div>
+        <div class="ridge-card rounded-2xl p-5 flex flex-col gap-3">
+          <span class="font-mono text-[11px] text-white/40">/ 03</span>
+          <h3 class="text-base font-bold text-white">Умный дом и отопление</h3>
+          <p class="text-xs text-white/65 leading-relaxed">Геотермальное отопление, тёплые полы и удалённое управление климатом со смартфона.</p>
+        </div>
+        <div class="ridge-card rounded-2xl p-5 flex flex-col gap-3">
+          <span class="font-mono text-[11px] text-white/40">/ 04</span>
+          <h3 class="text-base font-bold text-white">Завораживающие виды</h3>
+          <p class="text-xs text-white/65 leading-relaxed">Высота 940 метров над уровнем моря, хвойный воздух и панорама на туманные пики.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="docs" class="py-16 px-5 sm:px-8 border-t border-white/10">
+    <div class="max-w-[1380px] mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">03 · Юридическая чистота</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white/20 uppercase mt-2">ДОКУМЕНТАЦИЯ</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        <div class="ridge-card rounded-2xl p-5">
+          <div class="font-bold text-white uppercase tracking-wide mb-1.5">Свидетельство на землю</div>
+          <p class="text-white/60">Участки ИЖС в собственности, полная выписка ЕГРН без обременений.</p>
+        </div>
+        <div class="ridge-card rounded-2xl p-5">
+          <div class="font-bold text-white uppercase tracking-wide mb-1.5">Разрешение на строительство</div>
+          <p class="text-white/60">Согласованный проект планировки территории и все технические условия.</p>
+        </div>
+        <div class="ridge-card rounded-2xl p-5">
+          <div class="font-bold text-white uppercase tracking-wide mb-1.5">Договор подряда · 5 лет</div>
+          <p class="text-white/60">Фиксированная смета, поэтапное финансирование через эскроу-счёт.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="invest" class="py-20 px-5 sm:px-8 border-t border-white/10 bg-[#0E1411]">
+    <div class="max-w-[1380px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-5 flex flex-col gap-4">
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[#D9F99D]">04 · Ваш актив в горах</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white leading-tight">
+          Калькулятор доходности резиденции
+        </h2>
+        <p class="text-sm text-white/65 leading-relaxed">
+          Управляющая компания берёт на себя бронирование, клининг и обслуживание гостей (72% дохода — собственнику). Выберите площадь и прогноз загрузки:
+        </p>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <button type="button" data-res-id="ridge-150" class="residence-tab-btn px-4 py-2.5 rounded-xl bg-white text-[#0B0F0D] text-xs font-bold cursor-pointer">
+            Катунь · 150 м²
+          </button>
+          <button type="button" data-res-id="ridge-210" class="residence-tab-btn px-4 py-2.5 rounded-xl bg-white/[0.06] text-white/75 text-xs font-medium border border-white/10 cursor-pointer">
+            Белуха · 210 м²
+          </button>
+          <button type="button" data-res-id="ridge-280" class="residence-tab-btn px-4 py-2.5 rounded-xl bg-white/[0.06] text-white/75 text-xs font-medium border border-white/10 cursor-pointer">
+            Гребень · 280 м²
+          </button>
+        </div>
+
+        <div class="pt-3">
+          <div class="flex items-center justify-between text-xs font-mono mb-2">
+            <span class="text-white/60">Среднегодовая загрузка:</span>
+            <span id="roi-occ-label" class="text-white font-semibold">68%</span>
+          </div>
+          <input id="roi-occ-range" type="range" min="45" max="85" value="68" class="w-full accent-[#D9F99D] cursor-pointer">
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 ridge-card rounded-3xl p-6 sm:p-8 flex flex-col gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10">
+            <div class="text-[11px] font-mono text-white/50 uppercase">Стоимость резиденции</div>
+            <div id="roi-price-val" class="text-2xl font-mono font-bold text-white mt-1">28.5 млн ₽</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10">
+            <div class="text-[11px] font-mono text-white/50 uppercase">Средний тариф аренды</div>
+            <div id="roi-rate-val" class="text-2xl font-mono font-bold text-white mt-1">32 000 ₽ / сутки</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/[0.06] border border-[#D9F99D]/30">
+            <div class="text-[11px] font-mono text-[#D9F99D] uppercase">Чистый доход собственника</div>
+            <div id="roi-net-year" class="text-2xl font-mono font-bold text-white mt-1">5.72 млн ₽ / год</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/[0.06] border border-[#D9F99D]/30">
+            <div class="text-[11px] font-mono text-[#D9F99D] uppercase">Доходность от аренды</div>
+            <div id="roi-yield-pct" class="text-2xl font-mono font-bold text-white mt-1">20.1% годовых</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/10">
+          <div class="text-xs text-white/70">
+            Окупаемость: <strong id="roi-payback" class="text-white font-mono">5.0 лет</strong>
+          </div>
+          <button type="button" data-open-altai-modal="" class="px-6 py-3 rounded-full bg-white text-[#0B0F0D] hover:bg-[#D9F99D] text-xs font-bold transition-colors cursor-pointer">
+            Получить финмодель и планировки →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-[#080B09] border-t border-white/10 py-12 px-5 sm:px-8">
+    <div class="max-w-[1380px] mx-auto flex flex-col gap-8">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <div class="text-xl font-extrabold tracking-tight text-white uppercase">Вы готовы обсудить ваш будущий дом?</div>
+          <div class="text-xs font-mono text-white/50 mt-1">ООО «Алтай Ридж Девелопмент» · ИНН 0000000000 · +7 (999) 000-00-00</div>
+        </div>
+        <button type="button" data-open-altai-modal="Индивидуальная консультация" class="px-6 py-3 rounded-full border border-white/25 hover:bg-white hover:text-[#0B0F0D] text-xs font-bold transition-all cursor-pointer">
+          Записаться на показ →
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-white/70">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Разработаю имиджевый лендинг для застройщика или загородного комплекса с калькулятором инвестиций и интеграцией с CRM.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full border border-white/20 hover:border-white text-xs text-white/90">← Вернуться в портфолио</a>
+          <a href="../index.html#feedback" class="px-5 py-2 rounded-full bg-white text-[#0B0F0D] text-xs font-bold">Заказать такой сайт →</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="altai-modal" class="modal-shell fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="relative w-full max-w-md rounded-2xl bg-[#131916] border border-white/15 p-6 text-white shadow-2xl">
+      <button id="altai-modal-close" type="button" aria-label="Закрыть" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs cursor-pointer">✕</button>
+      <div class="text-[10.5px] font-mono uppercase tracking-wider text-[#D9F99D] mb-1">Запрос материалов · Altai Ridge</div>
+      <h3 id="altai-modal-lot" class="text-lg font-bold text-white mb-4">Шале «Катунь 150»</h3>
+
+      <form id="altai-lead-form" class="flex flex-col gap-3">
+        <div id="altai-form-error" class="hidden p-2.5 rounded-lg bg-rose-500/20 border border-rose-400/40 text-xs text-rose-200"></div>
+        <input id="altai-name" type="text" placeholder="Ваше имя" class="px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 text-sm text-white placeholder-white/40 focus:border-[#D9F99D] focus:ring-0">
+        <input id="altai-phone" type="text" placeholder="+7 (999) 000-00-00 или @telegram" class="px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 font-mono text-sm text-white placeholder-white/40 focus:border-[#D9F99D] focus:ring-0">
+        <button type="submit" class="mt-1 py-3 rounded-full bg-white text-[#0B0F0D] hover:bg-[#D9F99D] text-xs font-bold transition-colors cursor-pointer">
+          Получить презентацию →
+        </button>
+      </form>
+
+      <div id="altai-lead-success" class="hidden flex-col gap-3">
+        <div class="text-sm text-white/90">Спасибо, <strong id="altai-success-name"></strong>! Сформирована тестовая заявка для CRM:</div>
+        <pre id="altai-lead-json" class="p-3 rounded-xl bg-black/50 border border-white/10 font-mono text-[10.5px] text-white/80 overflow-x-auto"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

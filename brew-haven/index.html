@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>BREW HAVEN — Спешелти кофейня и предзаказ напитков</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Onest", "system-ui", "sans-serif"],
+            serif: ["Cormorant Garamond", "Georgia", "serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-[#120D0A] text-[#F7F1EB] font-sans antialiased">
+
+  <header class="sticky top-0 z-40 bg-[#120D0A]/88 backdrop-blur-md border-b border-[#C6976E]/15">
+    <div class="max-w-[1320px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-full border border-[#C6976E]/55 flex items-center justify-center text-sm text-[#C6976E]">☕</span>
+        <div class="leading-none">
+          <div class="font-serif font-bold text-lg tracking-[0.12em] text-white">BREW HAVEN</div>
+          <div class="text-[8.5px] font-mono uppercase tracking-[0.22em] text-[#BFA997]">Coffee Roasters</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-[#D6C3B3]">
+        <a href="#top" class="text-[#C6976E]">Главная</a>
+        <a href="#about" class="hover:text-white transition-colors">О нас</a>
+        <a href="#menu" class="hover:text-white transition-colors">Меню</a>
+        <a href="#perks" class="hover:text-white transition-colors">Преимущества</a>
+        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+      </nav>
+
+      <button id="bh-open-order" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#C6976E]/35 hover:border-[#C6976E] text-xs font-semibold text-white cursor-pointer transition-colors">
+        <span>Предзаказ</span>
+        <span id="bh-cart-badge" class="w-5 h-5 rounded-full bg-[#C6976E] text-[#16100C] font-mono text-[10px] font-bold flex items-center justify-center">1</span>
+      </button>
+    </div>
+  </header>
+
+  <section id="top" class="relative min-h-[560px] sm:min-h-[620px] flex items-center overflow-hidden border-b border-[#C6976E]/15">
+    <img src="./img/hero-latte.jpg" alt="Спешелти латте BREW HAVEN" class="absolute inset-0 w-full h-full object-cover object-center">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#120D0A]/95 via-[#120D0A]/70 to-transparent"></div>
+
+    <div class="relative z-10 max-w-[1320px] w-full mx-auto px-5 sm:px-8 py-16">
+      <div class="max-w-lg flex flex-col items-start gap-5">
+        <span class="font-serif italic text-lg sm:text-xl text-[#C6976E]">Насыщенный. Бархатный. Безупречный.</span>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-[58px] font-bold leading-[1.02] text-white">
+          Кофе, который<br>
+          <span class="text-[#C6976E]">остаётся в памяти</span>
+        </h1>
+        <p class="text-sm text-[#D6C3B3]/85 leading-relaxed">
+          Авторский спешелти кофе из отборного зерна свежей обжарки, приготовленный бариста с вниманием к каждой секунде экстракции.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 pt-1">
+          <a href="#menu" class="bh-btn-primary inline-flex items-center gap-2 px-6 py-3 rounded-lg text-xs font-bold">
+            <span>Открыть меню</span>
+            <span>→</span>
+          </a>
+          <button id="bh-open-order-hero" type="button" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/25 hover:border-[#C6976E] text-xs font-medium text-white cursor-pointer transition-colors">
+            <span>⏱</span>
+            <span>Предзаказ ко времени</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-5 pt-5 border-t border-white/10 w-full max-w-md text-[11px] text-[#D6C3B3]">
+          <div class="flex items-center gap-2">
+            <span class="text-[#C6976E] text-base">✦</span>
+            <span>Отборное зерно 86+</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#C6976E] text-base">♨</span>
+            <span>Свежая обжарка</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#C6976E] text-base">♡</span>
+            <span>Ручная работа</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-14 px-5 sm:px-8">
+    <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-6 rounded-2xl overflow-hidden border border-[#C6976E]/20">
+        <img src="./img/coffee-bag.jpg" alt="Упаковка зернового кофе BREW HAVEN" class="w-full h-[300px] sm:h-[380px] object-cover">
+      </div>
+
+      <div class="lg:col-span-6 flex flex-col items-start gap-4">
+        <span class="font-serif italic text-base text-[#C6976E]">О нас</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white leading-tight">
+          Больше, чем просто <span class="text-[#C6976E]">кофе</span>
+        </h2>
+        <p class="text-sm text-[#D6C3B3]/85 leading-relaxed">
+          В BREW HAVEN мы верим, что утренняя чашка задаёт ритм всему дню. Мы закупаем микролоты напрямую у фермеров, обжариваем их каждую неделю и готовим напитки без очереди по предзаказу.
+        </p>
+
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full pt-1 text-xs text-[#E7D8CB]">
+          <li class="flex items-center gap-2.5"><span class="text-[#C6976E]">✓</span> Прямые поставки зерна</li>
+          <li class="flex items-center gap-2.5"><span class="text-[#C6976E]">✓</span> Этическая торговля</li>
+          <li class="flex items-center gap-2.5"><span class="text-[#C6976E]">✓</span> Обжарка каждые 7 дней</li>
+          <li class="flex items-center gap-2.5"><span class="text-[#C6976E]">✓</span> Мастерство бариста</li>
+        </ul>
+
+        <a href="#menu" class="bh-btn-primary mt-2 px-6 py-3 rounded-lg text-xs font-bold">
+          Выбрать напиток →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="py-12 px-5 sm:px-8">
+    <div class="max-w-[1320px] mx-auto">
+      <div class="text-center mb-10">
+        <span class="font-serif italic text-base text-[#C6976E]">Фирменная карта</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-1">Популярные позиции</h2>
+      </div>
+
+      <div id="bh-drinks-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+
+      <div class="mt-8 text-center">
+        <button id="bh-toggle-menu" type="button" class="px-6 py-2.5 rounded-lg border border-[#C6976E]/35 hover:border-[#C6976E] text-xs font-semibold text-white cursor-pointer transition-colors">
+          Открыть полное меню →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="perks" class="py-8 px-5 sm:px-8">
+    <div class="max-w-[1320px] mx-auto bh-perk-bar rounded-2xl p-5 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="flex items-center gap-3.5">
+        <span class="w-10 h-10 rounded-full border border-[#C6976E]/35 flex items-center justify-center text-[#C6976E]">⏱</span>
+        <div>
+          <div class="text-xs font-bold text-white">Выдача без очереди</div>
+          <div class="text-[11px] text-[#BFA997]">К выбранному времени</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3.5">
+        <span class="w-10 h-10 rounded-full border border-[#C6976E]/35 flex items-center justify-center text-[#C6976E]">♨</span>
+        <div>
+          <div class="text-xs font-bold text-white">Свежая обжарка</div>
+          <div class="text-[11px] text-[#BFA997]">Всегда яркий вкус</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3.5">
+        <span class="w-10 h-10 rounded-full border border-[#C6976E]/35 flex items-center justify-center text-[#C6976E]">◈</span>
+        <div>
+          <div class="text-xs font-bold text-white">Оплата онлайн</div>
+          <div class="text-[11px] text-[#BFA997]">Картой и через СБП</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3.5">
+        <span class="w-10 h-10 rounded-full border border-[#C6976E]/35 flex items-center justify-center text-[#C6976E]">★</span>
+        <div>
+          <div class="text-xs font-bold text-white">Кешбэк 10%</div>
+          <div class="text-[11px] text-[#BFA997]">Бонусы с каждой чашки</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacts" class="mt-10 border-t border-[#C6976E]/15 bg-[#0D0907] py-12 px-5 sm:px-8">
+    <div class="max-w-[1320px] mx-auto flex flex-col gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div class="md:col-span-5">
+          <h3 class="font-serif text-xl font-bold text-white mb-2">Оставайтесь на связи</h3>
+          <p class="text-xs text-[#BFA997] mb-4">Подпишитесь на новости обжарки и получите скидку 15% на первый предзаказ.</p>
+          <form id="bh-newsletter-form" class="flex gap-2 max-w-sm">
+            <input id="bh-newsletter-email" type="email" required placeholder="Ваш e-mail" class="flex-1 bg-[#1A130F] border border-[#C6976E]/25 rounded-lg px-3.5 py-2.5 text-xs text-white placeholder-[#BFA997]/60 focus:border-[#C6976E] focus:ring-0">
+            <button type="submit" class="bh-btn-primary px-4 py-2.5 rounded-lg text-xs font-bold cursor-pointer">→</button>
+          </form>
+          <div id="bh-newsletter-msg" class="hidden mt-2 text-xs text-emerald-300"></div>
+        </div>
+
+        <div class="md:col-span-3 text-xs text-[#BFA997] flex flex-col gap-2">
+          <div class="font-semibold text-white mb-1">Навигация</div>
+          <a href="#top" class="hover:text-white">Главная</a>
+          <a href="#menu" class="hover:text-white">Меню напитков</a>
+          <a href="#about" class="hover:text-white">О кофейне</a>
+        </div>
+
+        <div class="md:col-span-4 text-xs text-[#BFA997] flex flex-col gap-2">
+          <div class="font-semibold text-white mb-1">Контакты</div>
+          <div class="font-mono">+7 (999) 000-00-00</div>
+          <div class="font-mono">hello@example.ru</div>
+          <div>ул. Примерная, 12 · Ежедневно 08:00–22:00</div>
+          <div class="text-[11px] opacity-75">© 2026 ООО «Брю Хэвен» · ИНН 0000000000</div>
+        </div>
+      </div>
+
+      <div class="p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-[#C6976E]/20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm text-[#D6C3B3]">
+          Демо-проект из портфолио <strong class="text-white">Данила Буторова</strong> · Разработаю сайт кофейни или ресторана с онлайн-меню, предзаказом ко времени и уведомлениями в Telegram.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-lg border border-white/20 hover:border-white text-xs text-white">← Вернуться в портфолио</a>
+          <a href="../index.html#feedback" class="bh-btn-primary px-5 py-2 rounded-lg text-xs font-bold">Заказать такой сайт →</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="bh-order-drawer" class="overlay-shell fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex justify-end" role="dialog" aria-modal="true" aria-hidden="true">
+    <aside class="w-full max-w-md bg-[#17110D] border-l border-[#C6976E]/25 h-full p-6 flex flex-col justify-between overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+          <h3 class="font-serif text-xl font-bold text-white">Предзаказ к приходу</h3>
+          <button id="bh-close-order" type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-xs text-white cursor-pointer">✕</button>
+        </div>
+
+        <div id="bh-cart-items" class="flex flex-col gap-3 mb-5"></div>
+
+        <div class="mb-4">
+          <div class="text-xs font-semibold text-[#D6C3B3] mb-2">Когда приготовить напитки?</div>
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" data-slot="Через 10 минут" class="py-2 rounded-lg border border-white/15 text-[11px] text-[#D6C3B3] cursor-pointer">10 мин</button>
+            <button type="button" data-slot="Через 15 минут" class="py-2 rounded-lg border border-[#C6976E] bg-[#C6976E]/20 text-[11px] text-white cursor-pointer">15 мин</button>
+            <button type="button" data-slot="Через 30 минут" class="py-2 rounded-lg border border-white/15 text-[11px] text-[#D6C3B3] cursor-pointer">30 мин</button>
+          </div>
+        </div>
+      </div>
+
+      <form id="bh-order-form" class="pt-4 border-t border-white/10 flex flex-col gap-3">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-[#D6C3B3]">К оплате:</span>
+          <span id="bh-cart-total" class="font-mono text-lg font-bold text-[#C6976E]">0 ₽</span>
+        </div>
+        <input id="bh-guest-name" type="text" required placeholder="Ваше имя (для стаканчика)" class="bg-white/[0.05] border border-white/15 rounded-lg px-3.5 py-2.5 text-xs text-white focus:border-[#C6976E] focus:ring-0">
+        <div id="bh-order-status" class="hidden p-3 rounded-lg bg-emerald-500/15 border border-emerald-400/30 text-xs text-emerald-200"></div>
+        <button type="submit" class="bh-btn-primary w-full py-3 rounded-lg text-xs font-bold cursor-pointer">
+          Отправить бариста →
+        </button>
+      </form>
+    </aside>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

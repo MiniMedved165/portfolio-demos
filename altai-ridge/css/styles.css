@@ -1,0 +1,50 @@
+:root {
+  --bg-ridge: #0B0F0D;
+  --surface-ridge: #131916;
+  --ink-ridge: #F2F4F2;
+  --accent-moss: #A3E635;
+  --ease-ridge: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background-color: var(--bg-ridge);
+  color: var(--ink-ridge);
+  scroll-padding-top: 80px;
+}
+
+body {
+  background-color: var(--bg-ridge);
+  overflow-x: clip;
+  font-feature-settings: "tnum" 1;
+}
+
+.ridge-glass {
+  background: rgba(15, 22, 19, 0.62);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ridge-card {
+  background: linear-gradient(180deg, rgba(24, 32, 28, 0.92) 0%, rgba(14, 19, 17, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.28s var(--ease-ridge), border-color 0.25s ease;
+}
+
+.ridge-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.modal-shell {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.24s ease, visibility 0.24s ease;
+}
+
+.modal-shell.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}

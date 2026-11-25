@@ -1,0 +1,55 @@
+:root {
+  --bg-luxora: #120E0B;
+  --card-luxora: #1C1612;
+  --gold-luxora: #E3B873;
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background-color: var(--bg-luxora);
+  color: #F5EFE6;
+  scroll-padding-top: 84px;
+}
+
+body {
+  background-color: var(--bg-luxora);
+  overflow-x: clip;
+  font-feature-settings: "tnum" 1;
+}
+
+.lux-btn-gold {
+  background: linear-gradient(135deg, #E8C587 0%, #C6934B 100%);
+  color: #16110D;
+  transition: transform 0.22s var(--ease-lux), box-shadow 0.25s ease;
+}
+
+.lux-btn-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px -10px rgba(227, 184, 115, 0.55);
+}
+
+.lux-cat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(227, 184, 115, 0.16);
+  transition: all 0.24s var(--ease-lux);
+}
+
+.lux-cat-card:hover,
+.lux-cat-card.is-active {
+  background: linear-gradient(180deg, rgba(227, 184, 115, 0.14) 0%, rgba(28, 22, 18, 0.9) 100%);
+  border-color: rgba(227, 184, 115, 0.65);
+  box-shadow: 0 12px 28px -16px rgba(227, 184, 115, 0.45);
+}
+
+.overlay-shell {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.24s ease, visibility 0.24s ease;
+}
+
+.overlay-shell.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
