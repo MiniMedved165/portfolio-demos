@@ -1,6 +1,7 @@
 import { CATEGORIES, READY_BUILDS } from "./catalog-data.js";
 import { evaluateBuild } from "./build-engine.js";
 import { renderPcVisualizer } from "./pc-visualizer.js";
+import { initHeroStudioStage } from "./hero-stage.js";
 import {
   bindPresetTriggers,
   closeOrderModal,
@@ -120,3 +121,4 @@ initOrderModal(state);
 bindPresetTriggers(document, loadPreset);
 renderReadyBuilds(loadPreset);
 renderAllConfigurator();
+initHeroStudioStage();

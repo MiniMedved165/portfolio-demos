@@ -100,80 +100,119 @@
       </div>
     </div>
   </header>
-  <section id="top" class="hero-compact-fit relative pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-8 overflow-hidden flex items-center">
-    <!-- Restrained Studio Backlight Glow Behind PC -->
-    <div class="absolute top-1/2 right-[8%] -translate-y-1/2 w-[380px] sm:w-[520px] h-[380px] sm:h-[520px] rounded-full opacity-20 blur-[130px] pointer-events-none" style="background: radial-gradient(circle, #F45C9E 0%, #9B5CFF 55%, transparent 78%);" aria-hidden="true"></div>
 
-    <div class="max-w-[1320px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
 
-      <!-- Left: Editorial Typography & Dual Pill CTAs -->
-      <div class="lg:col-span-6 flex flex-col items-start">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-void-800 border border-white/10 text-[11px] font-mono text-chrome-300 mb-5">
-          <span class="w-1.5 h-1.5 rounded-full bg-accent-rose"></span>
-          <span>Индивидуальная сборка · Стресс-тест 24ч · Гарантия 3 года</span>
+  <!-- ==================== 01 FULL-BLEED DARK STUDIO HERO ==================== -->
+  <section id="top" class="hero-studio-shell relative w-full overflow-hidden flex flex-col justify-between pt-20 sm:pt-24 lg:pt-20">
+
+    <!-- LAYER 1: Live Studio Volumetric Light Beam, Precision Orbital Arcs & Micro-Dust Canvas -->
+    <canvas id="hero-studio-bg" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- LAYER 2: Full-Bleed Seamless Dark Hardware Photography (No Box, No Card Border) -->
+    <div id="hero-visual-layer" class="pointer-events-none relative lg:absolute lg:inset-0 w-full h-[300px] sm:h-[390px] lg:h-full order-2 lg:order-none mt-4 lg:mt-0 overflow-hidden z-10">
+      <!-- Dynamic Studio Backlight Rim Behind Case -->
+      <div id="hero-rim-glow" class="absolute top-[46%] left-1/2 lg:left-[68%] -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[460px] lg:w-[540px] h-[320px] sm:h-[460px] lg:h-[540px] rounded-full opacity-28 blur-[120px] transition-all duration-700" style="background: radial-gradient(circle, #F45C9E 0%, #9B5CFF 52%, transparent 74%);"></div>
+
+      <!-- Seamlessly Feathered Hardware Centerpiece -->
+      <div class="relative lg:absolute lg:inset-y-0 lg:right-0 w-full lg:w-[66%] xl:w-[64%] h-full flex items-center justify-center">
+        <img
+          id="hero-pc-visual"
+          alt="Кастомная рабочая и игровая станция /hardware."
+          class="hero-pc-seamless w-full h-full object-cover object-center lg:object-[62%_46%] scale-[1.03]"
+          src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1600&q=90"
+          onerror="this.src='https://placehold.co/1200x800/0D0D10/F45C9E?text=/hardware.'"
+        >
+
+        <!-- Minimalist Engineering Callout Pins (Desktop XL Only, Zero Card Bloat) -->
+        <div class="hidden xl:flex items-center gap-2.5 absolute top-[26%] right-[14%] z-20">
+          <span class="w-2 h-2 rounded-full bg-accent-rose ring-4 ring-accent-rose/20"></span>
+          <span class="w-10 h-px bg-white/25"></span>
+          <div class="text-left leading-tight">
+            <div id="hero-pin-top-title" class="font-mono text-[10.5px] font-semibold uppercase tracking-[0.12em] text-white">AIO 360MM LCD</div>
+            <div id="hero-pin-top-sub" class="font-mono text-[10px] text-chrome-400 text-chrome-500">44°C · 24 dBA</div>
+          </div>
         </div>
 
-        <h1 class="text-[40px] sm:text-[56px] lg:text-[64px] font-extrabold tracking-[-0.035em] leading-[1.01] text-white mb-5">
+        <div class="hidden xl:flex items-center gap-2.5 absolute bottom-[27%] left-[26%] z-20">
+          <div class="text-right leading-tight">
+            <div id="hero-pin-bot-title" class="font-mono text-[10.5px] font-semibold uppercase tracking-[0.12em] text-white">RTX 4080 SUPER</div>
+            <div id="hero-pin-bot-sub" class="font-mono text-[10px] text-chrome-500">16GB · 142 FPS 2K</div>
+          </div>
+          <span class="w-10 h-px bg-white/25"></span>
+          <span class="w-2 h-2 rounded-full bg-accent-violet ring-4 ring-accent-violet/20"></span>
+        </div>
+      </div>
+
+      <!-- Crisp Left Studio Readability Scrim (Desktop) -->
+      <div class="hidden lg:block absolute inset-y-0 left-0 w-[56%] xl:w-[52%] z-10" style="background: linear-gradient(90deg, #0D0D10 0%, #0D0D10 56%, rgba(13, 13, 16, 0.82) 78%, rgba(13, 13, 16, 0) 100%);"></div>
+      <!-- Seamless Top & Bottom Fades Into Main Page Surface (#111114) -->
+      <div class="lg:hidden absolute inset-x-0 top-0 h-12 z-10 bg-gradient-to-b from-[#0D0D10] to-transparent"></div>
+      <div class="absolute inset-x-0 bottom-0 h-28 z-10 bg-gradient-to-t from-void-900 via-[#0D0D10]/70 to-transparent"></div>
+    </div>
+
+    <!-- LAYER 3: Clean Editorial Foreground Typography (Order 1 on Mobile/Tablet) -->
+    <div class="relative z-20 max-w-[1320px] w-full mx-auto px-4 sm:px-8 my-auto pt-4 sm:pt-8 lg:pt-12 pb-2 lg:pb-8 order-1">
+      <div class="w-full lg:w-[50%] xl:w-[46%] flex flex-col items-start">
+        <!-- Restrained Engineering Series Code (No Generic Pill Border) -->
+        <div class="flex items-center gap-3 mb-5">
+          <span class="w-6 h-px bg-accent-rose"></span>
+          <span id="hero-series-code" class="font-mono text-[11px] uppercase tracking-[0.2em] text-chrome-300">
+            SERIES 04 · CUSTOM SYSTEMS
+          </span>
+        </div>
+
+        <!-- Monumental Pure White Display Headline (Zero AI Gradient-Text Cliché) -->
+        <h1 class="hero-title-studio font-extrabold text-white mb-5 sm:mb-6">
           Создано для<br>
-          <span class="bg-clip-text text-transparent" style="background-image: linear-gradient(95deg, #FFFFFF 20%, #F4B4D3 75%, #C8A6FF 100%);">чистой мощности</span>
+          чистой мощности
         </h1>
 
-        <p class="text-sm sm:text-base text-chrome-300 leading-relaxed max-w-lg mb-7">
-          Соберите игровой или рабочий ПК в интерактивном конфигураторе: подбирайте корпус, видеокарту, охлаждение и подсветку с мгновенным обновлением визуала и точной сметы.
+        <p id="hero-rig-desc" class="text-sm sm:text-[15.5px] text-chrome-300 leading-[1.65] max-w-[430px] mb-7 sm:mb-9">
+          Индивидуальная сборка игровых и рабочих станций. Подберите корпус, охлаждение и железо в конфигураторе — с мгновенной сметой и проверкой совместимости.
         </p>
 
-        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto mb-8">
-          <a href="#configurator" class="btn-signature inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs sm:text-[13px] font-semibold shrink-0">
+        <!-- Clean Reference-Matched Dual Pill Actions -->
+        <div class="flex flex-wrap items-center gap-3.5 w-full sm:w-auto">
+          <a href="#configurator" class="btn-signature inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full text-xs sm:text-[13px] font-semibold shrink-0">
             <span>Собрать свой ПК</span>
             <span aria-hidden="true">→</span>
           </a>
-          <a href="#ready" class="btn-ghost-dark inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs sm:text-[13px] font-medium shrink-0">
-            <span>Готовые решения</span>
-          </a>
-        </div>
-
-        <!-- Subtle Hardware Telemetry Strip -->
-        <div class="w-full max-w-md grid grid-cols-3 gap-4 pt-5 border-t border-white/10 text-xs">
-          <div>
-            <div class="font-mono text-base sm:text-lg font-bold text-white">3–5 дн</div>
-            <div class="text-chrome-500 mt-0.5">сборка и тесты</div>
-          </div>
-          <div>
-            <div class="font-mono text-base sm:text-lg font-bold text-white">100%</div>
-            <div class="text-chrome-500 mt-0.5">совместимость</div>
-          </div>
-          <div>
-            <div class="font-mono text-base sm:text-lg font-bold text-white">0 дБ</div>
-            <div class="text-chrome-500 mt-0.5">тихий кабель-менеджмент</div>
-          </div>
+          <button id="hero-load-active-btn" type="button" data-load-preset="phantom" class="preset-trigger btn-ghost-dark inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs sm:text-[13px] font-medium shrink-0 cursor-pointer">
+            <span id="hero-load-active-label">Настроить Core Phantom</span>
+          </button>
         </div>
       </div>
-
-      <!-- Right: Angled Matte Studio PC Showcase Frame -->
-      <div class="lg:col-span-6 relative">
-        <div class="relative rounded-[28px] overflow-hidden bg-void-950 border border-white/10 aspect-[16/11] sm:aspect-[16/10.5] shadow-[0_36px_90px_-30px_rgba(0,0,0,0.9)]">
-          <img
-            alt="Кастомный игровой ПК с розово-фиолетовой подсветкой"
-            class="w-full h-full object-cover object-center"
-            src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1400&q=85"
-            onerror="this.src='https://placehold.co/1100x760/16161A/F45C9E?text=/hardware.+CUSTOM+PC'"
-          >
-          <div class="absolute inset-0 bg-gradient-to-tr from-void-950/85 via-void-950/15 to-transparent pointer-events-none"></div>
-
-          <!-- Minimal Spec Overlay Badge Bottom-Left -->
-          <div class="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 p-4 rounded-2xl bg-void-950/82 backdrop-blur-md border border-white/12 flex items-center justify-between gap-4">
-            <div class="min-w-0">
-              <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-accent-rose">Flagship Build · RTX 4080 Super</div>
-              <div class="text-sm font-bold text-white truncate mt-0.5">Core Phantom · 360mm Liquid + DDR5</div>
-            </div>
-            <button type="button" data-load-preset="phantom" class="preset-trigger px-4 py-2 rounded-full bg-white/10 hover:bg-accent-rose text-white text-[11px] font-semibold transition-colors shrink-0 cursor-pointer">
-              Настроить →
-            </button>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- LAYER 4: Minimal Bottom Studio Rig Selector Rail -->
+    <div class="relative z-20 w-full border-t border-white/[0.07] bg-void-900/65 backdrop-blur-md order-3">
+      <div class="max-w-[1320px] mx-auto px-4 sm:px-8 flex items-center justify-between gap-4">
+        <!-- Interactive 3-Flagship Switcher Directly in Hero -->
+        <div id="hero-rig-tabs" class="flex items-center gap-5 sm:gap-8 overflow-x-auto no-scrollbar">
+          <button type="button" data-hero-rig="0" class="hero-rig-tab is-active py-4 flex items-center gap-2.5 text-left shrink-0 cursor-pointer">
+            <span class="font-mono text-[10.5px] text-accent-rose">01</span>
+            <span class="text-xs sm:text-[13px] font-semibold text-white">Core Phantom</span>
+            <span class="hidden sm:inline font-mono text-[11px] text-chrome-500">RTX 4080S</span>
+          </button>
+          <button type="button" data-hero-rig="1" class="hero-rig-tab py-4 flex items-center gap-2.5 text-left shrink-0 cursor-pointer opacity-60 hover:opacity-100">
+            <span class="font-mono text-[10.5px] text-chrome-500">02</span>
+            <span class="text-xs sm:text-[13px] font-semibold text-white">Core Arctic</span>
+            <span class="hidden sm:inline font-mono text-[11px] text-chrome-500">64GB · White</span>
+          </button>
+          <button type="button" data-hero-rig="2" class="hero-rig-tab py-4 flex items-center gap-2.5 text-left shrink-0 cursor-pointer opacity-60 hover:opacity-100">
+            <span class="font-mono text-[10.5px] text-chrome-500">03</span>
+            <span class="text-xs sm:text-[13px] font-semibold text-white">Core Apex</span>
+            <span class="hidden sm:inline font-mono text-[11px] text-chrome-500">RTX 4090 · 4K</span>
+          </button>
+        </div>
+
+        <a href="#featured" class="hidden md:inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.14em] text-chrome-500 hover:text-white transition-colors shrink-0">
+          <span>/комплектующие</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </div>
+
   </section>
 
 
