@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ВЕКТОР — Грузоперевозки и логистика</title>
+
+  <!-- Google Fonts: Onest (Native Cyrillic Neo-Grotesque) & JetBrains Mono (Specs & URLs only) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Crisp White / Obsidian / Klein Blue Palette -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Onest", "system-ui", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          colors: {
+            brand: {
+              DEFAULT: "#0044FF",
+              hover: "#0035CC",
+              tint: "#EEF3FF"
+            },
+            ink: {
+              950: "#0A0D14",
+              900: "#0E1116",
+              700: "#2C3340",
+              500: "#5A6270",
+              400: "#8992A3"
+            },
+            mist: {
+              50: "#F8F9FB",
+              100: "#F2F4F8",
+              200: "#E4E8F0"
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-white text-ink-900 selection:bg-brand selection:text-white">
+
+  <!-- ==================== CLEAN TRANSPARENT-TO-WHITE HEADER ==================== -->
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-mist-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-2.5 group shrink-0">
+        <span class="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center shadow-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
+          </svg>
+        </span>
+        <span class="text-base sm:text-lg font-extrabold tracking-[-0.03em] text-ink-900">ВЕКТОР</span>
+        <span class="hidden sm:inline text-xs font-medium text-ink-400 border-l border-mist-200 pl-2.5">Транспорт и логистика</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-[13px] font-medium text-ink-700">
+        <a href="#utm-console" class="hover:text-brand transition-colors">UTM-подмена</a>
+        <a href="#fleet" class="hover:text-brand transition-colors">Автопарк</a>
+        <a href="#services" class="hover:text-brand transition-colors">Условия</a>
+        <a href="#calculator" class="hover:text-brand transition-colors">Расчёт рейса</a>
+      </nav>
+
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="tel:+79990000000" class="hidden lg:inline-flex text-sm font-semibold text-ink-900 hover:text-brand transition-colors">
+          +7 (999) 000-00-00
+        </a>
+        <a href="#calculator" class="px-4 sm:px-5 py-2.5 rounded-full bg-brand hover:bg-brand-hover text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm">
+          Рассчитать рейс
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <main id="top" class="pt-[72px]">
+
+    <!-- ==================== 1. FULL-BLEED PANORAMIC HERO WITH DOCK ==================== -->
+    <section class="relative px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="relative rounded-[28px] sm:rounded-[34px] overflow-hidden bg-ink-950 min-h-[540px] lg:min-h-[610px] flex flex-col justify-between p-6 sm:p-10 lg:p-12 shadow-xl">
+
+          <!-- Background Logistics Photo + Crisp Dark Gradient Scrim -->
+          <img id="hero-bg-img"
+               src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=85"
+               alt="Грузовая логистика и автопарк ВЕКТОР"
+               class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500">
+          <div class="absolute inset-0 bg-gradient-to-r from-ink-950/95 via-ink-950/75 to-ink-950/35"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-transparent to-ink-950/30"></div>
+
+          <!-- Top Kicker Badge (Reflects Active UTM Keyword) -->
+          <div class="relative z-10 flex flex-wrap items-center justify-between gap-3">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/12 backdrop-blur-md border border-white/15 text-white text-xs font-medium">
+              <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+              <span id="hero-kicker" class="utm-fade-swap">Федеральная транспортная компания</span>
+            </div>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink-950/60 backdrop-blur-md border border-white/15 text-[11px] font-mono text-white/80">
+              <span class="text-blue-400">UTM:</span>
+              <span id="utm-source-badge">Прямой заход</span>
+            </div>
+          </div>
+
+          <!-- Hero Main Headline (Dynamically Replaced by UTM) -->
+          <div class="relative z-10 max-w-3xl my-auto py-8 sm:py-10">
+            <h1 id="hero-title" class="utm-fade-swap text-3xl sm:text-5xl lg:text-[54px] font-extrabold tracking-[-0.03em] leading-[1.06] text-white mb-5">
+              Доставляем грузы по России точно в окно выгрузки
+            </h1>
+            <p id="hero-subtitle" class="utm-fade-swap text-base sm:text-lg text-white/80 leading-relaxed max-w-2xl">
+              Выделенный транспорт от 1.5 до 20 тонн. Подача машины за 2 часа, страхование ответственности на 10 млн ₽ и ЭДО в день рейса.
+            </p>
+          </div>
+
+          <!-- Integrated White Search/Booking Dock (Clean Reference Pattern) -->
+          <form id="hero-quick-form" novalidate class="relative z-10 bg-white rounded-2xl sm:rounded-[20px] p-2.5 sm:p-3 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-2.5 items-center">
+            <div class="lg:col-span-5 flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-mist-50 border border-mist-200/80 focus-within:border-brand focus-within:bg-white transition-colors">
+              <svg class="w-4 h-4 text-ink-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <input id="hero-route-input" type="text" placeholder="Откуда — Куда (например, Москва — Казань)"
+                     class="w-full bg-transparent border-0 p-0 text-sm text-ink-900 placeholder:text-ink-400 focus:ring-0">
+            </div>
+
+            <div class="lg:col-span-4 flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-mist-50 border border-mist-200/80 focus-within:border-brand focus-within:bg-white transition-colors">
+              <svg class="w-4 h-4 text-ink-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <input id="hero-phone-input" type="tel" required placeholder="+7 (999) 000-00-00"
+                     class="w-full bg-transparent border-0 p-0 text-sm text-ink-900 placeholder:text-ink-400 focus:ring-0">
+            </div>
+
+            <div class="lg:col-span-3">
+              <button id="hero-cta-btn" type="submit"
+                      class="w-full py-3.5 px-5 rounded-xl bg-brand hover:bg-brand-hover text-white text-sm font-semibold transition-colors cursor-pointer shadow-sm">
+                Рассчитать рейс →
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== 2. 3-METRIC STRIP (ADAPTS TO UTM) ==================== -->
+    <section class="px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          <div class="rounded-2xl bg-mist-100 p-6 sm:p-7 flex flex-col justify-between">
+            <span id="metric-1-val" class="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] text-ink-900">120+</span>
+            <span id="metric-1-lbl" class="text-sm text-ink-500 mt-1.5">Единиц собственного автопарка</span>
+          </div>
+          <div class="rounded-2xl bg-mist-100 p-6 sm:p-7 flex flex-col justify-between">
+            <span id="metric-2-val" class="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] text-ink-900">2 часа</span>
+            <span id="metric-2-lbl" class="text-sm text-ink-500 mt-1.5">Подача транспорта по городу</span>
+          </div>
+          <div class="rounded-2xl bg-mist-100 p-6 sm:p-7 flex flex-col justify-between">
+            <span id="metric-3-val" class="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] text-brand">100%</span>
+            <span id="metric-3-lbl" class="text-sm text-ink-500 mt-1.5">Возврат НДС 20% и ЭДО</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== 3. INTERACTIVE UTM-SUBSTITUTION SANDBOX ==================== -->
+    <section id="utm-console" class="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-mist-50 border-y border-mist-200/80">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal bg-white rounded-[28px] border border-mist-200 p-6 sm:p-10 shadow-sm">
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-7 border-b border-mist-200">
+            <div class="max-w-2xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-tint text-brand text-xs font-semibold mb-3">
+                <span>Механика мультилендинга</span>
+              </div>
+              <h2 class="text-2xl sm:text-4xl font-extrabold tracking-[-0.025em] text-ink-900">
+                Протестируйте подмену заголовков под рекламный запрос
+              </h2>
+              <p class="text-sm sm:text-base text-ink-500 mt-2.5 leading-relaxed">
+                Переключайте рекламные каналы и ключевые слова — скрипт обновит <code class="font-mono text-xs bg-mist-100 px-1.5 py-0.5 rounded text-ink-900">?utm_term</code> в адресной строке браузера и мгновенно адаптирует первый экран, тарифы и рекомендуемый транспорт.
+              </p>
+            </div>
+
+            <!-- Live URL Address Bar Preview -->
+            <div class="w-full lg:w-auto lg:min-w-[400px] rounded-xl bg-ink-950 text-white px-4 py-3 font-mono text-xs flex items-center gap-2.5 overflow-x-auto">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span id="utm-url-preview" class="text-white/90 whitespace-nowrap">https://vektor-logistics.ru/</span>
+            </div>
+          </div>
+
+          <!-- Preset Tabs -->
+          <div class="pt-7">
+            <div class="text-xs font-semibold uppercase tracking-wider text-ink-400 mb-3">
+              Выберите сценарий перехода из рекламы:
+            </div>
+            <div id="utm-preset-tabs" class="flex flex-wrap gap-2.5">
+              <!-- Populated by JS -->
+            </div>
+
+            <!-- Custom UTM Keyword Tester -->
+            <div class="mt-6 pt-6 border-t border-mist-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <label for="utm-custom-input" class="text-xs font-semibold text-ink-700 shrink-0">
+                Или введите свой запрос (<span class="font-mono">utm_term</span>):
+              </label>
+              <div class="flex flex-1 gap-2 max-w-xl">
+                <input id="utm-custom-input" type="text" maxlength="46" placeholder="Например: срочный переезд офиса или сборный груз"
+                       class="flex-1 rounded-xl border border-mist-200 bg-mist-50 px-3.5 py-2 text-sm text-ink-900 focus:border-brand focus:bg-white focus:ring-0">
+                <button id="utm-custom-apply" type="button"
+                        class="px-4 py-2 rounded-xl bg-ink-900 hover:bg-brand text-white text-xs font-semibold transition-colors cursor-pointer shrink-0">
+                  Подставить
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== 4. ASYMMETRIC BENTO SHOWCASE (7/5 + 5/7) ==================== -->
+    <section id="services" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal max-w-2xl mb-12">
+          <span class="text-xs font-semibold uppercase tracking-wider text-brand">Инфраструктура</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] text-ink-900 mt-2">
+            Логистика без звонков и лишней бюрократии
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+
+          <!-- Bento Card 1 (Span 7): Large Photo + Text Overlay -->
+          <div class="reveal lg:col-span-7 relative rounded-[28px] overflow-hidden min-h-[360px] sm:min-h-[420px] bg-ink-950 p-7 sm:p-9 flex flex-col justify-end group">
+            <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1400&q=85"
+                 alt="Складской терминал и контроль отгрузки"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/95 via-ink-950/45 to-transparent"></div>
+            <div class="relative z-10 max-w-xl">
+              <span class="inline-block px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-medium mb-3">
+                GPS-телеметрия 24/7
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-[-0.02em] mb-2">
+                Ссылка на карту движения машины сразу после выезда
+              </h3>
+              <p class="text-sm text-white/75 leading-relaxed">
+                Заказчик и получатель видят точное время прибытия на выгрузку, скорость и температурный график в одном окне браузера.
+              </p>
+            </div>
+          </div>
+
+          <!-- Bento Card 2 (Span 5): Klein Blue Feature Block -->
+          <div class="reveal lg:col-span-5 rounded-[28px] bg-brand text-white p-7 sm:p-9 flex flex-col justify-between min-h-[360px] sm:min-h-[420px]">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full bg-white/15 text-xs font-semibold mb-6">
+                Электронный документооборот
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-bold tracking-[-0.02em] leading-snug">
+                Закрывающие документы в Диадок и СБИС в день выгрузки
+              </h3>
+            </div>
+            <div class="pt-6 border-t border-white/20 flex items-center justify-between gap-4">
+              <div>
+                <div class="text-2xl font-extrabold">НДС 20%</div>
+                <div class="text-xs text-white/75">Полный пакет УПД и ТТН</div>
+              </div>
+              <a href="#calculator" class="px-4 py-2.5 rounded-full bg-white text-ink-900 hover:bg-mist-100 text-xs font-bold transition-colors">
+                Запросить договор
+              </a>
+            </div>
+          </div>
+
+          <!-- Bento Card 3 (Span 5): Soft Mist Block -->
+          <div class="reveal lg:col-span-5 rounded-[28px] bg-mist-100 p-7 sm:p-9 flex flex-col justify-between min-h-[320px]">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full bg-white text-ink-900 text-xs font-semibold mb-5">
+                Материальная ответственность
+              </span>
+              <h3 class="text-2xl font-bold text-ink-900 tracking-[-0.02em] mb-3">
+                Страхование каждого рейса до 10 000 000 ₽
+              </h3>
+              <p class="text-sm text-ink-500 leading-relaxed">
+                Работаем по договору транспортной экспедиции. Все водители в штате, автомобили проходят предрейсовый осмотр перед каждой подачей.
+              </p>
+            </div>
+            <div class="mt-6 flex items-center gap-3 text-xs font-mono text-ink-700">
+              <span class="px-2.5 py-1 rounded-md bg-white border border-mist-200">ОСГОП</span>
+              <span class="px-2.5 py-1 rounded-md bg-white border border-mist-200">CMR / ТН</span>
+              <span class="px-2.5 py-1 rounded-md bg-white border border-mist-200">Пломбировка</span>
+            </div>
+          </div>
+
+          <!-- Bento Card 4 (Span 7): Wide Dark Photo Card -->
+          <div class="reveal lg:col-span-7 relative rounded-[28px] overflow-hidden min-h-[320px] bg-ink-950 p-7 sm:p-9 flex flex-col justify-end group">
+            <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=1400&q=85"
+                 alt="Магистральные фуры ВЕКТОР"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/95 via-ink-950/50 to-transparent"></div>
+            <div class="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <div class="max-w-lg">
+                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-[-0.02em] mb-2">
+                  Фиксированная ставка до выезда машины
+                </h3>
+                <p class="text-sm text-white/75">
+                  Никаких доплат за простой на МКАД или километраж сверх сметы — стоимость прописана в заявке.
+                </p>
+              </div>
+              <a href="#fleet" class="shrink-0 px-5 py-2.5 rounded-full bg-white text-ink-900 hover:bg-mist-100 text-xs font-bold transition-colors">
+                Смотреть тарифы
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== 5. FLEET CATALOG WITH GEOMETRIC SVG DIAGRAMS ==================== -->
+    <section id="fleet" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-mist-50 border-t border-mist-200/80">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+          <div class="max-w-2xl">
+            <span class="text-xs font-semibold uppercase tracking-wider text-brand">Собственный автопарк</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] text-ink-900 mt-2">
+              Техника под любой объём и температуру
+            </h2>
+          </div>
+          <p class="text-sm text-ink-500 max-w-sm">
+            Подходящий тип кузова автоматически выделяется синей рамкой в зависимости от активной UTM-метки.
+          </p>
+        </div>
+
+        <div id="fleet-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <!-- Fleet cards rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== 6. LEAD CALCULATOR & UTM PAYLOAD CAPTURE ==================== -->
+    <section id="calculator" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal rounded-[32px] bg-ink-950 text-white p-7 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+          <div class="lg:col-span-6">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-blue-400 text-xs font-semibold mb-5">
+              Расчёт за 10 минут
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] leading-[1.08] mb-5">
+              Получите точный расчёт рейса с фиксацией ставки
+            </h2>
+            <p class="text-sm sm:text-base text-white/70 leading-relaxed mb-7">
+              При отправке заявки в реальном проекте вместе с контактами в CRM передаются текущие UTM-метки, ключевая фраза и заголовок, по которому клиент перешёл на сайт.
+            </p>
+
+            <!-- Active UTM Context Box -->
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
+              <div class="text-[11px] font-mono uppercase tracking-wider text-white/50 mb-2">
+                Текущий контекст сессии (уйдёт в CRM):
+              </div>
+              <div id="main-offer-context" class="text-sm font-semibold text-white">
+                Доставляем грузы по России точно в окно выгрузки
+              </div>
+              <div id="main-utm-tag" class="mt-2 font-mono text-xs text-blue-400 break-all">
+                utm_term=gruzoperevozka_rf
+              </div>
+            </div>
+          </div>
+
+          <form id="main-dispatch-form" novalidate class="lg:col-span-6 bg-white text-ink-900 rounded-[24px] p-6 sm:p-8 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="main-name-input" class="block text-xs font-semibold text-ink-700 mb-1.5">Ваше имя или компания</label>
+                <input id="main-name-input" type="text" required placeholder="ООО «Авангард»"
+                       class="w-full rounded-xl border border-mist-200 bg-mist-50 px-3.5 py-3 text-sm focus:border-brand focus:bg-white focus:ring-0">
+              </div>
+              <div>
+                <label for="main-phone-input" class="block text-xs font-semibold text-ink-700 mb-1.5">Телефон для расчёта</label>
+                <input id="main-phone-input" type="tel" required placeholder="+7 (999) 000-00-00"
+                       class="w-full rounded-xl border border-mist-200 bg-mist-50 px-3.5 py-3 text-sm focus:border-brand focus:bg-white focus:ring-0">
+              </div>
+            </div>
+
+            <div>
+              <label for="main-route-input" class="block text-xs font-semibold text-ink-700 mb-1.5">Маршрут перевозки</label>
+              <input id="main-route-input" type="text" placeholder="Москва — Новосибирск"
+                     class="w-full rounded-xl border border-mist-200 bg-mist-50 px-3.5 py-3 text-sm focus:border-brand focus:bg-white focus:ring-0">
+            </div>
+
+            <div>
+              <label for="main-cargo-input" class="block text-xs font-semibold text-ink-700 mb-1.5">Характер груза и желаемый кузов</label>
+              <input id="main-cargo-input" type="text" placeholder="Паллеты с оборудованием, 18 тонн, еврофура"
+                     class="w-full rounded-xl border border-mist-200 bg-mist-50 px-3.5 py-3 text-sm focus:border-brand focus:bg-white focus:ring-0">
+            </div>
+
+            <button type="submit"
+                    class="w-full py-3.5 px-6 rounded-xl bg-brand hover:bg-brand-hover text-white text-sm font-semibold transition-colors cursor-pointer">
+              Отправить заявку в диспетчерскую →
+            </button>
+
+            <p class="text-[11px] text-ink-400 text-center">
+              Демо-форма: после нажатия откроется предпросмотр данных, перехваченных для CRM и Telegram.
+            </p>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ==================== 7. FOOTER + DISCREET PORTFOLIO CASE ATTRIBUTION ==================== -->
+  <footer class="bg-mist-50 border-t border-mist-200 px-4 sm:px-6 lg:px-8 pt-12 pb-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-8 border-b border-mist-200">
+        <div>
+          <div class="text-lg font-extrabold tracking-[-0.03em] text-ink-900">ВЕКТОР · Логистика</div>
+          <p class="text-xs text-ink-500 mt-1">
+            Вымышленная транспортная компания для демонстрации мультилендинга с подменой UTM-меток.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-6 text-xs text-ink-700 font-medium">
+          <span>+7 (999) 000-00-00</span>
+          <span>dispatch@example.ru</span>
+          <span class="text-ink-400">ИНН 0000000000 (Демо)</span>
+        </div>
+      </div>
+
+      <!-- Subtle Portfolio Case Attribution (Only here in footer & inside submit modal) -->
+      <div class="mt-7 rounded-2xl bg-white border border-mist-200 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="text-xs sm:text-sm text-ink-700">
+          <span class="font-semibold text-ink-900">Концепт-кейс из портфолио разработчика Данила Буторова.</span>
+          <span class="text-ink-500 block sm:inline sm:ml-1">Разработаю такой мультилендинг с динамическими UTM-офферами и интеграцией в CRM.</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+          <a href="../portfolio.html" class="px-4 py-2 rounded-full bg-mist-100 hover:bg-mist-200 text-ink-900 text-xs font-semibold transition-colors">
+            ← Все проекты
+          </a>
+          <a href="../index.html#feedback" class="px-4 py-2 rounded-full bg-brand hover:bg-brand-hover text-white text-xs font-semibold transition-colors">
+            Заказать похожий проект
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== DEMO SUBMISSION MODAL (SHOWN ONLY ON SUBMIT) ==================== -->
+  <div id="lead-demo-modal" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6 bg-ink-950/70 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="lead-modal-title" aria-hidden="true">
+    <div class="modal-card relative w-full max-w-2xl rounded-[26px] bg-white p-6 sm:p-8 shadow-2xl max-h-[90svh] overflow-y-auto text-ink-900">
+      <button id="lead-modal-close" type="button" aria-label="Закрыть окно" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-mist-100 hover:bg-ink-900 hover:text-white flex items-center justify-center text-ink-500 transition-colors cursor-pointer">
+        ✕
+      </button>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-tint text-brand text-xs font-semibold mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+        <span>Интерактивная демонстрация</span>
+      </div>
+
+      <h3 id="lead-modal-title" class="text-2xl sm:text-3xl font-extrabold tracking-[-0.025em] text-ink-900 mb-2">
+        Заявка и UTM-метки перехвачены
+      </h3>
+      <p class="text-sm text-ink-500 leading-relaxed mb-5">
+        Это демонстрационная версия сайта — данные никуда не передаются. В рабочем проекте вместе с заявкой в вашу <strong class="text-ink-900">CRM и Telegram</strong> автоматически улетят рекламные UTM-метки и оффер, на который откликнулся клиент:
+      </p>
+
+      <div class="rounded-2xl bg-ink-950 text-white p-5 mb-6">
+        <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10 font-mono text-[11px]">
+          <span class="text-blue-400">Webhook Payload → CRM / Telegram</span>
+          <button id="lead-copy-json" type="button" class="text-white/75 hover:text-white underline underline-offset-4 cursor-pointer">
+            Скопировать JSON
+          </button>
+        </div>
+        <pre id="lead-payload-pre" class="font-mono text-[11.5px] text-white/85 leading-relaxed whitespace-pre-wrap break-words overflow-x-auto"></pre>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-mist-200">
+        <button id="lead-modal-ok" type="button" class="px-5 py-3 rounded-full bg-mist-100 hover:bg-mist-200 text-ink-900 text-xs font-semibold cursor-pointer transition-colors">
+          Продолжить просмотр
+        </button>
+        <a href="../index.html#feedback" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand hover:bg-brand-hover text-white text-xs font-semibold transition-colors">
+          <span>Заказать такое же решение →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="site-toast" role="status" aria-live="polite" class="fixed top-24 right-4 sm:right-6 z-[85] px-4 py-2.5 rounded-full bg-ink-950 text-white text-xs font-medium opacity-0 pointer-events-none -translate-y-2 transition-all duration-300 flex items-center gap-2.5 shadow-xl">
+    <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+    <span id="site-toast-text">Оффер обновлён</span>
+  </div>
+
+
+  <!-- ==================== MULTILANDING UTM ENGINE & FLEET DIAGRAMS ==================== -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

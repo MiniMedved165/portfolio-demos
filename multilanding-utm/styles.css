@@ -1,0 +1,56 @@
+/* ==================== ВЕКТОР — Styles ==================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Onest", system-ui, -apple-system, sans-serif;
+  background-color: #FFFFFF;
+  color: #0E1116;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dynamic Hero Headline transition */
+.utm-fade-swap {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.utm-fade-swap.swapping {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Modal animation */
+.modal-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-card {
+  transform: translateY(14px) scale(0.985);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-backdrop.open .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #F2F4F8; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
